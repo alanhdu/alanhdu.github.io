@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rust on Amateur Hour</title>
+    <link>http://alanhdu.github.io/tags/rust/</link>
+    <description>Recent content in Rust on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 Sep 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://alanhdu.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A small shell in rust</title>
+      <link>http://alanhdu.github.io/posts/2015-09-24-rust-shell/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/posts/2015-09-24-rust-shell/</guid>
+      <description>NOTE: You can see the source code for the shell on GitHub.
+After turning in my first Operating Systems homework, I remembered why people invented high-level languages. C&amp;rsquo;s beautiful and powerful and really bare-metal, but it&amp;rsquo;s also insanely easy to shoot yourself with it. And because I haven&amp;rsquo;t programmed in C for 2 or 3 years, I probably made every stupid mistake imaginable. Accidentally returned a pointer to something allocated on the stack?</description>
+    </item>
+    
+  </channel>
+</rss>

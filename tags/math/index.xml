@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Math on Amateur Hour</title>
+    <link>http://alanhdu.github.io/tags/math/</link>
+    <description>Recent content in Math on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 Oct 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://alanhdu.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Three Derivations of the Gaussian Distribution</title>
+      <link>http://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</guid>
+      <description>This discussion is adapted from ET Jayne&#39;s Probability Theory: A Logic of Science.
+Preliminaries The Gaussian (or normal) distribution is a special distribution parametrized by mean \(\mu\) and variance \(\sigma^2\), with pdf:
+\[ p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2} \]
+The key fact about the Gaussian distribution (and the reason for its ubiquity) is that its pdf is exponent of a quadratic function -- any pdf which is proportional to \(e^{-ax^2 + bx + c}\) will be a Gaussian distribution.</description>
+    </item>
+    
+    <item>
+      <title>Automatic Differentiation</title>
+      <link>http://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</link>
+      <pubDate>Sat, 05 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</guid>
+      <description>TLDR I talk about a technique called automatic differentiation, going through a mathematical derivation before examining two different implementations: one in Rust and one in Python.
+About a year ago, I read a blog post on automatic differentiation, a cool technique which automatically computes derivatives (and generalizations like gradients and Jacobians). That might not seem that interesting -- after all, we could just use finite differences to calculate derivatives:
+\[\frac{df}{dx} \approx \frac{f(x + h) - f(x)}{h}\]</description>
+    </item>
+    
+  </channel>
+</rss>

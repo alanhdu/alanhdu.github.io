@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning on Amateur Hour</title>
+    <link>http://alanhdu.github.io/tags/machine-learning/</link>
+    <description>Recent content in Machine Learning on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://alanhdu.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Reflections on NIPS (Part 2)</title>
+      <link>http://alanhdu.github.io/posts/2016-12-14-nips2/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/posts/2016-12-14-nips2/</guid>
+      <description>One nice thing about going to NIPS is how intellectual stimulating it was. I&amp;rsquo;ve spent most of the past few months thinking about other things, so being immersed into the machine learning world again was definitely reinvigorating. Before the intellectual high fades, I thought I&amp;rsquo;d sketch out the most interesting puzzles that I&amp;rsquo;m thinking about thanks to NIPS.
+Learning Structure Humans can learn from an incredibly small amount of data.</description>
+    </item>
+    
+    <item>
+      <title>Reflections on NIPS (Part 1)</title>
+      <link>http://alanhdu.github.io/posts/2016-12-13-nips1/</link>
+      <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/posts/2016-12-13-nips1/</guid>
+      <description>Last week, I went to Barcelona to attend NIPS 2016, or the Conference on Neural Information Processing Systems. NIPS is essentially a giant research conference on machine learning and neural networks, with a dash of cognitive science and neuroscience thrown-in. It was super interesting, so I thought I&amp;rsquo;d jot down some thoughts while the experience is still fresh in my mind.
+First off, NIPS was an amazing experience! It&amp;rsquo;s one thing to read papers from Arxiv and follow some researchers&amp;rsquo; blogs &amp;ndash; it&amp;rsquo;s totally different to actually meet researchers in person and interact with them.</description>
+    </item>
+    
+    <item>
+      <title>Automatic Differentiation</title>
+      <link>http://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</link>
+      <pubDate>Sat, 05 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</guid>
+      <description>TLDR I talk about a technique called automatic differentiation, going through a mathematical derivation before examining two different implementations: one in Rust and one in Python.
+About a year ago, I read a blog post on automatic differentiation, a cool technique which automatically computes derivatives (and generalizations like gradients and Jacobians). That might not seem that interesting -- after all, we could just use finite differences to calculate derivatives:
+\[\frac{df}{dx} \approx \frac{f(x + h) - f(x)}{h}\]</description>
+    </item>
+    
+  </channel>
+</rss>

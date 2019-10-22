@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><title> The Statistical Wasteland -- Amateur Hour </title>
+  <meta property="og:title" content="The Statistical Wasteland" />
+<meta property="og:description" content="an alternative syllabus for Stats 101" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://alanhdu.github.io/posts/2016-05-29-stats-syllabus/" /><meta property="article:published_time" content="2016-05-29T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2016-05-29T00:00:00&#43;00:00"/>
+
+	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/katex.min.css" />
+  <script defer type="text/javascript" src="http://alanhdu.github.io/js/katex.min.js"> </script>
+  <script defer type="text/javascript" src="http://alanhdu.github.io/js/auto-render.min.js"
+    onload="renderMathInElement(document.body);"></script>
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="http://alanhdu.github.io/favicon//apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://alanhdu.github.io/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://alanhdu.github.io/favicon/favicon-16x16.png">
+</head>
+
+  <body>
+    <div class="container wrapper">
+      <div class="header">
+	<h1 class="site-title">Amateur Hour</h1>
+	<nav class="nav">
+		<ul class="flat">
+      <li><a href="http://alanhdu.github.io/">Home</a></li>
+      <li><a href="http://alanhdu.github.io/about">About</a></li>
+      <li><a href="http://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="http://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="http://alanhdu.github.io/index.xml">RSS Feed</a></li>
+    </ul>
+  </nav>
+</div>
+
+      
+
+<div class="post-header">
+  <h2 class="title">The Statistical Wasteland</h2>
+  <strong class="description">Or an alternative syllabus for Stats 101</strong>
+  <div>
+    <span class="date">May 29, 2016</span>
+    Filed under
+    
+    <span class="category"> <a href="http://alanhdu.github.io/categories/technical">Technical</a></span>
+  </div>
+  Tags:
+    [
+    
+    
+    <a href="http://alanhdu.github.io/tags/statistics">statistics</a>
+    
+    , 
+    <a href="http://alanhdu.github.io/tags/teaching">teaching</a>
+    
+    ]
+</div>
+
+<div class="markdown">
+  <p><strong>TLDR</strong>: Columbia's introductory statistics classes are
+horrible, and I propose a syllabus for a revamped intro to stats class.</p>
+
+<p>In case it isn't obvious, people
+<a href="http://www.ejwagenmakers.com/inpress/HoekstraEtAlPBR.pdf">suck</a>
+<a href="http://www.ncbi.nlm.nih.gov/pubmed/21871481">at</a>
+<a href="https://www.reddit.com/r/badstats">statistics</a>. Even
+<a href="http://www.sandernieuwenhuis.nl/pdfs/NieuwenhuisEtAl_NN_Perspective.pdf">professional</a>
+<a href="http://andrewgelman.com/2011/09/30/more-bad-news-the-misreporting-of-statistical-results-in-psychology-journals/">researchers</a>
+mess up sometimes (and that's not even touching the current <a href="http://www.nature.com/news/over-half-of-psychology-studies-fail-reproducibility-test-1.18248">replication
+crisis</a>.</p>
+
+<p>The amount of basic statistical ignorance among otherwise intelligent
+and informed people is astounding.  I've lost track of how many times I
+need to point out that &quot;correlation is not causation&quot;, or &quot;median and
+mean measure different things, especially in skewed data, or
+&quot;statistically significant does not mean true&quot;, or something equally
+basic.</p>
+
+<p>It's not just that good statistics is hard to do, although that's
+probably part of it. No, I'm convinced that statistical ignorance is so
+hard because people's statistical education is <em>terrible</em>.</p>
+
+<p>Part of this is because of rampant misinformation and deliberate
+oversimplification. Last year, for example, Frontiers of Science
+(Columbia's required science class) managed to teach a <em>factually
+incorrect</em> definition of a confidence interval (we essentially learned
+that they were Bayesian credible intervals). Even introductory
+statistics courses aren't necessarily much better -- I've heard
+absolutely terrible things about Columbia's introduction to probability
+and statistics (SIEO 4150), which is required for the computer science
+major in SEAS.</p>
+
+<p>But the problems go a lot deeper than that. I had a phenomenal
+statistics teacher in high school -- but even with some of the best
+teaching that I've ever had, my introductory stats class seems
+hopelessly lacking in retrospect. Even when properly taught, I feel like
+the standard introductory statistics curriculum is just poorly designed.
+Instead of predictive modeling or causal inference (the applications
+people actually want to <em>use</em> statistics for), the typical Stats 101
+course focuses mainly on memorizing a bunch of different null-hypothesis
+significance testing  procedures. Even within hypothesis testing,
+there's literally no discussion about bootstrapping, permutation tests,
+or other resampling techniques.  There's no non-parametric hypothesis
+testing introduced. And I don't think we even mentioned the word
+&quot;overfitting&quot;, much less discussed cross-validation or other model
+validation techniques.</p>
+
+<h3 id="a-new-hope">A New Hope</h3>
+
+<p>As you might imagine from my strong objections, I think that we can do a
+lot better than our current introductory stats classes. In fact, I've
+taken the liberty to reimagine an entirely new Stats 101 syllabus, one
+which is much more practical than the current ones.</p>
+
+<p>Obviously, I don't think it's perfect. I'm not even a statistics major,
+let alone an actually qualified professional. Still, I think it
+represents a big improvement over traditional Stats 101 curricula (or at
+least the one I went through).</p>
+
+<p>Philosophically, the biggest difference is that this class is about
+<em>understanding</em> and <em>interpreting</em> statistics instead of <em>doing</em>
+statistics. Frankly, if you want to become a practitioner and actually
+do stats, you should probably take more advanced courses than just the
+intro class. This class focuses on the logic and intuitions behind
+statistics, not the formalisms or mathematics (the only concession to
+mathematics is the first unit on probability, which I feel is
+unavoidable).  Stats 101 is most people's <em>only</em> introduction to
+statistics, so it's important that they learn the big ideas first.</p>
+
+<p>As part of the emphasis on big ideas and intuitions, there's also a much
+stronger focus on modeling assumptions. Essentially all statistical
+procedures assume a simplified model of the world, and it's important to
+remember what those simplifying assumptions are. Go ahead and look at
+<a href="https://en.wikipedia.org/wiki/David_X._Li#CDOs_and_Gaussian_copula">Li's Gaussian copula formula</a>
+and the 2007 financial crisis for the consequences if you don't. To
+highlight just how important I think this is, I've included a lesson in
+almost every united specifically devoted to the pitfalls and horrors
+that incorrect assumptions can lead you into.</p>
+
+<p>As you might have guessed, this curriculum also covers many more topics
+than before. To gain time for causal inference and predictive modeling,
+I've lumped together all the traditional hypothesis tests -- z-tests,
+t-tests, <span  class="math">\(\chi^2\)</span>-tests, etc. -- into one lesson. They all rely on pretty
+similar ideas and assumptions, so there's really no reason to go the
+mathematical details distinguishing them until an upper level
+course.footnote:[Honestly, I'd be pretty happy if students just got a
+flow chart telling them what each test does and what the appropriate
+Python/R/Excel code is to run them.]</p>
+
+<p>One objection to this compacting is that there's really not enough time
+to teach students how each test works. We'll essentially just tell them
+-- &quot;because of limiting theorems (like the central limit theorem), this
+statistic will have this sampling distribution, which we can use to
+calculate p-values&quot;. Although I agree that this is wholly intellectually
+unsatisfying, I don't really see an alternative. It's not like you get
+real explanations in the current system either -- any real explanation
+for why the t-statistic has a <a href="https://en.wikipedia.org/wiki/Student%27s_t-distribution">Student's t distribution</a> relies on some
+fairly heavy-duty probability which beginners won't have.</p>
+
+<p>Homework wise, I'd want this class to be as hands-on and practical as
+possible. That means actually doing analysis (preferably in Python or R,
+but SPSS or Excel or Minitab would be acceptable too) and
+reading/critiquing existing analyses. It's hard to see all the nuances
+in data analysis until you actually have to do them yourself.</p>
+
+<p>Obviously, this curriculum isn't perfect. In particular, my own
+knowledge of causal inference is pretty spotty, so I don't really know
+what to put there (as evidenced by the lack of detail in the pitfalls
+section). Another worry that I have is that this covers too much
+material and would be too hard for people who've never done stats
+before. Someone with more experience actually teaching a college course
+would have to be the judge of that.</p>
+
+<p>Well, with all that out of the way, here's the actual syllabus:</p>
+
+<h3 id="syllabus">Syllabus</h3>
+
+<ol>
+<li><em>Course overview:</em> syllabus and logistics, what this course is about,
+why you should care</li>
+<li><em>Probability 101:</em> what is probability? Bayesianism vs Frequentism,
+Informal Kolmogorov Axioms and consequences.</li>
+<li><em>Probabilistic Reasoning:</em> Conditional vs unconditional probability,
+Bayes Rule, Gambler's Fallacy, Base Rate Fallacy</li>
+<li><em>Probability Distributions:</em> Informal random variables, binomial
+distribution, geometric distribution, normal distribution, Pareto
+distribution</li>
+<li><em>Exploratory Data Analysis (1 Variable):</em> Center, shape, and spread.
+Charts (Histogram, Bar Chart, Boxplot). Descriptive statistics (mean,
+median, mode, outliers, standard deviation, quartiles).</li>
+<li><em>Exploratory Data Analysis (2+ Variables):</em> Correlation (Pearson's
+linear coefficient, Kendall's Tau, Mutual Information), Limitations
+(link:<a href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet[Anscombe's">https://en.wikipedia.org/wiki/Anscombe%27s_quartet[Anscombe's</a>
+Quartet], linear vs nonlinear associations, correlation vs
+causation), Charts (scatterplots, heatmaps, pair plots, violin plots)</li>
+
+<li><p><em>Effective Plotting</em>: Misleading graphs, Chartjunk, Color maps.
+Multiple case studies from mainstream news and scientific journals.</p></li>
+
+<li><p><em>Review Session</em></p></li>
+
+<li><p><em>Mid-term 1</em></p></li>
+
+<li><p><em>Sampling:</em> Simple Random Samples, Stratified Samples, Convenience
+Samples, Census taking</p></li>
+
+<li><p><em>Biases and Error:</em> Sampling error, non-response bias, exclusion
+bias, survivor bias, Berkson's Fallacy. Mention techniques to correct
+for unrepresentative samples.</p></li>
+
+<li><p><em>Sampling Distributions:</em> Informal intro to bootstrapping, central
+limit theorem, fat tails.</p></li>
+
+<li><p><em>Bayesian Statistical Inference:</em> Prior vs Posterior distributions,
+choosing a prior. Credible intervals and Bayes factors using simple
+proportion tests. Emphasis on goals and interpretation of statistical
+inference.</p></li>
+
+<li><p><em>Frequentist Statistical Inference:</em> Logic of confidence intervals
+and p-values using proportion (z-tests). Interpretation of confidence
+intervals and p-values (see see
+<a href="http://stats.stackexchange.com/questions/2272/whats-the-difference-between-a-confidence-interval-and-a-credible-interval">http://stats.stackexchange.com/questions/2272/whats-the-difference-between-a-confidence-interval-and-a-credible-interval</a>
+and <a href="http://www.ejwagenmakers.com/inpress/HoekstraEtAlPBR.pdf)">http://www.ejwagenmakers.com/inpress/HoekstraEtAlPBR.pdf)</a>.</p></li>
+
+<li><p><em>Hypothesis Testing:</em> Type I and Type II Errors, null hypothesis
+testing. Type-S and type-M errors.</p></li>
+
+<li><p><em>Pitfalls and Errors:</em> Case studies of incorrect assumptions (e.g.
+fat tails). Garden of forking paths and p-hacking. Andrew Gelman's
+<a href="http://www.stat.columbia.edu/~gelman/research/unpublished/p_hacking.pdf">garden of forking paths paper</a>
+should be mandatory reading.</p></li>
+
+<li><p><em>Review Session</em></p></li>
+
+<li><p><em>Midterm II</em></p></li>
+
+<li><p><em>Linear Regression:</em> Correlation and <span  class="math">\(r^2\)</span>.  Interaction between
+terms.  Residual analysis. Linear regression t-test and assumptions.
+Mathematical transforms.</p></li>
+
+<li><p><em>Logistic Regression:</em> Intuition. Interpretation of output and
+coefficients.  Accuracy, precision, recall. ROC Curve.</p></li>
+
+<li><p><em>Pitfalls:</em> Bias-variance trade-off. Overfitting and
+cross-validation.  Regularization. No free lunch theorem.</p></li>
+
+<li><p><em>Experimental Design:</em> Definition of causal inference based on
+counterfactuals. Confounding variables. Randomization. Control group.
+Double-blind trials and Placebo effects.</p></li>
+
+<li><p><em>Observational Studies:</em> Why they're necessary (ethics &amp;
+feasibility).  Case-control, longitudinal, vs cross-sectional
+studies. Propensity score matching and alternatives.</p></li>
+
+<li><p><em>Pitfalls</em>: Lots of case studies.</p></li>
+
+<li><p><em>Review Session</em></p></li>
+
+<li><p><em>Final</em></p></li>
+</ol>
+
+</div>
+
+    </div>
+    <footer>
+      <nav class="nav">
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+      </nav>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Amateur Hour</title>
+    <link>http://alanhdu.github.io/tags/</link>
+    <description>Recent content in Tags on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://alanhdu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ideas</title>
+      <link>http://alanhdu.github.io/tags/ideas/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/ideas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>http://alanhdu.github.io/tags/machine-learning/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Math</title>
+      <link>http://alanhdu.github.io/tags/math/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nips</title>
+      <link>http://alanhdu.github.io/tags/nips/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/nips/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Os</title>
+      <link>http://alanhdu.github.io/tags/os/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming</title>
+      <link>http://alanhdu.github.io/tags/programming/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reflections</title>
+      <link>http://alanhdu.github.io/tags/reflections/</link>
+      <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/reflections/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Research</title>
+      <link>http://alanhdu.github.io/tags/research/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>http://alanhdu.github.io/tags/rust/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Software</title>
+      <link>http://alanhdu.github.io/tags/software/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/software/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Statistics</title>
+      <link>http://alanhdu.github.io/tags/statistics/</link>
+      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/statistics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Teaching</title>
+      <link>http://alanhdu.github.io/tags/teaching/</link>
+      <pubDate>Sun, 29 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/teaching/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Webdev</title>
+      <link>http://alanhdu.github.io/tags/webdev/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/tags/webdev/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

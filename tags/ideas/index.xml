@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ideas on Amateur Hour</title>
+    <link>http://alanhdu.github.io/tags/ideas/</link>
+    <description>Recent content in Ideas on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://alanhdu.github.io/tags/ideas/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Reflections on NIPS (Part 2)</title>
+      <link>http://alanhdu.github.io/posts/2016-12-14-nips2/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanhdu.github.io/posts/2016-12-14-nips2/</guid>
+      <description>One nice thing about going to NIPS is how intellectual stimulating it was. I&amp;rsquo;ve spent most of the past few months thinking about other things, so being immersed into the machine learning world again was definitely reinvigorating. Before the intellectual high fades, I thought I&amp;rsquo;d sketch out the most interesting puzzles that I&amp;rsquo;m thinking about thanks to NIPS.
+Learning Structure Humans can learn from an incredibly small amount of data.</description>
+    </item>
+    
+  </channel>
+</rss>
