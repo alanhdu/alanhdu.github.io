@@ -2,18 +2,19 @@
 <html lang="en-US">
   <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><title> A small shell in rust -- Amateur Hour </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> A small shell in rust &mdash; Amateur Hour </title>
   <meta property="og:title" content="A small shell in rust" />
 <meta property="og:description" content="I&#39;ve seen the light" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://alanhdu.github.io/posts/2015-09-24-rust-shell/" /><meta property="article:published_time" content="2015-09-24T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2015-09-24T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://alanhdu.github.io/posts/2015-09-24-rust-shell/" />
+<meta property="article:published_time" content="2015-09-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-09-24T00:00:00+00:00" />
 
-	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" />
 
-  <link rel="apple-touch-icon" sizes="180x180" href="http://alanhdu.github.io/favicon//apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="http://alanhdu.github.io/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="http://alanhdu.github.io/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
 </head>
 
   <body>
@@ -22,11 +23,11 @@
 	<h1 class="site-title">Amateur Hour</h1>
 	<nav class="nav">
 		<ul class="flat">
-      <li><a href="http://alanhdu.github.io/">Home</a></li>
-      <li><a href="http://alanhdu.github.io/about">About</a></li>
-      <li><a href="http://alanhdu.github.io/categories">Categories</a></li>
-      <li><a href="http://alanhdu.github.io/tags">Tags</a></li>
-      <li><a href="http://alanhdu.github.io/index.xml">RSS Feed</a></li>
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
     </ul>
   </nav>
 </div>
@@ -37,31 +38,20 @@
   <h2 class="title">A small shell in rust</h2>
   <strong class="description">Or I&#39;ve seen the light</strong>
   <div>
-    <span class="date">Sep 24, 2015</span>
+    <span class="date">Sep 24, 2015</span>.
     Filed under
     
-    <span class="category"> <a href="http://alanhdu.github.io/categories/technical">Technical</a></span>
+    <span class="category"> <a href="https://alanhdu.github.io/categories/technical">Technical</a></span>
   </div>
   Tags:
-    [
     
-    
-    <a href="http://alanhdu.github.io/tags/rust">rust</a>
-    
-    , 
-    <a href="http://alanhdu.github.io/tags/os">os</a>
-    
-    , 
-    <a href="http://alanhdu.github.io/tags/programming">programming</a>
-    
-    ]
+    <a href="https://alanhdu.github.io/tags/rust">rust</a>, 
+    <a href="https://alanhdu.github.io/tags/os">os</a>, 
+    <a href="https://alanhdu.github.io/tags/programming">programming</a>
 </div>
 
-<div class="markdown">
-  
-
-<p><strong>NOTE</strong>: You can see the source code for the shell on <a href="https://github.com/alanhdu/explorations/tree/master/rust-shell">GitHub</a>.</p>
-
+<article class="markdown">
+  <p><strong>NOTE</strong>: You can see the source code for the shell on <a href="https://github.com/alanhdu/explorations/tree/master/rust-shell">GitHub</a>.</p>
 <p>After turning in my <a href="http://www.cs.columbia.edu/~nieh/teaching/w4118/homeworks/hmwk1.html">first Operating Systems homework</a>, I
 remembered why people invented high-level languages. C&rsquo;s beautiful and
 powerful and really bare-metal, but it&rsquo;s also insanely easy to shoot
@@ -70,8 +60,7 @@ years, I probably made every stupid mistake imaginable. Accidentally
 returned a pointer to something allocated on the stack? Have a
 segmentation fault. Accidentally dereferenced a null pointer? Have
 another segmentation fault. Forgot that strings need to end with a
-null-byte? Have another goddamn segmentation fault.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup></p>
-
+null-byte? Have another goddamn segmentation fault.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <p>Obviously, I&rsquo;m making a much bigger deal about this than it deserves.
 After all, most of these mistakes were stupid things that any competent
 C programmer would laugh at. But I can definitely imagine that C&rsquo;s
@@ -81,26 +70,68 @@ caught by a stronger type-system. For example, why don&rsquo;t we use
 different types for heap-allocated and stack-allocated data (with
 suitable interoperability abilities)? Why doesn&rsquo;t the compiler figure
 out when I need to check for a null pointer and make me do it?</p>
-
 <p>After working with Haskell&rsquo;s type system, C&rsquo;s type system seemed almost
 laughably weak. Null pointers made me fall in love with Haskell&rsquo;s
 <code>Maybe</code>s all over again.</p>
-
 <p>I also realized that Python has made me incredibly lazy. I gained a
 whole new appreciation for how abstracted we are from what actually goes
 on under the hood. For example, when I was munging around with the
 <code>$PATH</code> variable, I can write:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">path_remove</span>(to_remove):
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">path_remove</span>(to_remove):
     path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#34;PATH&#34;</span>]
     new_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">.</span>join(part
                         <span style="color:#66d9ef">for</span> part <span style="color:#f92672">in</span> path<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;:&#34;</span>)
                         <span style="color:#66d9ef">if</span> part <span style="color:#f92672">!=</span> to_remove)
-    os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#34;PATH&#34;</span>] <span style="color:#f92672">=</span> new_path</code></pre></div>
-
+    os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#34;PATH&#34;</span>] <span style="color:#f92672">=</span> new_path</code></pre></td></tr></table>
+</div>
+</div>
 <p>Nice, short, readable.  In C, I have to write something like this instead:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">path_remove</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> to_remove) {
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">path_remove</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> to_remove) {
     <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> path <span style="color:#f92672">=</span> getenv(<span style="color:#e6db74">&#34;PATH&#34;</span>);
     <span style="color:#66d9ef">if</span> (path <span style="color:#f92672">==</span> NULL) {     <span style="color:#75715e">// $PATH not found
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span>;
@@ -130,45 +161,57 @@ on under the hood. For example, when I was munging around with the
         print_error();
     }
     free(new_path);
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <p>Much uglier.</p>
-
 <h3 id="rust-to-the-rescue">Rust to the rescue</h3>
-
 <p>Luckily, there&rsquo;s a better way (aside from doing it in Python).
 <a href="https://www.rust-lang.org/">Rust</a> to the rescue!</p>
-
 <p>Rust is a language I&rsquo;ve been following for a while now, but I&rsquo;ve never
 actually written any code in it before. The best way I&rsquo;d describe it is
 C++, but with Haskell&rsquo;s type system. On one hand, you have to manage
 your own memory, but you can also write things like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">path_remove</span>(to_remove: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) {
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">path_remove</span>(to_remove: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) {
     <span style="color:#66d9ef">match</span> std::env::var(<span style="color:#e6db74">&#34;PATH&#34;</span>) {
         Err(e) <span style="color:#f92672">=&gt;</span> println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;Error: {}&#34;</span>, e),
         Ok(path) <span style="color:#f92672">=&gt;</span> {
             <span style="color:#66d9ef">let</span> new_path <span style="color:#f92672">=</span> path.split(<span style="color:#e6db74">&#34;:&#34;</span>)
                 .filter(<span style="color:#f92672">|</span>s<span style="color:#f92672">|</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">!=</span> to_remove)
-                .collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>
+                .collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>()
                 .join(<span style="color:#e6db74">&#34;:&#34;</span>);
             std::env::set_var(<span style="color:#e6db74">&#34;PATH&#34;</span>, new_path);
         }
     }
 }
-</code></pre></div>
-<p>Notice that anonymous function inside the <code>filter</code>. It looks much more
+</code></pre></td></tr></table>
+</div>
+</div><p>Notice that anonymous function inside the <code>filter</code>. It looks much more
 like Python than C. It&rsquo;s also very functional (as in functional
 programming): notice the <code>match</code> statement, the type inference of
 <code>path</code>, and the anonymous function with the <code>filter</code>. Although Rust is
 certainly a systems programming language, it&rsquo;s got much higher level
 abstractions than C.</p>
-
 <h3 id="what-i-need-to-learn-more-about">What I need to learn more about</h3>
-
 <p>Although Rust has converted me, I definitely hit some speed bumps. These
 are the things that looked complicated enough that I didn&rsquo;t bother
 learning them for this toy project:</p>
-
 <ul>
 <li>Associated types. I have no idea how to make a function that takes an
 <code>Iterator&lt;&amp;str&gt;</code>. I feel like it should be the same as passing in,
@@ -185,26 +228,25 @@ aren&rsquo;t enough up-to-date blogposts or Stack Overflow questions to get
 a high-level overview of what to do. This was especially prominent
 with the subprocess handling.</li>
 </ul>
-
 <p>Still, all in all, I&rsquo;m <em>very</em> pleased with Rust. Next time that I need
 high-performance non-numeric code, Rust will certainly be the first
 place I turn.</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">As you can guess, I&rsquo;m not a big fan of segmentation faults. Thank god for Valgrind.
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>As you can guess, I&rsquo;m not a big fan of segmentation faults. Thank god for Valgrind. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
-</div>
+</article>
 
     </div>
     <footer>
       <nav class="nav">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
       </nav>
     </footer>

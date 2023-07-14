@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>information theory on Amateur Hour</title>
+    <link>https://alanhdu.github.io/tags/information-theory/</link>
+    <description>Recent content in information theory on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/information-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nice bounds on black box entropy estimators</title>
+      <link>https://alanhdu.github.io/posts/2020-03-20-entropy-estimation/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2020-03-20-entropy-estimation/</guid>
+      <description>TLDR: A brief summary of a paper that I read recently about why it&amp;rsquo;s hard to estimate information entropy.
+I recently came across a paper with some proofs of the number of samples you need to accurately estimate various information theoretic quantities in a &amp;ldquo;black box&amp;rdquo; way. Although I enjoyed the proofs, I found hard to understand as-written, and so I thought I&amp;rsquo;d post a more understandable explanation of the core results.</description>
+    </item>
+    
+  </channel>
+</rss>

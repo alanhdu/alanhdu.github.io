@@ -1,88 +1,202 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Amateur Hour</title>
-    <link>http://alanhdu.github.io/posts/</link>
+    <link>https://alanhdu.github.io/posts/</link>
     <description>Recent content in Posts on Amateur Hour</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Intermediate Property-based Testing</title>
+      <link>https://alanhdu.github.io/posts/2023-07-14-property-based-testing/</link>
+      <pubDate>Thu, 13 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2023-07-14-property-based-testing/</guid>
+      <description>For such an effective way of ferreting out bugs in systems, property-based testing is drastically underused today. I&amp;rsquo;ve been using property-based testing for almost 10 years now, and in that time I&amp;rsquo;ve encountered maybe 3 other coworkers who also use property-based testing, even for systems that are ripe for it.
+IMO, a big reason for this is that property-based testing has a &amp;ldquo;draw-the-owl&amp;rdquo; problem: most articles begin with fairly artificial examples (e.</description>
+    </item>
     
-	<atom:link href="http://alanhdu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Debugging Story</title>
+      <link>https://alanhdu.github.io/posts/2023-03-12-debug-story/</link>
+      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2023-03-12-debug-story/</guid>
+      <description>Debugging is a core skill for software engineers, but IMO it&amp;rsquo;s one that we often neglect. There&amp;rsquo;s a ton of advice on the internet on how to be a better systems designer, or how to solve algorithms challenges (albeit mostly for interviews), but very little on how to get better at debugging.
+I wanted to help solve that by trying to document a real-world bug (https://github.com/HypothesisWorks/hypothesis/issues/3446 stumped me for quite some time.</description>
+    </item>
     
+    <item>
+      <title>What I&#39;ve Been Reading (Nov-Dec 2022)</title>
+      <link>https://alanhdu.github.io/posts/2023-01-08-reading/</link>
+      <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2023-01-08-reading/</guid>
+      <description>A little light on the reading the last couple of months, thanks to the holidays.
+Books I spent some time reading ethnographies over the last few months. This was mostly new to me &amp;ndash; although I had several friends from college in anthropology / sociology who talked about ethnographies, this was the first time I actually sat down to read them myself. I was pleasantly surprised by how readable they were &amp;ndash; I was expecting things to be denser and more jargony, but overall I think the authors actually did a good job explaining everything.</description>
+    </item>
+    
+    <item>
+      <title>What I&#39;ve Been Reading (Oct 2022)</title>
+      <link>https://alanhdu.github.io/posts/2022-11-13-what-im-reading/</link>
+      <pubDate>Sun, 13 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-11-13-what-im-reading/</guid>
+      <description>Talks  A Practical Guide to Applying Data-Oriented Design: This was a really nice talk &amp;ndash; I&amp;rsquo;ve heard of data-oriented design before, but this talk gave a lot of really concrete examples about exactly what that means. Some of it was stuff I was familiar with (e.g. struct-of-arrays instead of array-of-structs), but the talk on data encodings (e.g. storing things in two arrays instead of adding a boolean field) new and interesting.</description>
+    </item>
+    
+    <item>
+      <title>Evaluation in Deep Learning</title>
+      <link>https://alanhdu.github.io/posts/2022-10-30-ml-robustness/</link>
+      <pubDate>Sun, 30 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-10-30-ml-robustness/</guid>
+      <description>Over time, I&amp;rsquo;ve found that a lot of deep learning research is a mirage. While I&amp;rsquo;ve usually (but not always!) been able to reproduce the authors&#39; results on their chosen benchmarks, the performance gains often disappear if I choose other benchmarks to train/test against. This gets even worse when I try to apply their results to my problems, which is an extremely different data domain (surface electromyography, than the standard vision/text/speech that most people work with.</description>
+    </item>
+    
+    <item>
+      <title>What I&#39;ve Been Reading (Sep 2022)</title>
+      <link>https://alanhdu.github.io/posts/2022-10-27-what-im-reading/</link>
+      <pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-10-27-what-im-reading/</guid>
+      <description>Books Dancing in the Glory of Monsters: The Collapse of the Congo and the Great War of Africa This was probably my favorite book of the year &amp;ndash; it&amp;rsquo;s a history of the Congo wars, and it&amp;rsquo;s absolutely gut-wrenching. The author doesn&amp;rsquo;t flinch from just how brutal this war is1, how complicated the conflict are (there are like 10 armies and 20 militia groups involved), how complicit in the atrocities all the major leaders are, and how little the West cares.</description>
+    </item>
+    
+    <item>
+      <title>On Economics</title>
+      <link>https://alanhdu.github.io/posts/2022-09-13-economics/</link>
+      <pubDate>Tue, 13 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-09-13-economics/</guid>
+      <description>TLDR: I think through my complicated relationship with economics and why I&amp;rsquo;m both deeply compelled by economics as a style of thinking but deeply frustrated with economics as an existing discipline.
+Before we begin, I want to note that the only formal economics training I&amp;rsquo;ve received was an intermediate microeconomics course I took in college, which I mostly slept through.1 Most of what I&amp;rsquo;ve learned has come from papers that I&amp;rsquo;ve read, econ blogs that I follow, and the occasional peek at some online courses.</description>
+    </item>
+    
+    <item>
+      <title>What I&#39;ve Been Reading (Aug 2022)</title>
+      <link>https://alanhdu.github.io/posts/2022-09-04-what-im-reading/</link>
+      <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-09-04-what-im-reading/</guid>
+      <description>Books A Thousand Acres https://www.amazon.com/Thousand-Acres-Novel-Jane-Smiley/dp/1400033837
+A Thousand Acres basically an adaptation of King Lear, set in rural Iowa in a rural farming community. It&amp;rsquo;s a deliberate reinterpretation, portraying Larry / King Lear much less sympathetically (and trying to humanize the &amp;ldquo;evil&amp;rdquo; daughters Ginny / Goneril and Rose / Regan). The ending is also fairly different (although still quite bleak).
+Overall, I enjoyed the book &amp;ndash; it was well-written and engaging, but there was nothing that made me really fall in love with it.</description>
+    </item>
+    
+    <item>
+      <title>Nice bounds on black box entropy estimators</title>
+      <link>https://alanhdu.github.io/posts/2020-03-20-entropy-estimation/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2020-03-20-entropy-estimation/</guid>
+      <description>TLDR: A brief summary of a paper that I read recently about why it&amp;rsquo;s hard to estimate information entropy.
+I recently came across a paper with some proofs of the number of samples you need to accurately estimate various information theoretic quantities in a &amp;ldquo;black box&amp;rdquo; way. Although I enjoyed the proofs, I found hard to understand as-written, and so I thought I&amp;rsquo;d post a more understandable explanation of the core results.</description>
+    </item>
+    
+    <item>
+      <title>Notes on Policy Gradients</title>
+      <link>https://alanhdu.github.io/posts/2020-02-16-policy-gradients/</link>
+      <pubDate>Sun, 16 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2020-02-16-policy-gradients/</guid>
+      <description>TLDR: Some quick notes about policy gradient reinforcement learning algorithms.
+Setup/Notation We usually think of reinforcement learning in terms of a Markovian decision process: our world consists of a set of states \(s \in S\) and possible actions \(a \in A\). At each time stamp, our agent can observe our current state \(s_t\), and then use some policy \(\pi(a |s)\) to choose some action \(a_t\). The world then updates according to some (usually unknown) transition probability \(\Pr[s_{t+1} | s_t, a_t]\) to a new state and we are given some reward \(\gamma^t R(s_t, a_t, s_{t+1})\), where \(0 is some arbitrary discounting factor.</description>
+    </item>
+    
+    <item>
+      <title>A Few Thoughts on the Lean Theorem Prover</title>
+      <link>https://alanhdu.github.io/posts/2020-01-20-a-few-thoughts-on-lean/</link>
+      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2020-01-20-a-few-thoughts-on-lean/</guid>
+      <description>TLDR: I tried out Lean, an automated theorem prover from Microsoft research and have some thoughts about it.
+Now, probably like everyone with a background in both computers and mathematics, I&amp;rsquo;ve had this long-standing fantasy that paper proofs in mathematics will eventually be taken over by computer checked proofs. Although the philosophical core of mathematics is about rigorous proofs, actually doing rigorous axiomatic proofs is a giant pain, and so no one I know actually does them.</description>
+    </item>
     
     <item>
       <title>Three Derivations of the Gaussian Distribution</title>
-      <link>http://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</link>
+      <link>https://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</link>
       <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</guid>
-      <description>This discussion is adapted from ET Jayne&#39;s Probability Theory: A Logic of Science.
+      <guid>https://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</guid>
+      <description>This discussion is adapted from ET Jayne&amp;rsquo;s Probability Theory: A Logic of Science.
 Preliminaries The Gaussian (or normal) distribution is a special distribution parametrized by mean \(\mu\) and variance \(\sigma^2\), with pdf:
-\[ p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2} \]
-The key fact about the Gaussian distribution (and the reason for its ubiquity) is that its pdf is exponent of a quadratic function -- any pdf which is proportional to \(e^{-ax^2 + bx + c}\) will be a Gaussian distribution.</description>
+\[p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2} \]
+The key fact about the Gaussian distribution (and the reason for its ubiquity) is that its pdf is the exponent of a quadratic function &amp;ndash; any pdf which is proportional to \(e^{-ax^2 + bx + c}\) will be a Gaussian distribution.</description>
     </item>
     
     <item>
       <title>A Fresh Start</title>
-      <link>http://alanhdu.github.io/posts/2019-10-20-new-blog/</link>
+      <link>https://alanhdu.github.io/posts/2019-10-20-new-blog/</link>
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2019-10-20-new-blog/</guid>
+      <guid>https://alanhdu.github.io/posts/2019-10-20-new-blog/</guid>
       <description>Since the last time I blogged, I&amp;rsquo;ve graduated from Columbia and have thus lost access to my previous blog setup. I was content to ignore my blog entirely and let it languish, but I was recently asked to post some notes on the Gaussian distribution and decided to resurrect my blog (the person was sort of drunk and might not have been serious, but that&amp;rsquo;s ok).
 Unfortunately, I could not find the backups of all of my previous posts.</description>
     </item>
     
     <item>
       <title>Reflections on NIPS (Part 2)</title>
-      <link>http://alanhdu.github.io/posts/2016-12-14-nips2/</link>
+      <link>https://alanhdu.github.io/posts/2016-12-14-nips2/</link>
       <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2016-12-14-nips2/</guid>
+      <guid>https://alanhdu.github.io/posts/2016-12-14-nips2/</guid>
       <description>One nice thing about going to NIPS is how intellectual stimulating it was. I&amp;rsquo;ve spent most of the past few months thinking about other things, so being immersed into the machine learning world again was definitely reinvigorating. Before the intellectual high fades, I thought I&amp;rsquo;d sketch out the most interesting puzzles that I&amp;rsquo;m thinking about thanks to NIPS.
-Learning Structure Humans can learn from an incredibly small amount of data.</description>
+Learning Structure Humans can learn from an incredibly small amount of data. For example, if I showed you a single picture of an Okapi, you could probably identify an Okapi if you ever saw one again.</description>
     </item>
     
     <item>
       <title>Reflections on NIPS (Part 1)</title>
-      <link>http://alanhdu.github.io/posts/2016-12-13-nips1/</link>
+      <link>https://alanhdu.github.io/posts/2016-12-13-nips1/</link>
       <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2016-12-13-nips1/</guid>
+      <guid>https://alanhdu.github.io/posts/2016-12-13-nips1/</guid>
       <description>Last week, I went to Barcelona to attend NIPS 2016, or the Conference on Neural Information Processing Systems. NIPS is essentially a giant research conference on machine learning and neural networks, with a dash of cognitive science and neuroscience thrown-in. It was super interesting, so I thought I&amp;rsquo;d jot down some thoughts while the experience is still fresh in my mind.
-First off, NIPS was an amazing experience! It&amp;rsquo;s one thing to read papers from Arxiv and follow some researchers&amp;rsquo; blogs &amp;ndash; it&amp;rsquo;s totally different to actually meet researchers in person and interact with them.</description>
+First off, NIPS was an amazing experience! It&amp;rsquo;s one thing to read papers from Arxiv and follow some researchers&#39; blogs &amp;ndash; it&amp;rsquo;s totally different to actually meet researchers in person and interact with them.</description>
     </item>
     
     <item>
       <title>The Statistical Wasteland</title>
-      <link>http://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</link>
+      <link>https://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</link>
       <pubDate>Sun, 29 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</guid>
-      <description>TLDR: Columbia&#39;s introductory statistics classes are horrible, and I propose a syllabus for a revamped intro to stats class.
-In case it isn&#39;t obvious, people suck at statistics. Even professional researchers mess up sometimes (and that&#39;s not even touching the current replication crisis.
-The amount of basic statistical ignorance among otherwise intelligent and informed people is astounding. I&#39;ve lost track of how many times I need to point out that &amp;quot;correlation is not causation&amp;quot;, or &amp;quot;median and mean measure different things, especially in skewed data, or &amp;quot;statistically significant does not mean true&amp;quot;, or something equally basic.</description>
+      <guid>https://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</guid>
+      <description>TLDR: Columbia&amp;rsquo;s introductory statistics classes are horrible, and I propose a syllabus for a revamped intro to stats class.
+In case it isn&amp;rsquo;t obvious, people suck at statistics. Even professional researchers mess up sometimes (and that&amp;rsquo;s not even touching the current replication crisis.
+The amount of basic statistical ignorance among otherwise intelligent and informed people is astounding. I&amp;rsquo;ve lost track of how many times I need to point out that &amp;ldquo;correlation is not causation&amp;rdquo;, or &amp;ldquo;median and mean measure different things, especially in skewed data, or &amp;ldquo;statistically significant does not mean true&amp;rdquo;, or something equally basic.</description>
     </item>
     
     <item>
       <title>Automatic Differentiation</title>
-      <link>http://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</link>
+      <link>https://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</link>
       <pubDate>Sat, 05 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</guid>
+      <guid>https://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/</guid>
       <description>TLDR I talk about a technique called automatic differentiation, going through a mathematical derivation before examining two different implementations: one in Rust and one in Python.
-About a year ago, I read a blog post on automatic differentiation, a cool technique which automatically computes derivatives (and generalizations like gradients and Jacobians). That might not seem that interesting -- after all, we could just use finite differences to calculate derivatives:
-\[\frac{df}{dx} \approx \frac{f(x + h) - f(x)}{h}\]</description>
+About a year ago, I read a blog post on automatic differentiation, a cool technique which automatically computes derivatives (and generalizations like gradients and Jacobians). That might not seem that interesting &amp;ndash; after all, we could just use finite differences to calculate derivatives:
+\[\frac{df}{dx} \approx \frac{f(x + h) - f(x)}{h} \]</description>
     </item>
     
     <item>
       <title>A small shell in rust</title>
-      <link>http://alanhdu.github.io/posts/2015-09-24-rust-shell/</link>
+      <link>https://alanhdu.github.io/posts/2015-09-24-rust-shell/</link>
       <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2015-09-24-rust-shell/</guid>
+      <guid>https://alanhdu.github.io/posts/2015-09-24-rust-shell/</guid>
       <description>NOTE: You can see the source code for the shell on GitHub.
 After turning in my first Operating Systems homework, I remembered why people invented high-level languages. C&amp;rsquo;s beautiful and powerful and really bare-metal, but it&amp;rsquo;s also insanely easy to shoot yourself with it. And because I haven&amp;rsquo;t programmed in C for 2 or 3 years, I probably made every stupid mistake imaginable. Accidentally returned a pointer to something allocated on the stack?</description>
+    </item>
+    
+    <item>
+      <title>Converging Random Variables</title>
+      <link>https://alanhdu.github.io/posts/2015-05-06-random-variable-convergence/</link>
+      <pubDate>Wed, 06 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2015-05-06-random-variable-convergence/</guid>
+      <description>Note: In Dec 2019, I re-worked the exposition and expanded certain parts of this blog post.
+In an introduction to probability, you&amp;rsquo;ll probably deal with lots of random variables (RVs). Like any other expression, we want to talk about the convergence of random variables too (e.g. convergence of the sample mean to population mean with the the law of large numbers). The problem is that there are three major definitions of random variable convergence:</description>
     </item>
     
   </channel>

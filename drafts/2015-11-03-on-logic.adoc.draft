@@ -1,0 +1,291 @@
+= On Logic
+:category: technical
+:description: a bastardized crash course in mathematical logic
+:revdate: 2015-11-05
+:keywords: logic, math, notes
+:stem: latexmath
+
+One of my favorite classes in high a course in mathematical logic. It's
+a fascinating story, and I think the implications really underpin a lot
+of how people think about and deal with mathematics and logic today.
+
+== A giant dump of definitions
+
+When we talk about logic, we're primarily talking about _propositions_,
+which are just strings of symbols, like stem:[2 + 2 = 4]. 
+
+We also assign certain propositions _truth values_. We typically only
+allow two truth values: top and bottom (or true and false), denoted as
+stem:[\{\top, \bot\}], although I suppose it's possible to have more
+than two truth values (e.g. in fuzzy logic). For the rest of this post,
+we'll be working with classical logic, which only has two truth values.
+
+Propositions with truth values are called _statements_. For notational
+clarity, I'll write statements as the ordered pair of a proposition and
+it's truth value (e.g. ("2 + 2 = 4", stem:[\top])).
+
+How do we actually assign truth values to things? Well, we have a set of
+logical _rules of inference_, which allow us to take multiple statements
+and create new ones. For example, modus ponens let's us combine ("it is
+raining", stem:{\top]) and ("if it rains, I will get wet", stem:[\top])
+into ("I will get wet", stem:[\top]). The derivation of a statement from
+previous statements by logical rules is called a _proof_.
+
+Importantly, these logical rules of inference are _not_ statements. They
+are rules that allow you to manipulate statements.
+
+But if logical rules only let you derive statements from other
+statements, where do the first statements come from? The answer is that
+these first statement's don't come from anywhere; we just assert their
+existence. The statements that we assert without any proof are called
+_axioms_ or _postulates_. For example, Peano's 1st axiom is that ("0 is
+a natural number", stem:[\top]).
+
+== Cracks in the Foundations
+
+With the preliminaries out of the way, it's time to start our story.
+
+=== Euclidean Geometry
+
+A long long time ago, a mathematician named Euclid published a treatise
+on geometry called the Elements. It was beautiful. In fact, it was so
+beautiful and precise that for thousands of years, people held up
+Euclid's Elements as the paragon of mathematical rigor and logical
+precision.footnote:[Kind of. Euclid actually had a ton of unspoken
+assumptions that he used and bogus defintiions.] Anybody who considered themselves a logical thinker studied
+Euclid religiously.
+
+The most appealing thing about Euclid's Elements was his focus on proof.
+Instead of just asserting certain facts a strue, Euclid's Elements was
+full of proofs that things were true. It's hard to believe, but that was
+actually pretty novel for the time.
+
+But one thing about Euclid's Elements always bugged people: his parallel
+postulate:
+
+[stem]
+++++
+\forall 
+++++
+
+or a more understandable formulation called Playfair's postulate:
+
+[stem]
+++++
+Playfair
+++++
+
+for reference, his other axioms were things like:
+
+- "All right anagles are equal"
+- "Between every two points there is a line"
+
+Euclid's parallel postulate seemed so ugly and inelegant and
+complicated, that people thought that there's no way it could be a
+fundamental axiom like Euclid's other ones. Instead, they were convinced
+that his parallel postulate could be proven from his other postulates,
+and was therefore a redundant postulate.
+
+
+Parallel postulate. Playfair's postulate.
+
+=== Paradoxes of Set Theory
+
+Things got even worse in the field of set theory, which studies sets. In
+____, Georg Cantor 
+
+Georg Cantor
+
+== Hilbert's program
+
+=== Russell and Whiteheaad
+=== Turtles all the way down
+=== Metamathematics 
+
+=== Model Theory
+
+
+== Gödel
+
+Last week, I had this interesting conversation last week about logic and
+faith, and I realized that most people don't have a very good
+I had this interesting conversation last week about logic and philosophy
+and faith, and we spent a long time talking past each other. I thought
+it'd be interesting to try to precisely pin down my views.
+
+== The plan forward
+
+My main point is that logic is necessary but insufficient to
+understanding the world, and that it's usually pretty silly to insist
+on an axiomatic treatment of things. Then, because Columbia has
+apparently turned me into a fucking philosopher (shudder), I'll talk
+specifically about how this applies to ethics.
+
+== Why should I care?
+
+The world is complicated. That seems like a totally trite statement, but
+I think that a lot of people are deeply unsettled by this. I've met a
+lot of people -- usually in STEM and usually math/physics/CS (although
+sometimes who do philosophy) --  who I think _need_ the world to make
+sense.
+
+Obviously, there's nothing wrong with _wanting_ the world to make sense.
+That's just intellectual curiosity, after all. But if you take it too
+far, I think it quickly becomes self-destructive. People fall into a
+kind of intellectual arrogance, where they think that
+math/physics/whatever is the only "real" intellectual field and that
+nothing else is legitimate. Practically, it means people overthink and
+overanalyze things, stressing themselves out for no reason.
+
+But I think the worst consequences appear in the super-philosophically
+and/or the angsty teens.  When you're wondering about weighty things
+like or "what's the purpose of life" or whatever, intellectual rigidity
+and the need to justify everything quickly turns into a nihilistic
+hell-scape. Why should we care about other people? There's not really a
+good way to logically justify that. And once you start, it's easy to
+keep finding things that have no logical basis -- which quickly leads to
+the aforementioned nihilistic relativist hellscape.
+
+And frankly, nihilism sucks. No one's actually a nihilist, or they'd
+have killed themselves already, but, speaking from personal experience,
+intellectually flirting with nihilism is a great way to devolve into
+depressive episode.
+
+== Logic and Faith
+
+When I was a sophomore in high school, I took a comparative religion
+class. It was fascinating, definitely one of the best classes I took in
+high school. One of my clearest memories is watching a debate between
+Christopher Hitchens and a Christian apologist (I think his name was
+William Craig?), where Hitchens asks the apologist, "why do you believe
+in the Bible?"
+
+The apologist responded by quoting a verse from the Bible. Hitchens
+immediately pounced, arguing that that was completely circular and
+vacuous. The apologist fired back, "Ok. Well, why do you believe in logic?"
+
+Why do we believe in logic? It's an absurd question. The very act of
+asking "why" _presupposes_ a system of reason and justification -- in
+other words, a system of logic. Trying to justify logic is inherently
+circular -- you just have to take it on faith.
+
+In fact, I don't think it's _possible_ to deny logic. I think
+cause-and-effect, reasoning, and truthiness is so fundamental to the
+universe (or at least to the human mind) that it's impossible to go
+without assuming some kind of logical system. To deny logic isn't even
+wrong; it's totally incoherent.
+
+== Misconceptions on Logic
+
+Logic is so intuitive, yet nebulous, that it's extremely easy to
+unknowingly be extremely sloppy when talking about it, so this is one of
+the few times where I'll try to be super precise about pinning down what
+exactly I mean by logic. Mathematics is really the best example of
+precise thinking, and there was an explosion of interest in mathematical
+logic after the turn of the 20th century, so I'll be mostly using
+termniology from mathematical logic. Get ready for a bastardized crash
+course.
+
+In a traditional math class, you probably distinguish between axioms,
+essentially unsupported assumptions, and theorems, which are statements
+with proof. Formally though, these statements are just strings of
+symbols.
+
+Formally, we have _statements_ about the world, like "2 + 2 = 4" or "all
+birds are red", which are just strings of symbols with _truth values_.
+For example, "2 + 2 = 4" is true, while "all birds are red" is
+(presumably) false.
+
+====
+IMPORTANT: Remember that statements are _not_ just strings of symbols.
+They're a string _and_ a truth value. For clarity, I will write
+statements as ordered pairs of strings and truth values. For example,
+("2 + 2 = 4", T) means that "2 + 2 = 4" is true and ("all birds are
+red", F) means that "all birds are red" is false.
+====
+
+_Logical rules_, or rules of inference, are just rules that transform
+existing statements into new statements. For example,
+link:https://en.wikipedia.org/wiki/Modus_ponens[modus ponens] is a
+logical rule, that lets us construct ("it is wet", T) from ("if it is
+raining, then it is wet", T) and ("it is raining", T).
+
+Importantly, logical rules are _not_ statements about the world. They
+are statements about about _how_ you can combine statements about the
+world (a kind of meta-statement, if you will). There are also
+meta-logical rules (or meta-meta-statements) which are statements about
+logical rules. The only one that I'll mention here is the assumption
+that our logical system is _consistent_ (i.e. no statement is both true
+and false at the same time).footnote:[Why is this a statement about
+meta-logic? Well, the consistency assumption is about the _semantic_
+definitions of true and false, which is distinct from the syntactic
+truth values that we assign to strings. It's thus more of a statement
+about how logic works than about the world.]
+
+Logical rules _must_ be taken on faith. There's not really a good way to
+justify whether a logical rule is "true", other than to assert that it
+is -- after all, we use logical rules to assign "truth" and "falsehood"
+to statements. And (debatably) reasonable can disagree about which
+logical rules they believe in: there's an entire branch of
+link:http://plato.stanford.edu/entries/intuitionism/[intuitionist]
+mathematics that denies the validity of proof by
+contradiction.footnote:[Actually, that's a giant simplification that is
+probably incorrect. Honestly, I don't really understand intuitionist
+logic, so I'd appreciate any pointers to a readable introduction.]
+
+=== Invalid Statements
+
+A really old logical "paradox", that people usually trot out to argue
+for the limitations/arbitrariness of logic, is the string "this sentence
+is false". Is the string true or false?
+
+That's like asking whether "the the the the" is true or false. It's
+neither; it's just semantic nonsense. Under any consistent logical
+system, there'd be no way to use our logical rules to construct either
+("this sentence is false", T) or ("this sentence is false",
+F).footnote:[I'm not sure, but I think this _is_ how we resolve
+Russell's paradox (does the set of all sets not contained in themselves
+contain itself?) under
+link:https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory[ZFC].
+The statement in Russell's paradox can't actually be constructed under
+ZFC and our normal rules of logical inference.]
+
+Logic isn't incoherent or inconsistent or wrong (so far as we know).
+People have tried _very_ hard to find inconsistencies with our current
+formulation of logic and failed.
+
+
+=== Gödel
+
+So, logical systems are made out of two parts: the logical rules of
+inference, and the axioms that you choose to believe in. Using your
+logical rules, you can derive more true statements. These derivations
+are called _proofs_. Proofs are how to actually use logic to acquire
+_new_ knowledge.
+
+Unfortunately, not all true statements are provable. I won't get into
+the details, but a logician named Kurt Gödel proved some theorems that
+said that any sufficiently powerful consistent logical system has true
+statements that cannot be proven. 
+
+As a "concrete" example, consider the following sentence in geometry:
+
+====
+In a plane, given a line and a point not on it, stem:[n] lines parallel to the
+given line can be drawn through the point.
+====
+
+If we believe that stem:[n=1], then we get Euclidean geometry.
+stem:[n=0] gives us spherical geometry and stem:[n=\infty] gives us
+hyperbolic geometry. All of these geometries are equally consistent as
+each other; none of them are logically "better" than
+another.footnote:[We can say, however, that stem:[n=2] is logically
+"worse" than the others, because that leads to a logically inconsistent
+system of geometry.]
+
+In other words, there's no way to "prove" which value of stem:[n] is
+"correct". Each value of stem:[n] just leads to different conceptions
+of points, lines, and planes.
+
+Gödel proved that (roughly speaking) we'll always bump up against these
+kinds of statements in _any_ sufficiently powerful logical system.

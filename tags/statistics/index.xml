@@ -1,37 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Statistics on Amateur Hour</title>
-    <link>http://alanhdu.github.io/tags/statistics/</link>
-    <description>Recent content in Statistics on Amateur Hour</description>
+    <title>statistics on Amateur Hour</title>
+    <link>https://alanhdu.github.io/tags/statistics/</link>
+    <description>Recent content in statistics on Amateur Hour</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Oct 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://alanhdu.github.io/tags/statistics/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 21 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/statistics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Three Derivations of the Gaussian Distribution</title>
-      <link>http://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</link>
+      <link>https://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</link>
       <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</guid>
-      <description>This discussion is adapted from ET Jayne&#39;s Probability Theory: A Logic of Science.
+      <guid>https://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/</guid>
+      <description>This discussion is adapted from ET Jayne&amp;rsquo;s Probability Theory: A Logic of Science.
 Preliminaries The Gaussian (or normal) distribution is a special distribution parametrized by mean \(\mu\) and variance \(\sigma^2\), with pdf:
-\[ p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2} \]
-The key fact about the Gaussian distribution (and the reason for its ubiquity) is that its pdf is exponent of a quadratic function -- any pdf which is proportional to \(e^{-ax^2 + bx + c}\) will be a Gaussian distribution.</description>
+\[p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2} \]
+The key fact about the Gaussian distribution (and the reason for its ubiquity) is that its pdf is the exponent of a quadratic function &amp;ndash; any pdf which is proportional to \(e^{-ax^2 + bx + c}\) will be a Gaussian distribution.</description>
     </item>
     
     <item>
       <title>The Statistical Wasteland</title>
-      <link>http://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</link>
+      <link>https://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</link>
       <pubDate>Sun, 29 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</guid>
-      <description>TLDR: Columbia&#39;s introductory statistics classes are horrible, and I propose a syllabus for a revamped intro to stats class.
-In case it isn&#39;t obvious, people suck at statistics. Even professional researchers mess up sometimes (and that&#39;s not even touching the current replication crisis.
-The amount of basic statistical ignorance among otherwise intelligent and informed people is astounding. I&#39;ve lost track of how many times I need to point out that &amp;quot;correlation is not causation&amp;quot;, or &amp;quot;median and mean measure different things, especially in skewed data, or &amp;quot;statistically significant does not mean true&amp;quot;, or something equally basic.</description>
+      <guid>https://alanhdu.github.io/posts/2016-05-29-stats-syllabus/</guid>
+      <description>TLDR: Columbia&amp;rsquo;s introductory statistics classes are horrible, and I propose a syllabus for a revamped intro to stats class.
+In case it isn&amp;rsquo;t obvious, people suck at statistics. Even professional researchers mess up sometimes (and that&amp;rsquo;s not even touching the current replication crisis.
+The amount of basic statistical ignorance among otherwise intelligent and informed people is astounding. I&amp;rsquo;ve lost track of how many times I need to point out that &amp;ldquo;correlation is not causation&amp;rdquo;, or &amp;ldquo;median and mean measure different things, especially in skewed data, or &amp;ldquo;statistically significant does not mean true&amp;rdquo;, or something equally basic.</description>
+    </item>
+    
+    <item>
+      <title>Converging Random Variables</title>
+      <link>https://alanhdu.github.io/posts/2015-05-06-random-variable-convergence/</link>
+      <pubDate>Wed, 06 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2015-05-06-random-variable-convergence/</guid>
+      <description>Note: In Dec 2019, I re-worked the exposition and expanded certain parts of this blog post.
+In an introduction to probability, you&amp;rsquo;ll probably deal with lots of random variables (RVs). Like any other expression, we want to talk about the convergence of random variables too (e.g. convergence of the sample mean to population mean with the the law of large numbers). The problem is that there are three major definitions of random variable convergence:</description>
     </item>
     
   </channel>

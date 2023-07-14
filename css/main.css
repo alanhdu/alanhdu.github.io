@@ -2,10 +2,31 @@ body {
   color: #444;
   line-height: 1.6;
   margin: auto auto;
-  max-width: 50rem;
-  font-weight: 350;
-  font-family: "ubuntu", sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
+  width: 80%;
 }
+
+@media only screen and (min-width: 600px) {
+  body {
+    max-width: 90rem;
+  }
+  aside {
+    float: right;
+    clear: left;
+    margin-left: 1rem;
+    position: relative;
+    width: 40%;
+  }
+  article > p, ul, ol, h1, h2, h3, h4, blockquote, div.highlight {
+   max-width: 40rem;
+  }
+}
+
+aside {
+  padding-left: 0.75rem;
+  box-shadow: inset 0.5em 0 0.5em -0.5em #29627e;
+}
+
 
 @media screen and (max-width: 400px) {
   body {
@@ -46,8 +67,37 @@ h1, h2, h3, h4 {
   margin-top: 0.5rem;
 }
 
+blockquote {
+  border-left: 0.1rem solid #AAA;
+  padding-left: 0.5rem;
+}
+
 .post-header {
   margin-top: 0;
   padding-bottom: 0.3rem;
   border-bottom: 1px solid #DDD;
+}
+
+img:not(.cc) {
+  display: block;
+  margin: 0 auto;
+}
+
+
+.pagination {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination li {
+    display: inline-block;
+}
+
+.pagination .page-item.page-prev {
+    text-align: left;
+}
+
+.pagination .page-item.page-next {
+    text-align: right;
 }

@@ -1,24 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Research on Amateur Hour</title>
-    <link>http://alanhdu.github.io/tags/research/</link>
-    <description>Recent content in Research on Amateur Hour</description>
+    <title>research on Amateur Hour</title>
+    <link>https://alanhdu.github.io/tags/research/</link>
+    <description>Recent content in research on Amateur Hour</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Dec 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://alanhdu.github.io/tags/research/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sun, 30 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/research/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evaluation in Deep Learning</title>
+      <link>https://alanhdu.github.io/posts/2022-10-30-ml-robustness/</link>
+      <pubDate>Sun, 30 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-10-30-ml-robustness/</guid>
+      <description>Over time, I&amp;rsquo;ve found that a lot of deep learning research is a mirage. While I&amp;rsquo;ve usually (but not always!) been able to reproduce the authors&#39; results on their chosen benchmarks, the performance gains often disappear if I choose other benchmarks to train/test against. This gets even worse when I try to apply their results to my problems, which is an extremely different data domain (surface electromyography, than the standard vision/text/speech that most people work with.</description>
+    </item>
     
     <item>
       <title>Reflections on NIPS (Part 2)</title>
-      <link>http://alanhdu.github.io/posts/2016-12-14-nips2/</link>
+      <link>https://alanhdu.github.io/posts/2016-12-14-nips2/</link>
       <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2016-12-14-nips2/</guid>
+      <guid>https://alanhdu.github.io/posts/2016-12-14-nips2/</guid>
       <description>One nice thing about going to NIPS is how intellectual stimulating it was. I&amp;rsquo;ve spent most of the past few months thinking about other things, so being immersed into the machine learning world again was definitely reinvigorating. Before the intellectual high fades, I thought I&amp;rsquo;d sketch out the most interesting puzzles that I&amp;rsquo;m thinking about thanks to NIPS.
-Learning Structure Humans can learn from an incredibly small amount of data.</description>
+Learning Structure Humans can learn from an incredibly small amount of data. For example, if I showed you a single picture of an Okapi, you could probably identify an Okapi if you ever saw one again.</description>
     </item>
     
   </channel>

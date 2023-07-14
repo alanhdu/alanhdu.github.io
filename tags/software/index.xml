@@ -1,22 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Software on Amateur Hour</title>
-    <link>http://alanhdu.github.io/tags/software/</link>
-    <description>Recent content in Software on Amateur Hour</description>
+    <title>software on Amateur Hour</title>
+    <link>https://alanhdu.github.io/tags/software/</link>
+    <description>Recent content in software on Amateur Hour</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/software/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Intermediate Property-based Testing</title>
+      <link>https://alanhdu.github.io/posts/2023-07-14-property-based-testing/</link>
+      <pubDate>Thu, 13 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2023-07-14-property-based-testing/</guid>
+      <description>For such an effective way of ferreting out bugs in systems, property-based testing is drastically underused today. I&amp;rsquo;ve been using property-based testing for almost 10 years now, and in that time I&amp;rsquo;ve encountered maybe 3 other coworkers who also use property-based testing, even for systems that are ripe for it.
+IMO, a big reason for this is that property-based testing has a &amp;ldquo;draw-the-owl&amp;rdquo; problem: most articles begin with fairly artificial examples (e.</description>
+    </item>
     
-	<atom:link href="http://alanhdu.github.io/tags/software/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>A Debugging Story</title>
+      <link>https://alanhdu.github.io/posts/2023-03-12-debug-story/</link>
+      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2023-03-12-debug-story/</guid>
+      <description>Debugging is a core skill for software engineers, but IMO it&amp;rsquo;s one that we often neglect. There&amp;rsquo;s a ton of advice on the internet on how to be a better systems designer, or how to solve algorithms challenges (albeit mostly for interviews), but very little on how to get better at debugging.
+I wanted to help solve that by trying to document a real-world bug (https://github.com/HypothesisWorks/hypothesis/issues/3446 stumped me for quite some time.</description>
+    </item>
     
     <item>
       <title>A Fresh Start</title>
-      <link>http://alanhdu.github.io/posts/2019-10-20-new-blog/</link>
+      <link>https://alanhdu.github.io/posts/2019-10-20-new-blog/</link>
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2019-10-20-new-blog/</guid>
+      <guid>https://alanhdu.github.io/posts/2019-10-20-new-blog/</guid>
       <description>Since the last time I blogged, I&amp;rsquo;ve graduated from Columbia and have thus lost access to my previous blog setup. I was content to ignore my blog entirely and let it languish, but I was recently asked to post some notes on the Gaussian distribution and decided to resurrect my blog (the person was sort of drunk and might not have been serious, but that&amp;rsquo;s ok).
 Unfortunately, I could not find the backups of all of my previous posts.</description>
     </item>

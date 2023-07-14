@@ -1,130 +1,171 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Amateur Hour</title>
-    <link>http://alanhdu.github.io/tags/</link>
+    <link>https://alanhdu.github.io/tags/</link>
     <description>Recent content in Tags on Amateur Hour</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Dec 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://alanhdu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 13 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Ideas</title>
-      <link>http://alanhdu.github.io/tags/ideas/</link>
-      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      <title>software</title>
+      <link>https://alanhdu.github.io/tags/software/</link>
+      <pubDate>Thu, 13 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/ideas/</guid>
+      <guid>https://alanhdu.github.io/tags/software/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Machine Learning</title>
-      <link>http://alanhdu.github.io/tags/machine-learning/</link>
-      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      <title>debugging</title>
+      <link>https://alanhdu.github.io/tags/debugging/</link>
+      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/machine-learning/</guid>
+      <guid>https://alanhdu.github.io/tags/debugging/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Math</title>
-      <link>http://alanhdu.github.io/tags/math/</link>
+      <title>reading</title>
+      <link>https://alanhdu.github.io/tags/reading/</link>
+      <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/reading/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>machine learning</title>
+      <link>https://alanhdu.github.io/tags/machine-learning/</link>
+      <pubDate>Sun, 30 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>https://alanhdu.github.io/tags/research/</link>
+      <pubDate>Sun, 30 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>economics</title>
+      <link>https://alanhdu.github.io/tags/economics/</link>
+      <pubDate>Tue, 13 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/economics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>philosophy of science</title>
+      <link>https://alanhdu.github.io/tags/philosophy-of-science/</link>
+      <pubDate>Tue, 13 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/philosophy-of-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>information theory</title>
+      <link>https://alanhdu.github.io/tags/information-theory/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/information-theory/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>math</title>
+      <link>https://alanhdu.github.io/tags/math/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>statistics</title>
+      <link>https://alanhdu.github.io/tags/statistics/</link>
       <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/math/</guid>
+      <guid>https://alanhdu.github.io/tags/statistics/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Nips</title>
-      <link>http://alanhdu.github.io/tags/nips/</link>
+      <title>webdev</title>
+      <link>https://alanhdu.github.io/tags/webdev/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/webdev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ideas</title>
+      <link>https://alanhdu.github.io/tags/ideas/</link>
       <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/nips/</guid>
+      <guid>https://alanhdu.github.io/tags/ideas/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Os</title>
-      <link>http://alanhdu.github.io/tags/os/</link>
-      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      <title>NIPS</title>
+      <link>https://alanhdu.github.io/tags/nips/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/os/</guid>
+      <guid>https://alanhdu.github.io/tags/nips/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Programming</title>
-      <link>http://alanhdu.github.io/tags/programming/</link>
-      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://alanhdu.github.io/tags/programming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reflections</title>
-      <link>http://alanhdu.github.io/tags/reflections/</link>
+      <title>reflections</title>
+      <link>https://alanhdu.github.io/tags/reflections/</link>
       <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/reflections/</guid>
+      <guid>https://alanhdu.github.io/tags/reflections/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Research</title>
-      <link>http://alanhdu.github.io/tags/research/</link>
-      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://alanhdu.github.io/tags/research/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>http://alanhdu.github.io/tags/rust/</link>
-      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://alanhdu.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Software</title>
-      <link>http://alanhdu.github.io/tags/software/</link>
-      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://alanhdu.github.io/tags/software/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Statistics</title>
-      <link>http://alanhdu.github.io/tags/statistics/</link>
-      <pubDate>Mon, 21 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://alanhdu.github.io/tags/statistics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Teaching</title>
-      <link>http://alanhdu.github.io/tags/teaching/</link>
+      <title>teaching</title>
+      <link>https://alanhdu.github.io/tags/teaching/</link>
       <pubDate>Sun, 29 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/teaching/</guid>
+      <guid>https://alanhdu.github.io/tags/teaching/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Webdev</title>
-      <link>http://alanhdu.github.io/tags/webdev/</link>
-      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      <title>os</title>
+      <link>https://alanhdu.github.io/tags/os/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/tags/webdev/</guid>
+      <guid>https://alanhdu.github.io/tags/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://alanhdu.github.io/tags/programming/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://alanhdu.github.io/tags/rust/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/tags/rust/</guid>
       <description></description>
     </item>
     

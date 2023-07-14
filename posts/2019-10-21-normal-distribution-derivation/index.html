@@ -2,23 +2,34 @@
 <html lang="en-US">
   <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><title> Three Derivations of the Gaussian Distribution -- Amateur Hour </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> Three Derivations of the Gaussian Distribution &mdash; Amateur Hour </title>
   <meta property="og:title" content="Three Derivations of the Gaussian Distribution" />
 <meta property="og:description" content="riffing on ET Jayne" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/" /><meta property="article:published_time" content="2019-10-21T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-10-21T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://alanhdu.github.io/posts/2019-10-21-normal-distribution-derivation/" />
+<meta property="article:published_time" content="2019-10-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-21T00:00:00+00:00" />
 
-	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/katex.min.css" />
-  <script defer type="text/javascript" src="http://alanhdu.github.io/js/katex.min.js"> </script>
-  <script defer type="text/javascript" src="http://alanhdu.github.io/js/auto-render.min.js"
-    onload="renderMathInElement(document.body);"></script>
-  
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/katex.min.css" />
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/katex.min.js"> </script>
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ]
+  });
+});
+</script>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js" integrity="sha384-Ep9Es0VCjVn9dFeaN2uQxgGcGmG+pfZ4eBaHxUpxXDORrrVACZVOpywyzvFRGbmv" crossorigin="anonymous"></script>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="http://alanhdu.github.io/favicon//apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="http://alanhdu.github.io/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="http://alanhdu.github.io/favicon/favicon-16x16.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
 </head>
 
   <body>
@@ -27,11 +38,11 @@
 	<h1 class="site-title">Amateur Hour</h1>
 	<nav class="nav">
 		<ul class="flat">
-      <li><a href="http://alanhdu.github.io/">Home</a></li>
-      <li><a href="http://alanhdu.github.io/about">About</a></li>
-      <li><a href="http://alanhdu.github.io/categories">Categories</a></li>
-      <li><a href="http://alanhdu.github.io/tags">Tags</a></li>
-      <li><a href="http://alanhdu.github.io/index.xml">RSS Feed</a></li>
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
     </ul>
   </nav>
 </div>
@@ -42,257 +53,181 @@
   <h2 class="title">Three Derivations of the Gaussian Distribution</h2>
   <strong class="description">Or riffing on ET Jayne</strong>
   <div>
-    <span class="date">Oct 21, 2019</span>
+    <span class="date">Oct 21, 2019</span>.
     Filed under
     
-    <span class="category"> <a href="http://alanhdu.github.io/categories/technical">Technical</a></span>
+    <span class="category"> <a href="https://alanhdu.github.io/categories/technical">Technical</a></span>
   </div>
   Tags:
-    [
     
-    
-    <a href="http://alanhdu.github.io/tags/statistics">statistics</a>
-    
-    , 
-    <a href="http://alanhdu.github.io/tags/math">math</a>
-    
-    ]
+    <a href="https://alanhdu.github.io/tags/statistics">statistics</a>, 
+    <a href="https://alanhdu.github.io/tags/math">math</a>
 </div>
 
-<div class="markdown">
-  <p>This discussion is adapted from ET Jayne's <em>Probability Theory: A Logic
+<article class="markdown">
+  <p>This discussion is adapted from ET Jayne&rsquo;s <em>Probability Theory: A Logic
 of Science</em>.</p>
-
 <h3 id="preliminaries">Preliminaries</h3>
-
 <p>The Gaussian (or normal) distribution is a special distribution
-parametrized by mean <span  class="math">\(\mu\)</span> and variance <span  class="math">\(\sigma^2\)</span>, with pdf:</p>
-
-<p><span  class="math">\[
-p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2}
+parametrized by mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, with pdf:</p>
+<p><span class="math display">\[p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2\sigma^2}(x - \mu)^2}
 \]</span></p>
-
 <p>The key fact about the Gaussian distribution (and the reason for its
-ubiquity) is that its pdf is exponent of a <em>quadratic</em> function -- any
-pdf which is proportional to <span  class="math">\(e^{-ax^2 + bx + c}\)</span> will be a Gaussian
-distribution.</p>
-
-<p>Where does the normalizing constant come from? The derivation is easies
-to show for a <em>standard</em> Gaussian distribution with <span  class="math">\(\mu=0,
-\sigma^2=1\)</span>, which has pdf:</p>
-
-<p><span  class="math">\[
-p(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}
+ubiquity) is that its pdf is the exponent of a <em>quadratic</em> function &ndash;
+any pdf which is proportional to <span class="math inline">\(e^{-ax^2 + bx + c}\)</span> will be a
+Gaussian distribution.</p>
+<p>Where does the normalizing constant come from? The derivation is easiest
+to show for a <em>standard</em> Gaussian distribution with <span class="math inline">\(\mu=0, \sigma^2=1\)</span>, which has pdf:</p>
+<p><span class="math display">\[p(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}
 \]</span></p>
-
-<p>We can compute <span  class="math">\(\int_{-\infty}^{\infty} e^{-\frac{1}{2}x^2} dx =
-\sqrt{2\pi}\)</span> (hence the normalizing constant <span  class="math">\(\frac{1}{\sqrt{2\pi}}\)</span>)
+<p>We can compute <span class="math inline">\(\int_{-\infty}^{\infty} e^{-\frac{1}{2}x^2} dx = \sqrt{2\pi}\)</span> (hence the normalizing constant <span class="math inline">\(\frac{1}{\sqrt{2\pi}}\)</span>)
 by cleverly changing our basis into polar coordinates:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+<p><span class="math display">\[\begin{aligned}
 \int_{-\infty}^{\infty} e^{-\frac{1}{2}x^2} dx &= \sqrt{\big[\int_{-\infty}^{\infty} e^{-\frac{1}{2}x^2} dx \big]^2} \\
 &= \sqrt{\int_{-\infty}^{\infty} e^{-\frac{1}{2}x^2} dx \int_{-\infty}^{\infty} e^{-\frac{1}{2}y^2} dy } \\
-&= \sqrt{\iint_{\mathbb{R}^2} e^{-\frac{1}{2}(x^2 + y^2)} dx dy} \\
-&= \sqrt{\iint_{\mathbb{R}^2} e^{-\frac{1}{2}r^2} r dr d\theta} \\
-&= \sqrt{2\pi \int_{-\infty}^\infty r e^{-\frac{1}{2}r^2} dr} = \sqrt{2\pi}
+&= \sqrt{\iint_{\mathbb{R}^2} e^{-\frac{1}{2}(x^2 + y^2)} dx \, dy} \\
+&= \sqrt{\iint_{\mathbb{R}^2} e^{-\frac{1}{2}r^2} r \, dr \, d\theta} \\
+&= \sqrt{2\pi \int_{0}^\infty r e^{-\frac{1}{2}r^2} dr} = \sqrt{2\pi}
 \end{aligned}
 \]</span></p>
-
-<h3 id="herschelmaxwell-distribution">Herschel-Maxwell Distribution</h3>
-
-<p>Suppose we are drawing points <span  class="math">\((x, y)\)</span> from a 2-dimensional
-distribution with pdf <span  class="math">\(p(x, y)\)</span> centered on <span  class="math">\((0, 0)\)</span>. We will make
+<h3 id="herschel-maxwell-derivation">Herschel-Maxwell Derivation</h3>
+<p>Suppose we are drawing points <span class="math inline">\((x, y)\)</span> from a 2-dimensional
+distribution with pdf <span class="math inline">\(p(x, y)\)</span> centered on <span class="math inline">\((0, 0)\)</span>. We will make
 three assumptions:</p>
-
 <ol>
 <li>That the probability of a point only depends on the radial distance
 from the origin and that the angles do not matter. In other words,
-<span  class="math">\(p(x, y) = f(\sqrt{x^2 + y^2})\)</span> for some function <span  class="math">\(f\)</span></li>
-<li>That <span  class="math">\(x\)</span> and <span  class="math">\(y\)</span> coordinates are independent of each other. In other
-words, <span  class="math">\(p(x, y) = g(x)g(y)\)</span> for some function <span  class="math">\(g\)</span>.</li>
-<li>That <span  class="math">\(p(x, y)\)</span> is a smooth function.</li>
+<span class="math inline">\(p(x, y) = f(\sqrt{x^2 + y^2})\)</span> for some function <span class="math inline">\(f\)</span></li>
+<li>That <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates are independent of each other. In other
+words, <span class="math inline">\(p(x, y) = g(x)g(y)\)</span> for some function <span class="math inline">\(g\)</span>.</li>
+<li>That <span class="math inline">\(p(x, y)\)</span> is a smooth function.</li>
 </ol>
-
-<p>These three assumptions are enough to show that both <span  class="math">\(x\)</span> and <span  class="math">\(y\)</span> are
+<p>These three assumptions are enough to show that both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are
 drawn from a normal distribution! This is a really nice derivation of
 the Gaussian distribution that uses very few assumptions. Most of these
-assumptions are also about the geometry of space rather than
-probability, indicating that the Gaussian distribution arises quite
-naturally given the structure of our reality.</p>
-
-<p>By setting <span  class="math">\(y=0\)</span>, we can immediately see that <span  class="math">\(p(x, 0) = g(x)g(0) =
-f(x)\)</span>. This implies that:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+assumptions are about the geometry of space rather than probability,
+indicating that the Gaussian distribution arises quite naturally given
+the structure of our reality.</p>
+<p>By setting <span class="math inline">\(y=0\)</span>, we can immediately see that <span class="math inline">\(p(x, 0) = g(x)g(0) = f(x)\)</span>. This implies that:</p>
+<p><span class="math display">\[\begin{aligned}
 g(x)g(y) &= p(x, y) = f(\sqrt{x^2 + y^2}) = g(\sqrt{x^2 + y^2})g(0) \\
 \frac{g(x)}{g(0)}\frac{g(y)}{g(0)} &= \frac{g(\sqrt{x^2 + y^2})}{g(0)} \\
 \frac{g(\sqrt{x^2})}{g(0)}\frac{g(\sqrt{y^2})}{g(0)} &= \frac{g(\sqrt{x^2 + y^2})}{g(0)} \\
 h(x^2)h(y^2) &= h(x^2 + y^2)
 \end{aligned}
 \]</span></p>
-
-<p>where we define <span  class="math">\(h(a) = \frac{g(\sqrt{a}}{g(0)}\)</span>. In other words, we
-have found that <span  class="math">\(h(a)h(b) = h(a + b)\)</span>. This should immediately remind
-you of an exponential function <span  class="math">\(h(a) = c^a\)</span> for some exponent base <span  class="math">\(c\)</span>
+<p>where we define <span class="math inline">\(h(a) = \frac{g(\sqrt{a})}{g(0)}\)</span>. In other words, we
+have found that <span class="math inline">\(h(a)h(b) = h(a + b)\)</span>. This should immediately remind
+you of an exponential function <span class="math inline">\(h(a) = c^a\)</span> for some exponent base <span class="math inline">\(c\)</span>
 (because exponentiation converts multiplication into addition). We can
-also show this formally: for any positive integer <span  class="math">\(q \in
-\mathbb{Z}^+\)</span>, the definition of integers gives us that <span  class="math">\(h(q) =
-\prod_{k=1}^q h(1) = h(1)^q\)</span>.  We can combine this with <span  class="math">\(h(1) =
-h(\frac{q}{q}) = h(\frac{1}{q})^q\)</span>, so <span  class="math">\(h(\frac{1}{q}) =
-h(1)^{\frac{1}{q}}\)</span>. To get negative integers, we can notice that
-<span  class="math">\(h(0) = h(0)h(0) = h(0)^2\)</span>, which is true if <span  class="math">\(h(0) = 1\)</span> (<span  class="math">\(h(0) \ne
-0\)</span>, because <span  class="math">\(h(0) = \frac{g(0)}{g(0)} = 1\)</span>). Then for any integer <span  class="math">\(p
-\in \mathbb{Z}\)</span>, <span  class="math">\(1 = h(0) = h(p - p) = h(p)h(-p) = h(1)^p h(-p)\)</span>.
-Thus, <span  class="math">\(h(-p) = h(p)^{-1} = h(1)^{-p}\)</span>. Putting this together, we know
-that for all rational numbers <span  class="math">\(\frac{p}{q} \in \mathbb{Q}\)</span>,
-<span  class="math">\(h(\frac{p}{q}) = h(1)^\frac{p}{q}\)</span>. Continuity of <span  class="math">\(h\)</span> extends this
-to the irrational numbers, so we know that <span  class="math">\(h(a) = h(1)^a = c^a\)</span> for
-some constant <span  class="math">\(c = h(1)\)</span>.</p>
-
-<p>Thus, <span  class="math">\(\frac{g(\sqrt{a}}{g(0)}) = h(a) = c^a\)</span>, which implies that
-<span  class="math">\(g(x) = g(0) c^{x^2} = g(0) e^{\ln c x^2}\)</span>, which is going to be a
-normal distribution with mean <span  class="math">\(\mu = 0\)</span>. Thus, under our assumptions,
-both <span  class="math">\(x\)</span> and <span  class="math">\(y\)</span> coordinates have a Gaussian distribution.</p>
-
-<h3 id="gausss-derivation">Gauss's Derivation</h3>
-
-<p>We will now examine Gauss's derivation of the normal distribution, which
+also show this formally: for any positive integer <span class="math inline">\(q \in \mathbb{Z}^+\)</span>, the definition of integers gives us that <span class="math inline">\(h(q) = \prod_{k=1}^q h(1) = h(1)^q\)</span>.  We can combine this with <span class="math inline">\(h(1) = h(\frac{q}{q}) = h(\frac{1}{q})^q\)</span>, so <span class="math inline">\(h(\frac{1}{q}) = h(1)^{\frac{1}{q}}\)</span>. To get negative integers, we can notice that
+<span class="math inline">\(h(0) = h(0)h(0) = h(0)^2\)</span>, which is true if <span class="math inline">\(h(0) = 1\)</span> (<span class="math inline">\(h(0) \ne 0\)</span>, because <span class="math inline">\(h(0) = \frac{g(0)}{g(0)} = 1\)</span>). Then for any integer <span class="math inline">\(p \in \mathbb{Z}\)</span>, <span class="math inline">\(1 = h(0) = h(p - p) = h(p)h(-p) = h(1)^p h(-p)\)</span>.
+Thus, <span class="math inline">\(h(-p) = h(p)^{-1} = h(1)^{-p}\)</span>. Putting this together, we know
+that for all rational numbers <span class="math inline">\(\frac{p}{q} \in \mathbb{Q}\)</span>,
+<span class="math inline">\(h(\frac{p}{q}) = h(1)^\frac{p}{q}\)</span>. Continuity of <span class="math inline">\(h\)</span> extends this
+to the irrational numbers, so we know that <span class="math inline">\(h(a) = h(1)^a = c^a\)</span> for
+some constant <span class="math inline">\(c = h(1)\)</span>.</p>
+<p>Thus, <span class="math inline">\(\frac{g(\sqrt{a})}{g(0)} = h(a) = c^a\)</span>, which implies that
+<span class="math inline">\(g(x) = g(0) c^{x^2} = g(0) e^{x^2 \ln c}\)</span>, which is going to be a
+normal distribution with mean <span class="math inline">\(\mu = 0\)</span>. Thus, under our assumptions,
+both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> coordinates have a Gaussian distribution.</p>
+<h3 id="gausss-derivation">Gauss&rsquo;s Derivation</h3>
+<p>We will now examine Gauss&rsquo;s derivation of the normal distribution, which
 is famous enough that he got his name attached (hence, Gaussian
 distribution). This derivation uses slightly more probabilistic
 machinery, but show a deep connection between the normal distribution
 and arithmetic means.</p>
-
-<p>In Gauss's derivation, we will draw <span  class="math">\(n\)</span> measurements <span  class="math">\(x_1, x_2,
-\ldots, x_n \in \mathbb{R}\)</span> of some quantity <span  class="math">\(\mu \in \mathbb{R}\)</span>.
-Given our measurements, we normally want to <em>infer</em> the correct value of
-<span  class="math">\(\mu\)</span>.  We will show under some mild assumptions, the only way for the
-&quot;correct&quot; estimate of <span  class="math">\(\mu\)</span> to be the arithmetic mean
-<span  class="math">\(\frac{1}{n}\sum x_k\)</span> is for our measurements to be drawn from the
-Gaussian distribution.</p>
-
+<p>In Gauss&rsquo;s derivation, we will draw <span class="math inline">\(n\)</span> measurements <span class="math inline">\(x_1, x_2, \ldots, x_n \in \mathbb{R}\)</span> of some quantity <span class="math inline">\(\mu \in \mathbb{R}\)</span>.
+Given our measurements, we want to <em>infer</em> the correct value of <span class="math inline">\(\mu\)</span>.
+We will show under some mild assumptions, the only way for the &ldquo;correct&rdquo;
+estimate of <span class="math inline">\(\mu\)</span> to be the arithmetic mean <span class="math inline">\(\frac{1}{n}\sum x_k\)</span> is
+for our measurements to be drawn from the Gaussian distribution.</p>
 <ol>
 <li>We assume that all of our observations are i.i.d. from some
-distribution with pdf <span  class="math">\(p(x; \mu)\)</span> that is parametrized by <span  class="math">\(\mu\)</span>.
-In other words, <span  class="math">\(p(x_1, x_2, \ldots, x_n) = \prod_{k=1}^n p(x_k;
-\mu)\)</span>.</li>
-<li>One intuitive way to infer <span  class="math">\(\mu\)</span> is to find the estimator
-<span  class="math">\(\hat{\mu}\)</span> that maximizes our likelihood function
-<span  class="math">\(\prod_{k=1}^{n} p(x_k; \hat{\mu})\)</span> (i.e. an MLE). We will assume
-that we have a unique maximum likelihood estimator <span  class="math">\(\hat{\mu}\)</span> that
-is the empirical mean of our measurements <span  class="math">\(\frac{1}{n} \sum_{k=1}^n
-x_k\)</span>.</li>
+distribution with pdf <span class="math inline">\(p(x; \mu)\)</span> that is parametrized by <span class="math inline">\(\mu\)</span>.
+In other words, <span class="math inline">\(p(x_1, x_2, \ldots, x_n) = \prod_{k=1}^n p(x_k; \mu)\)</span>.</li>
+<li>One intuitive way to infer <span class="math inline">\(\mu\)</span> is to find the estimator
+<span class="math inline">\(\hat{\mu}\)</span> that maximizes our likelihood function
+<span class="math inline">\(\prod_{k=1}^{n} p(x_k; \hat{\mu})\)</span> (i.e. an MLE). We will assume
+that we have a unique maximum likelihood estimator <span class="math inline">\(\hat{\mu}\)</span> that
+is the empirical mean of our measurements <span class="math inline">\(\frac{1}{n} \sum_{k=1}^n x_k\)</span>.</li>
 <li>That the probability of each measurement is a continuous function of
-its distance from the mean. In other words, our pdf <span  class="math">\(p(x; \mu) =
-f(|x - \mu|)\)</span> for some continuous function <span  class="math">\(f\)</span>.</li>
+its distance from the mean. In other words, our pdf <span class="math inline">\(p(x; \mu) = f(|x - \mu|)\)</span> for some continuous function <span class="math inline">\(f\)</span>.</li>
 </ol>
-
 <p>Now, our likelihood function is maximized whenever its logarithm is
 maximized (because log is a strictly increasing function).  From
 calculus, we can remember that a maximum can only occur when its
 derivative is equal to 0, which gives us</p>
-
-<p><span  class="math">\[
-\begin{aligned}    
-0 &= \frac{d}{d\mu} \ln \prod_{k=1}^n p(x_k; \mu) = \frac{d}{d\mu} \sum_{k=1}^n \ln p(x_k; \mu) = \sum_{k=1}^n \frac{d}{d\mu} \ln p(x_k; \mu) \\                      
-&= \sum_{k=1}^n \frac{d}{d\mu} \ln f(|x_k - \mu|) = \sum_{k=1}^n g'(x_k - \mu)          
-\end{aligned} 
+<p><span class="math display">\[\begin{aligned}
+0 &= \frac{d}{d\mu} \ln \prod_{k=1}^n p(x_k; \mu) = \frac{d}{d\mu} \sum_{k=1}^n \ln p(x_k; \mu) = \sum_{k=1}^n \frac{d}{d\mu} \ln p(x_k; \mu) \\
+&= \sum_{k=1}^n \frac{d}{d\mu} \ln f(|x_k - \mu|) = \sum_{k=1}^n g'(x_k - \mu)
+\end{aligned}
 \]</span></p>
-
-<p>where we have define <span  class="math">\(g(x_k - \hat{\mu}) = \ln f(|x_k - \hat{\mu}|)\)</span>.
-Now, by assumption, this happens when <span  class="math">\(\hat{\mu} = \frac{1}{n}
-\sum_{k=1}^n x_k\)</span>. This must be true for all possible measurements, so
-in particular it will be true for two measurements <span  class="math">\(x_1 = \mu, x_2 =
--\mu\)</span>, which implies that <span  class="math">\(g'(\mu) + g'(-\mu) = 0\)</span>. Our identity must
-also be true for <span  class="math">\(x_1 = (n - 1)\mu\)</span> and all other <span  class="math">\(x_{k \ne 1} = 0\)</span>.
+<p>where we have define <span class="math inline">\(g(x_k - \hat{\mu}) = \ln f(|x_k - \hat{\mu}|)\)</span>.
+Now, by assumption, this happens when <span class="math inline">\(\hat{\mu} = \frac{1}{n} \sum_{k=1}^n x_k\)</span>. This must be true for all possible measurements, so
+in particular it will be true for two measurements <span class="math inline">\(x_1 = \mu, x_2 = -\mu\)</span>, which implies that <span class="math inline">\(g'(\mu) + g'(-\mu) = 0\)</span>. Our identity must
+also be true for <span class="math inline">\(x_1 = (n - 1)\mu\)</span> and all other <span class="math inline">\(x_{k \ne 1} = 0\)</span>.
 That means that:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+<p><span class="math display">\[\begin{aligned}
 0 &= g'(-(n-1)\mu) + (n-1)g'(\mu) = -g'((n-1)\mu) + (n-1)g'(\mu) \\
 g'((n-1)\mu) &= (n-1)g'(\mu) \\
 \end{aligned}
 \]</span></p>
-
-<p>This implies that <span  class="math">\(g'\)</span> is a linear function, ans so <span  class="math">\(g'(x - \mu) =
-a(x-\mu)\)</span> for some constant <span  class="math">\(a\)</span>. This implies that:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+<p>This implies that <span class="math inline">\(g'\)</span> is a linear function, ans so <span class="math inline">\(g'(x - \mu) = a(x-\mu)\)</span> for some constant <span class="math inline">\(a\)</span>. This implies that:</p>
+<p><span class="math display">\[\begin{aligned}
 g(x_k - \mu) &= \frac{1}{2} a(x - \mu)^2 + K \\
 \ln p(x; \mu) &= \frac{1}{2} a(x - \mu)^2 + K \\
 p(x; \mu) &= Ce^{\frac{1}{2} a(x - \mu)^2} 
 \end{aligned}
 \]</span></p>
-
 <p>which results in a Gaussian distribution.</p>
-
 <h3 id="the-central-limit-theorem">The Central Limit Theorem</h3>
-
 <p>The last derivation is the most involved and comes out of the famed
-Central Limit Theorem of statistics. Suppose we have $n$ observations
-<span  class="math">\(x_1, x_2, \ldots, x_n\)</span>, that are i.i.d from some distribution with
-mean $\mu=0$ and variance <span  class="math">\(\sigma^2 = 1\)</span>. Then we will show that
-<span  class="math">\(\lim_{n \rightarrow \infty} \frac{\sum x_k}{\sqrt{n}}\)</span> has the
+Central Limit Theorem of statistics. Suppose we have <span class="math inline">\(n\)</span> observations
+<span class="math inline">\(x_1, x_2, \ldots, x_n\)</span>, that are i.i.d from some distribution with
+mean <span class="math inline">\(\mu=0\)</span> and variance <span class="math inline">\(\sigma^2 = 1\)</span>. Then we will show that
+<span class="math inline">\(\lim_{n \rightarrow \infty} \frac{\sum x_k}{\sqrt{n}}\)</span> has the
 standard normal distribution.</p>
-
 <p>The proof of this theorem will rely heavily on the <em>characteristic
-function</em> <span  class="math">\(\varphi_X(t) = \mathbb{E} \big[ e^{itX} \big]\)</span>, which you
+function</em> <span class="math inline">\(\varphi_X(t) = \mathbb{E} \big[ e^{itX} \big]\)</span>, which you
 might also recognize as the Fourier transform of the pdf.</p>
-
 <p>In some texts, this proof is done via the <em>moment-generating function</em>
-<span  class="math">\(M_X(t) = \mathbb{E} \big[ e^{tX} \big]\)</span>. The proof is similar but
-applies to fewer distributions: the moment-generating function does not
-exist for some distributions. Consider a distribution with pdf <span  class="math">\(p(x) =
-\frac{3}{x^4}\)</span> and support <span  class="math">\([1, \infty)\)</span>. Then its moment generating
+<span class="math inline">\(M_X(t) = \mathbb{E} \big[ e^{tX} \big]\)</span>. The proof is similar but
+applies to fewer distributions because the moment-generating function does not
+exist for some distributions. Consider a distribution with pdf <span class="math inline">\(p(x) = \frac{3}{x^4}\)</span> and support <span class="math inline">\([1, \infty)\)</span>. Then its moment generating
 function is:</p>
-
-<p><span  class="math">\[
-M_X(t) = \mathbb{E}[e^{tX}] = \int_1^\infty \frac{3}e^{tx}{x^4}
+<p><span class="math display">\[M_X(t) = \mathbb{E}[e^{tX}] = \int_1^\infty \frac{3}{x^4} e^{tx} dx
 \]</span></p>
-
-<p>which diverges for <span  class="math">\(t > 0\)</span> (exponents grow faster than the inverse
+<p>which diverges for <span class="math inline">\(t > 0\)</span> (exponents grow faster than the inverse
 polynomial shrinks). This particular function still has finite mean and
-variance (although it an infinite 3rd moment), so the central limit
-theorem still applies to this distribution in a way that cannot be
-proven via moment-generating functions.</p>
-
+variance (it has an infinite 3rd moment), so the central limit theorem
+still applies to this distribution in a way that cannot be proven via
+moment-generating functions.</p>
 <p>The characteristic function, on the other hand, always exists because we
-know that <span  class="math">\(|e^{itX}| = 1\)</span> for all $t, X$ (by definition of imaginary
-exponents). Thus, <span  class="math">\(\int e^{itX} p(x) dx\)</span> is always guaranteed to
+know that <span class="math inline">\(|e^{itX}| = 1\)</span> for all <span class="math inline">\(t, X\)</span> (by definition of imaginary
+exponents). Thus, <span class="math inline">\(\int e^{itX} p(x) dx\)</span> is always guaranteed to
 converge.</p>
-
-<p>The key characteristics of characteristic functions that we'll need for
-our proof are that for independent random variables <span  class="math">\(X\)</span> and <span  class="math">\(Y\)</span> and
-constant <span  class="math">\(c \in \mathbb{C}\)</span>:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
-\varphi_{X + Y}(t) &= \mathbb{E}[e^{it(X + Y)}] = \mathbb{E}[e^{itX}e^{itY}] = \mathbb{E}[e^{itX} \mathbb{E}[e^{itY}] = \varphi_X(t) \varphi_Y(t) \\
+<p>The key characteristics of characteristic functions that we&rsquo;ll need for
+our proof are that for independent random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and
+constant <span class="math inline">\(c \in \mathbb{C}\)</span>:</p>
+<p><span class="math display">\[\begin{aligned}
+\varphi_{X + Y}(t) &= \mathbb{E}[e^{it(X + Y)}] = \mathbb{E}[e^{itX}e^{itY}] = \mathbb{E}[e^{itX}]\mathbb{E}[e^{itY}] = \varphi_X(t) \varphi_Y(t) \\
 \varphi_{cX}(t) &= \mathbb{E}[e^{itcX}] = \varphi_{X}(ct) \\
 \varphi_{X}(t) &= \mathbb{E}[e^{itX}] = \mathbb{E}[\sum_{k=0}^\infty \frac{i^k}{k!} X^k] = \sum_{k=0}^\infty \frac{i^k}{k!} \mathbb{E}[X^k] \\
-\frac{d^n}{dt^n}\varphi_{X}(0) &= i^n \frac{d^n}{dt^n} \mathbb{E}[X^n]
-= \frac{d^n}{dt^n} 
+\frac{d^n}{dt^n}\varphi_{X}(0) &= \mathbb{E}[\frac{d^n}{dt^n} e^{itX}]\Big|_{t=0}
+= i^n \mathbb{E}[X^n]
 \end{aligned}
 \]</span></p>
-
-<p>In particular, because we have specified that <span  class="math">\(0 = \mu =
-\mathbb{E}[X]\)</span> and <span  class="math">\(1 = \sigma^2 = \mathbb{E}[X^2] - \mathbb{E}[X]^2 =
-\mathbb{E}[X^2]\)</span>, we know that <span  class="math">\(\varphi_{X}'(0) = 0, \varphi_{X}''(0)
-= -1\)</span>. We also know by definition that $$\varphi_{X}[0] = 0$.</p>
-
-<p>Now, Taylor's theorem tells us that we can approximate any continuous
-function by a quadratic with <span  class="math">\(\varphi_X = \varphi_X (0) + \varphi_X'(0)
-t + \frac{1}{2} \varphi_X''(0) t^2 + o(t^2) = 1 - \frac{1}{2}t^2 +
-o(\varphi_X''(t))\)</span>, using <a href="https://en.wikipedia.org/wiki/Little-o_notation">Little-o notation</a> to indicate that the
-remainder shrinks to 0 faster than <span  class="math">\(t^2\)</span> does as <span  class="math">\(t \rightarrow 0\)</span>.</p>
-
-<p>Together, this tells us that defining <span  class="math">\(Z_n\)</span> to be our average
-<span  class="math">\(\sum_{k=1}^n X_k\)</span>, we have:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+<p>(Note that the first two facts show us that <span class="math inline">\(\varphi_{X}(t)\)</span> is a
+linear transformation. This makes sense, because we know that the
+Fourier transform is a linear transformation).</p>
+<p>In particular, because we have specified that <span class="math inline">\(0 = \mu = \mathbb{E}[X]\)</span> and <span class="math inline">\(1 = \sigma^2 = \mathbb{E}[X^2] - \mathbb{E}[X]^2 = \mathbb{E}[X^2]\)</span>, we know that <span class="math inline">\(\varphi_{X}'(0) = 0, \varphi_{X}''(0) = -1\)</span>. We also know by definition that <span class="math inline">\(\varphi_{X}(0) = 0\)</span>.</p>
+<p>Now, Taylor&rsquo;s theorem tells us that we can approximate any continuous
+function by a quadratic with <span class="math inline">\(\varphi_X = \varphi_X (0) + \varphi_X'(0) t + \frac{1}{2} \varphi_X''(0) t^2 + o(t^2) = 1 - \frac{1}{2}t^2 + o(t^2)\)</span>, using <a href="https://en.wikipedia.org/wiki/Little-o_notation">Little-o notation</a> to indicate that the
+remainder shrinks to 0 faster than <span class="math inline">\(t^2\)</span> does as <span class="math inline">\(t \rightarrow 0\)</span>.</p>
+<p>Together, this tells us that defining <span class="math inline">\(Z_n\)</span> to be our sum
+<span class="math inline">\(\frac{1}{\sqrt{n}}\sum_{k=1}^n X_k\)</span>, we have:</p>
+<p><span class="math display">\[\begin{aligned}
 \varphi_{Z_n}(t)
 &= \prod_{k=1}^n \varphi_{X_k}(\frac{t}{\sqrt{n}})
 = \varphi_X(\frac{t}{\sqrt{n}})^n
@@ -303,15 +238,10 @@ remainder shrinks to 0 faster than <span  class="math">\(t^2\)</span> does as <s
 = \lim_{n \rightarrow \infty} (1 - \frac{t^2}{2n})^n = e^{-\frac{1}{2}t^2}
 \end{aligned}
 \]</span></p>
-
-<p>Alternatively (depending on which version of Taylor's theorem you
-learned), Taylo'rs theorem tells us that that <span  class="math">\(\exists \xi \in [0, t]\)</span>
-such that <span  class="math">\(\varphi_X(t) = \varphi_(X)(0) + \varphi_X'(0)t + \frac{1}{2}
-\varphi_X''(\xi) t^2 = 1 + \frac{1}{2} \varphi_X''(\xi)t^2 = 1 -
-\frac{1}{2}t^2 + \frac{\varphi_X''(\xi) + 1}{2} t^2\)</span>. This gives us:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+<p>Alternatively (depending on which version of Taylor&rsquo;s theorem you
+learned), Taylor&rsquo;s theorem tells us that that <span class="math inline">\(\exists \xi \in [0, t]\)</span>
+such that <span class="math inline">\(\varphi_X(t) = \varphi_X(0) + \varphi_X'(0)t + \frac{1}{2} \varphi_X''(\xi) t^2 = 1 + \frac{1}{2} \varphi_X''(\xi)t^2 = 1 - \frac{1}{2}t^2 + \frac{\varphi_X''(\xi) + 1}{2} t^2\)</span>. This gives us</p>
+<p><span class="math display">\[\begin{aligned}
 \varphi_{Z_n}(t)
 &= \varphi_X(\frac{t}{\sqrt{n}})^n
 = \big[ 1 - \frac{t^2}{2n} + \frac{\varphi_X''(\xi) + 1}{2}t^2\big]^n \\
@@ -322,16 +252,10 @@ such that <span  class="math">\(\varphi_X(t) = \varphi_(X)(0) + \varphi_X'(0)t +
 &= e^{-\frac{1}{2}t^2}
 \end{aligned}
 \]</span></p>
-
-<p>Using the fact that for <span  class="math">\(\varphi_X(\frac{t}{\sqrt{n}})\)</span>, <span  class="math">\(\xi \in [0,
-\frac{t}{\sqrt{n}}]\)</span>, so <span  class="math">\(\xi \rightarrow 0\)</span> in the last step.</p>
-
-<p>Now, what distribution has characteristic function <span  class="math">\(\varphi_Z(t) =
-e^{-\frac{1}{2}t^2}\)</span>? It turns out this is the standard normal
+<p>Using the fact that for <span class="math inline">\(\varphi_X(\frac{t}{\sqrt{n}})\)</span>, <span class="math inline">\(\xi \in [0, \frac{t}{\sqrt{n}}]\)</span>, so <span class="math inline">\(\xi \rightarrow 0\)</span>.</p>
+<p>Now, what distribution has characteristic function <span class="math inline">\(\varphi_Z(t) = e^{-\frac{1}{2}t^2}\)</span>? It turns out this is the standard normal
 distribution!</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+<p><span class="math display">\[\begin{aligned}
 \varphi_Z(t) &= \mathbb{E}[e^{itX}] \\
 &= \int_{-\infty}^{\infty} e^{itz} \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2} dz
 = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{itz -\frac{1}{2}z^2} dz \\
@@ -341,21 +265,24 @@ e^{-\frac{1}{2} (z - it)^2} dz \\
 &= e^{-\frac{1}{2}t^2}
 \end{aligned}
 \]</span></p>
-
-<p>where I'm going to elide some complex analysis for the last step (you
-can kind of think of it as a change of variable of <span  class="math">\(\tilde{z} = z -
-it\)</span> and using <span  class="math">\(\frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty}
-e^{-\frac{1}{2}\tilde{z}^2} d\tilde{z} = 1\)</span>, although obviously that
-isn't totally kosher with complex variables. If we had used the
+<p>where I&rsquo;m going to elide some complex analysis for the last step (you
+can kind of think of it as a change of variable of <span class="math inline">\(\tilde{z} = z - it\)</span> and using <span class="math inline">\(\frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{1}{2}\tilde{z}^2} d\tilde{z} = 1\)</span>, although obviously that
+isn&rsquo;t totally kosher with complex variables. If we had used the
 moment-generating function here, then the change of variables would
 actually be legitimate in the corresponding derivation).</p>
+<p>Now, this is actually another pretty cool result. Remembering that
+<span class="math inline">\(\varphi_Z(t)\)</span> can be interpreted as a Fourier transform of the pdf,
+this shows that the Gaussian distribution is actually an eigenvector (or
+rather, eigenfunction since the vector space is the space of probability
+denstiy functions) of the Fourier transform!</p>
 
-</div>
+</article>
 
     </div>
     <footer>
       <nav class="nav">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
       </nav>
     </footer>

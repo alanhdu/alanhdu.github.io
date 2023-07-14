@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> A Debugging Story &mdash; Amateur Hour </title>
+  <meta property="og:title" content="A Debugging Story" />
+<meta property="og:description" content="a concrete example of a tricky bug" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alanhdu.github.io/posts/2023-03-12-debug-story/" />
+<meta property="article:published_time" content="2023-03-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-03-12T00:00:00+00:00" />
+
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
+</head>
+
+  <body>
+    <div class="container wrapper">
+      <div class="header">
+	<h1 class="site-title">Amateur Hour</h1>
+	<nav class="nav">
+		<ul class="flat">
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
+    </ul>
+  </nav>
+</div>
+
+      
+
+<div class="post-header">
+  <h2 class="title">A Debugging Story</h2>
+  <strong class="description">Or a concrete example of a tricky bug</strong>
+  <div>
+    <span class="date">Mar 12, 2023</span>.
+    Filed under
+    
+    <span class="category"> <a href="https://alanhdu.github.io/categories/technical">Technical</a></span>
+  </div>
+  Tags:
+    
+    <a href="https://alanhdu.github.io/tags/debugging">debugging</a>, 
+    <a href="https://alanhdu.github.io/tags/software">software</a>
+</div>
+
+<article class="markdown">
+  <p>Debugging is a core skill for software engineers, but IMO it&rsquo;s one that
+we often neglect. There&rsquo;s a ton of advice on the internet on how to be a
+better systems designer, or how to solve algorithms challenges (albeit
+mostly for interviews), but very little on how to get better at
+debugging.</p>
+<p>I wanted to help solve that by trying to document a real-world bug
+(<a href="https://github.com/HypothesisWorks/hypothesis/issues/3446">https://github.com/HypothesisWorks/hypothesis/issues/3446</a>
+stumped me for quite some time. Luckily, it&rsquo;s in an open source codebase
+which means I can share a lot of the actual code without having to
+censor details of our internal codebase.  I might&rsquo;ve gotten some details
+wrong (it&rsquo;s been a couple months since the bug, and I went on vacation
+for like 4 weeks while debugging it), but I reconstructed this as best I
+can from my notes at the time.</p>
+<p>WARNING: this is going to be long, detailed, and somewhat meandering &ndash;
+I wanted to try and document the entire winding journey with all the
+false starts, red herrings, and debugging hacks needed. Bug reports are
+often polished to only see the final solution: my hope is that by
+revealing all the gory details inside that you&rsquo;ll be able to at least
+pick up some tricks.</p>
+<p>If you don&rsquo;t want the all the details, you can skip to the end where I
+talk about some of the lessons I hope you can walk away from.</p>
+<h2 id="some-context">Some Context</h2>
+<p>I work at CTRL-labs, a division of
+Facebook building neural interface technologies for AR/VR. As part of my
+work, I wrote and maintain a library for building &ldquo;real-time streaming&rdquo;
+Pytorch neural networks. These operate over &ldquo;streams&rdquo; of data &ndash; that
+is, data that is delivered to you over time in, say, 100 μs chunks.
+We want to run the neural network on the data as it comes in, with the
+minimum amount of buffering necessary.</p>
+<p>Crucially though, we do not control how much data we receive on each
+chunk &ndash; depending on the exact device firmware and the bluetooth
+status, sometimes we can receive 20 samples of data at once and
+sometimes we can receive 70 samples of data at once. We want the
+output logits of the network to be the same, regardless of this
+behavior &ndash; otherwise, debugging &ldquo;why did my model not respond to XXX&rdquo;
+becomes fiendishly difficult.</p>
+<p>To test this, we use
+<a href="https://github.com/HypothesisWorks/hypothesis">hypothesis</a>, a library
+for property-based testing. The way we implement this test is to create
+an abstract base class where the user defines how to construct a network
+and we define test methods that check for windowing invariance (among
+other things). A simplified version of this looks something like</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># In the Library Code</span>
+<span style="color:#f92672">from</span> hypothesis <span style="color:#f92672">import</span> strategies <span style="color:#66d9ef">as</span> st
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Assertions</span>(metaclass<span style="color:#f92672">=</span>abc<span style="color:#f92672">.</span>ABCMeta):
+    <span style="color:#a6e22e">@abc.abstractmethod</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_pytorch_network</span>(self, data: st<span style="color:#f92672">.</span>Data):
+        <span style="color:#f92672">...</span>
+
+    <span style="color:#a6e22e">@hypothesis.given</span>(st<span style="color:#f92672">.</span>data())
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_online_offline_equivalence</span>(self, data):
+        network <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>create_pytorch_network(data)
+        <span style="color:#75715e"># some assert statements</span>
+
+<span style="color:#75715e"># In User code</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestMyNetwork</span>(Assertions):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_pytorch_network</span>(self, data: st<span style="color:#f92672">.</span>Data):
+        <span style="color:#75715e"># the network I want to check</span>
+        <span style="color:#f92672">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>That is, the user inherits from <code>Assertions</code>, implements
+<code>create_pytorch_network</code> and then the base class automatically creates
+the test cases using that common network generator.</p>
+<h2 id="the-symptom">The Symptom</h2>
+<p>One day, I was alerted to a strange failure in our CircleCI tests. You
+can see the full stacktrace
+<a href="https://gist.github.com/alanhdu/dc2248ffc5697e91c84944ce85e63a16">here</a>,
+but the important part is:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">args <span style="color:#f92672">=</span> (<span style="color:#f92672">&lt;</span>pybmi<span style="color:#f92672">.</span>torch<span style="color:#f92672">.</span>tests<span style="color:#f92672">.</span>test_modules<span style="color:#f92672">.</span>Test_RIMLP_Raw object at <span style="color:#ae81ff">0x7f505fa3ba90</span><span style="color:#f92672">&gt;</span>,)
+kwargs <span style="color:#f92672">=</span> {}
+
+    <span style="color:#a6e22e">@functools.wraps</span>(func)
+<span style="color:#f92672">&gt;</span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorate_context</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+E   hypothesis<span style="color:#f92672">.</span>errors<span style="color:#f92672">.</span>FailedHealthCheck: Examples routinely exceeded the max allowable size<span style="color:#f92672">.</span> (<span style="color:#ae81ff">20</span> examples overran <span style="color:#66d9ef">while</span> generating <span style="color:#ae81ff">9</span> valid ones)<span style="color:#f92672">...</span>
+<span style="color:#f92672">...</span>
+
+You can add <span style="color:#a6e22e">@seed</span>(<span style="color:#ae81ff">124050483624262456020131915724542301937</span>) to this test <span style="color:#f92672">or</span> run pytest <span style="color:#66d9ef">with</span> <span style="color:#f92672">--</span>hypothesis<span style="color:#f92672">-</span>seed<span style="color:#f92672">=</span><span style="color:#ae81ff">124050483624262456020131915724542301937</span> to reproduce this failure<span style="color:#f92672">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This test was intermittent (which probably explains why it was merged
+in) &ndash; in retrospect, I estimate this fails maybe 5-10% of the time.
+That&rsquo;s enough to be very noticeable and annoying to people, but also
+easy enough to miss during development time. At first, I thought it was
+a legitimate failure that just didn&rsquo;t get caught often.</p>
+<p>But when I looked further, I noticed the failure didn&rsquo;t actually make
+much sense. Our test case <em>shouldn&rsquo;t</em> be exceeding the max allowed side
+&ndash; the actual generator in <code>create_pytorch_network</code> looked something
+like:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> hypothesis <span style="color:#f92672">import</span> strategies <span style="color:#66d9ef">as</span> st
+
+st<span style="color:#f92672">.</span>sampled_from([<span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>])
+st<span style="color:#f92672">.</span>sampled_from([(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>), (<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>), (<span style="color:#ae81ff">0</span>,)])
+st<span style="color:#f92672">.</span>boolean()  <span style="color:#75715e"># optional</span>
+st<span style="color:#f92672">.</span>lists(st<span style="color:#f92672">.</span>integers(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>), min_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, max_size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+st<span style="color:#f92672">.</span>sampled_from([<span style="color:#e6db74">&#34;mean&#34;</span>, <span style="color:#e6db74">&#34;max&#34;</span>])
+st<span style="color:#f92672">.</span>lists(st<span style="color:#f92672">.</span>integers(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>), min_size<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, max_size<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>))
+</code></pre></td></tr></table>
+</div>
+</div><p>which should pretty easily fit inside Hypothesis&rsquo;s maximum allowable
+side.</p>
+<h2 id="finding-a-reproducer">Finding a Reproducer</h2>
+<p>The first step to debugging any failure is to figure out how to reliably
+reproduce it. It&rsquo;s possible to debug unreproducible errors (e.g. by
+using appropriate logging to reconstruct what happened or by using
+something like <a href="https://rr-project.org/">rr</a> to <em>make</em> it reproducible),
+but it&rsquo;s a lot more involved.</p>
+<p>The obvious thing to do was to follow the directions from Hypothesis,
+which happily directed specify a <code>--hypothesis-seed=...</code> flag to
+reproduce the error. Unfortunately, that did not work &ndash; I tried this
+flag both locally and in the CI environment<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and could not
+reproduce the failure.</p>
+<p>The second thing was to try to just run the actual test many times until
+I reproduced it. I wrote a small bash script:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">set -ex
+<span style="color:#66d9ef">for</span> i in <span style="color:#f92672">{</span>1..10000<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">do</span>
+    echo $i
+    pytest test_file.py -k <span style="color:#e6db74">&#34;online_offline_equivalence and RIMLP&#34;</span>
+<span style="color:#66d9ef">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>and ran it both locally and in CircleCI. Unfortunately, there was still
+no reproduction. At this point, I was a little stumped &ndash; after all, how
+could this test be intermittently failing in CI, yet I could run it
+10000 times without a single failure?  I decided to just file an
+<a href="https://github.com/HypothesisWorks/hypothesis/issues/3446">issue</a> with
+Hypothesis asking for help and to come back another day (after my
+scheduled vacation).</p>
+<p>The next day after I got back from vacation, I took another look at the
+bug and had the bright thought that maybe this had to do with some
+interaction <em>across</em> test cases. I then set up a couple bash scripts to
+run in parallel:</p>
+<ol>
+<li>One running <code>pytest</code> on just that file 10000 times</li>
+<li>One running <code>pytest</code> on the entire package 10000 times</li>
+<li>One reproducing exactly the CI test command 10000 times.</li>
+</ol>
+<p>That turned out to be the trick. Luckily, it turned out option 1 <em>was</em>
+enough to reproduce the problem in CI. Once I did that, I checked
+whether the same script also worked on my laptop, which it did. It was
+somehow a problem with the file.</p>
+<p>Overall, I&rsquo;d say that finding a minimum reproducer probably took 3-4
+hours, although most of that was waiting for these scripts to finish
+executing.</p>
+<h3 id="minimizing-the-reproducer">Minimizing the Reproducer</h3>
+<p>Once I had a reproducer, it was time to minimize the test case. Ideally,
+I wanted something self-contained in a single file &ndash; that&rsquo;s much easier
+to share to others, especially to the Hypohtesis maintainers on Github.</p>
+<p>I&rsquo;m sure there&rsquo;s a smarter way to do this, but I have a very simple
+algorithm:</p>
+<ol>
+<li>Make a copy of the test file and write a bash script to <code>pytest</code> on
+it 10000 times.</li>
+<li>Recursively Copy and paste into that file</li>
+<li>Delete everything that aren&rsquo;t seem related. Double-check that you
+can still reproduce the bug between deletions.</li>
+<li>Start renaming everything to avoid giving away too many details of
+our internal codebase.</li>
+<li>Check that it reproduces on a fresh environment with minimal
+dependencies (to check it&rsquo;s not some weird monkey-patching thing).</li>
+</ol>
+<p>Getting this to something reasonable took about 2 hours of work, and
+I was able to push the reproducer to
+<a href="https://github.com/alanhdu/hypothesis_3446/blob/591e2efc1e3241f72c2a01352cc3e7e7a116f7ab/test_hypothesis.py">https://github.com/alanhdu/hypothesis_3446/blob/591e2efc1e3241f72c2a01352cc3e7e7a116f7ab/test_hypothesis.py</a> and open a <a href="https://github.com/HypothesisWorks/hypothesis/issues/3446#issuecomment-1262932619">bug report on Github</a></p>
+<p>67 lines of code to reproduce the bug &ndash; not bad in terms of length, but
+pretty bad in terms of complexity.  There were several things that stuck
+out to me as suspicious:</p>
+<ul>
+<li>Why were we hitting a &ldquo;max allowable size&rdquo; error on such a small test
+case?</li>
+<li>Why did the failure only appear when I ran all tests in the file at
+once?</li>
+<li>Why did the failure only appear using the test case inheritance setup?</li>
+<li>Why did the failure not reproduce itself when specifying
+<code>--hypothesis-seed=&lt;...&gt;</code>?</li>
+</ul>
+<h3 id="getting-a-breakpoint">Getting a breakpoint</h3>
+<p>Now that I had an easy reproducer, it was time to whip out <code>pdb</code>, the
+Python debugger (technically, I used
+<a href="https://github.com/pdbpp/pdbpp">pdb++</a> but that&rsquo;s a minor detail).
+Using a debugger is <em>much</em> easier than having to deal with print
+statements.</p>
+<p>My first thought was to just use the <code>pytest --pdb</code> to try to reproduce
+the problem, but that didn&rsquo;t work &ndash; it just kept me at a pointed to the
+<code>@hypothesis.settings</code> line, which did not let me really poke around to
+Hypothesis&rsquo;s internals.</p>
+<p>So instead, I created a new a new conda environment and cloned
+Hypothesis locally, using <code>pip install -e</code> to install the local version.
+This would allow me to insert <code>breakpoint()</code> inside of <code>hypothesis</code>&rsquo;s
+own codebase and get a debugger going. You don&rsquo;t technically have to do
+this &ndash; I have sometimes directly modified the files in
+<code>anaconda/env/test/lib/python3.8/site-packages/hypothesis</code>, but that can
+be risky if you don&rsquo;t remember to revert your changes afterwards (or to
+blow away and recreate the environment.</p>
+<p>From there, I just used ripgrep to find the actual error message.
+Luckily, that error happened exactly once, so I was able to insert a
+<code>breakpoint</code> right at <a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/internal/conjecture/engine.py#L366">this line</a>.</p>
+<h2 id="debugging">Debugging</h2>
+<p>With this in mind, we can finally start debugging. Now that I knew where
+the error message was being sent, I could use the breakpoint to inspect
+the callstack and try to figure out how everything fits together. In
+particular, how are examples actually being generated, and what defines
+the &ldquo;max allowable size&rdquo;?</p>
+<h3 id="making-things-deterministic">Making things deterministic</h3>
+<p>This took a while (and I went down a wrong turn looking heavily at the
+<a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/internal/conjecture/shrinker.py#L109"><code>Shrinker</code></a>
+class which ended up being a red herring), but eventually it became
+clear that the key method was
+<a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/internal/conjecture/engine.py#L366"><code>ConjectureRunner.generate_new_examples</code></a>
+That eventually calls into <a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/internal/conjecture/engine.py#L366"><code>ConjectureRunner.new_conjecture_data</code></a>
+which turns in turns gets a <code>self.random</code> argument.</p>
+<p>Just from the name, it seemed like <code>self.random</code> must be the source of
+non-determinism. To test that assumption, I added a
+<code>self.original_state = self.random.getstate()</code> to the constructor
+immediately after <a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/internal/conjecture/engine.py#L95">this line</a>,
+which meant I could then read that local variable in a <code>pdb</code> session. I
+could then patch the <code>__init__</code> to always call
+<code>self.random.set_state(...)</code> with the given seed.</p>
+<h3 id="whats-wrong-with-the-seeding">What&rsquo;s wrong with the seeding?</h3>
+<p>With this change, I had a 100% reproducible bug for the first time ever.
+Now, the question was: why did passing in <code>--hypothesis-seed=...</code> in the
+CLI <em>not</em> make things reproducible if a manual
+<code>self.random.set_state(...)</code> did? Clearly, I thought, this must be
+because there was some kind of hidden non-determinism in setting the
+seed somehow.</p>
+<p>I tried to just read through the code to understand where the seed was
+being set (using strategic use of <code>ripgrep</code> to look for strings like
+<code>set_state</code>), but this ended up going nowhere &ndash; the initialization
+logic was pretty complicated, and I didn&rsquo;t really understand how the
+well enough to piece things together. I decided to work on something
+else for a while.</p>
+<p>After a couple days, I came back to this and decided I could just cheat
+&ndash; instead of reading the code, I could just instrument it to record
+everywhere the seed is being set. So I wrote a custom wrapper around
+<code>random.Random</code> that would record the stacktrace of every access to
+<code>random.Random</code> constructor call and to every call to <code>set_state</code> and
+monkey-patched it in my test script, before I even import <code>hypothesis</code>
+for the first time:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+<span style="color:#f92672">import</span> traceback
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyRandom</span>(random<span style="color:#f92672">.</span>Random):
+    <span style="color:#66d9ef">def</span> __init__(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        super()<span style="color:#f92672">.</span>__init__(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        self<span style="color:#f92672">.</span>access <span style="color:#f92672">=</span> [
+            (<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs, traceback<span style="color:#f92672">.</span>format_stack())
+        ]
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_state</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        super()<span style="color:#f92672">.</span>set_state(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        self<span style="color:#f92672">.</span>access<span style="color:#f92672">.</span>append((<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs, traceback<span style="color:#f92672">.</span>format_stack())
+
+random<span style="color:#f92672">.</span>Random <span style="color:#f92672">=</span> MyRandom
+</code></pre></td></tr></table>
+</div>
+</div><p>In <code>pdb</code>, this let me access all the places where seeds were set to
+narrow down my search. Finally, I hit the payload: the seed was being
+set in a <a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/core.py#L459"><code>get_random_for_wrapped_test</code></a>
+function which looked like:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_random_for_wrapped_test</span>(test, wrapped_test):
+    settings <span style="color:#f92672">=</span> wrapped_test<span style="color:#f92672">.</span>_hypothesis_internal_use_settings
+    wrapped_test<span style="color:#f92672">.</span>_hypothesis_internal_use_generated_seed <span style="color:#f92672">=</span> None
+
+    <span style="color:#66d9ef">if</span> wrapped_test<span style="color:#f92672">.</span>_hypothesis_internal_use_seed <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+        <span style="color:#66d9ef">return</span> Random(wrapped_test<span style="color:#f92672">.</span>_hypothesis_internal_use_seed)
+    <span style="color:#66d9ef">elif</span> settings<span style="color:#f92672">.</span>derandomize:
+        <span style="color:#66d9ef">return</span> Random(int_from_bytes(function_digest(test)))
+    <span style="color:#66d9ef">elif</span> global_force_seed <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+        <span style="color:#66d9ef">return</span> Random(global_force_seed)
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">global</span> _hypothesis_global_random
+        <span style="color:#66d9ef">if</span> _hypothesis_global_random <span style="color:#f92672">is</span> None:
+            _hypothesis_global_random <span style="color:#f92672">=</span> Random()
+        seed <span style="color:#f92672">=</span> _hypothesis_global_random<span style="color:#f92672">.</span>getrandbits(<span style="color:#ae81ff">128</span>)
+        wrapped_test<span style="color:#f92672">.</span>_hypothesis_internal_use_generated_seed <span style="color:#f92672">=</span> seed
+        <span style="color:#66d9ef">return</span> Random(seed)
+</code></pre></td></tr></table>
+</div>
+</div><p><code>pdb</code> confirmed that the <code>Random</code> was being set using
+<code>wrapped_test._hypothesis_internal_use_seed</code>. Grepping for the
+<code>_hypothesis_internal_use_seed</code> string, I landed at <a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/core.py#L173">this
+function</a>:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">accept</span>(test):
+    test<span style="color:#f92672">.</span>_hypothesis_internal_use_seed <span style="color:#f92672">=</span> seed
+    current_settings <span style="color:#f92672">=</span> getattr(test, <span style="color:#e6db74">&#34;_hypothesis_internal_use_settings&#34;</span>, None)
+    test<span style="color:#f92672">.</span>_hypothesis_internal_use_settings <span style="color:#f92672">=</span> Settings(
+        current_settings, database<span style="color:#f92672">=</span>None
+    )
+    <span style="color:#66d9ef">return</span> test
+</code></pre></td></tr></table>
+</div>
+</div><p>Finally, I had hit something &ndash; it looks like setting the seed directly
+<em>also</em> implicitly sets the <code>database</code> setting to <code>None</code>. If I removed
+that line, then I could now (finally) reproduce the error using
+<code>--hypothesis-seed=&lt;...&gt;</code> instead of manually setting
+<code>self.random.set_state</code> in the <code>ConjectureRunner.__init__</code> function!</p>
+<p>This finally answers the question of &ldquo;why doesn&rsquo;t
+<code>--hypothesis-seed=&lt;...&gt;</code> reproduce the error &ndash; it&rsquo;s because that
+implicitly turns off the database use!</p>
+<p>NOTE: At this point, I realized I could&rsquo;ve found the answer very simply by
+just using the <code>--hypothesis-verbosity=debug</code> flag &ndash; that would
+immediately logged the database files we were using, and comparing the
+diffs between <code>--hypothesis-seed=&lt;...&gt;</code> and without it would&rsquo;ve
+immediately told me that <code>database=None</code> in one but not the other. So in
+some sense, this was a very unnecessary route to what I needed).</p>
+<h3 id="its-the-database">It&rsquo;s the database!</h3>
+<p>As part of this, I noticed that if I modified the reproduction test to
+do <code>hypothesis.settings(database=None)</code>, then I could no longer reproduce the
+failure at all! That means the error <em>must</em> be coming from the database
+somehow. Going back to <code>ConjectureRunner.__init__</code>, it looked like there
+was a <code>database_key</code> field that seemed relevant.</p>
+<p>To see what&rsquo;s going on, I added a <code>print(self.dataset_key)</code> statement in
+the constructor and checked the outputs &ndash; it turns out both test
+functions were sharing the <em>same</em> database key! I added a quick hack to
+ensure they had different database keys by replacing <a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/internal/conjecture/engine.py#L96C8-L96C41">this line</a>
+with:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>database_key <span style="color:#f92672">=</span> None <span style="color:#66d9ef">if</span> database_key <span style="color:#f92672">is</span> None <span style="color:#66d9ef">else</span> database_key <span style="color:#f92672">+</span> uuid<span style="color:#f92672">.</span>uuid4()
+</code></pre></td></tr></table>
+</div>
+</div><p>With the key collision cleared up, there was no longer any error! This
+answered <em>another</em> one of my questions: why was it necessary to run both
+tests at once to reproduce the error? It must be because the shared key
+causes some kind of collision.</p>
+<p>The last part was to check <em>why</em> the database keys were conflicting.
+From here,</p>
+<p>After some investigation, I followed <code>pdb</code> up from
+<code>ConjectureRunner.__init__</code> to see that the database key was being set
+<a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/core.py#L813">here</a>:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">try</span>:
+    database_key <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>wrapped_test<span style="color:#f92672">.</span>_hypothesis_internal_database_key
+<span style="color:#66d9ef">except</span> <span style="color:#a6e22e">AttributeError</span>:
+    <span style="color:#66d9ef">if</span> global_force_seed <span style="color:#f92672">is</span> None:   <span style="color:#75715e"># this branch is taken!</span>
+        database_key <span style="color:#f92672">=</span> function_digest(self<span style="color:#f92672">.</span>test)
+    <span style="color:#66d9ef">else</span>:
+        database_key <span style="color:#f92672">=</span> None
+</code></pre></td></tr></table>
+</div>
+</div><p>Looking at that <code>function_digest</code> <a href="https://github.com/HypothesisWorks/hypothesis/blob/6fe7da613d0efcbc17c000960848c277523ad106/hypothesis-python/src/hypothesis/internal/reflection.py#L51">function</a>,
+I could see that was basically hashing the source code, name, and
+arguments of the function! But because of the inheritance, all of these
+things are exactly the same!</p>
+<p>Now, I could finally say I understood what was going on:</p>
+<ul>
+<li>Why were we hitting a &ldquo;max allowable size&rdquo; error on such a small test
+case? Because of some kind of database corruption due to the
+conflicting database keys?</li>
+<li>Why did the failure only appear when I ran all tests in the file at
+once? Without multiple tests, there are no collisions in the database?</li>
+<li>Why did the failure only appear using the test case inheritance setup?
+Without this, the different tests would be assigned different test keys</li>
+<li>Why did the failure not reproduce itself when specifying
+<code>--hypothesis-seed=&lt;...&gt;</code>? This implicitly sets <code>database=None</code>, which
+means the database keys are not relevant.</li>
+</ul>
+<p>Now, I could finally go back and fix the intermittent error (by setting
+<code>database=None</code> in our default hypothesis settings) update the bug
+report with all my latest findings to discuss potential solutions.</p>
+<h2 id="lessons">Lessons</h2>
+<p>Now, this was a fairly tricky bug &ndash; overall, I estimate that it took me
+around 30-40 hours of devoted work (plus more hours in my off time
+marinating over the bug) for me to track down the problem. As you can
+see, it was a long, winding road with multiple false starts and places
+where I was stumped until I came back with fresh eyes.</p>
+<p>So, what have we learned? I think a couple things:</p>
+<ul>
+<li>Be patient: sometimes, you just need to walk away and work on
+something else for a while, coming back with fresh eyes on the problem</li>
+<li>Bugs are fixable: you actually <em>can</em> go in and debug problems, even
+when they are tricky and involve other people&rsquo;s code. The joy of using
+open-source software is that you can fix your own problems and not
+just wait for someone to come by.</li>
+<li>Know your tools: most of this was only possible because I&rsquo;ve been
+using Python for years and now a bunch of ways on how to get
+information (e.g. using <code>pdb</code> to dynamically explore a codebase, or
+monkey-patching classes to trace where they&rsquo;re used). Learning how
+these tools work is worth it.</li>
+<li>Debugging is like a science: at every step, I had some <em>specific</em>
+questions I wanted to answer, and often had working assumption that I
+wanted to test. Those questions/assumptions guide what information you
+should go out and gather &ndash; this is much more effective then &ldquo;let&rsquo;s
+print everything, stare at the logs, and think very hard&rdquo;.</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>CircleCI helpfully allows you to &ldquo;re-run with ssh&rdquo; a test, so I
+could ssh onto the actual worker and inspect its state interactively
+as well. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+</article>
+
+    </div>
+    <footer>
+      <nav class="nav">
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+      </nav>
+    </footer>
+  </body>
+</html>

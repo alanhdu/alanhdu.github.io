@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>reading on Amateur Hour</title>
+    <link>https://alanhdu.github.io/tags/reading/</link>
+    <description>Recent content in reading on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/reading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What I&#39;ve Been Reading (Nov-Dec 2022)</title>
+      <link>https://alanhdu.github.io/posts/2023-01-08-reading/</link>
+      <pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2023-01-08-reading/</guid>
+      <description>A little light on the reading the last couple of months, thanks to the holidays.
+Books I spent some time reading ethnographies over the last few months. This was mostly new to me &amp;ndash; although I had several friends from college in anthropology / sociology who talked about ethnographies, this was the first time I actually sat down to read them myself. I was pleasantly surprised by how readable they were &amp;ndash; I was expecting things to be denser and more jargony, but overall I think the authors actually did a good job explaining everything.</description>
+    </item>
+    
+    <item>
+      <title>What I&#39;ve Been Reading (Oct 2022)</title>
+      <link>https://alanhdu.github.io/posts/2022-11-13-what-im-reading/</link>
+      <pubDate>Sun, 13 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-11-13-what-im-reading/</guid>
+      <description>Talks  A Practical Guide to Applying Data-Oriented Design: This was a really nice talk &amp;ndash; I&amp;rsquo;ve heard of data-oriented design before, but this talk gave a lot of really concrete examples about exactly what that means. Some of it was stuff I was familiar with (e.g. struct-of-arrays instead of array-of-structs), but the talk on data encodings (e.g. storing things in two arrays instead of adding a boolean field) new and interesting.</description>
+    </item>
+    
+    <item>
+      <title>What I&#39;ve Been Reading (Sep 2022)</title>
+      <link>https://alanhdu.github.io/posts/2022-10-27-what-im-reading/</link>
+      <pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-10-27-what-im-reading/</guid>
+      <description>Books Dancing in the Glory of Monsters: The Collapse of the Congo and the Great War of Africa This was probably my favorite book of the year &amp;ndash; it&amp;rsquo;s a history of the Congo wars, and it&amp;rsquo;s absolutely gut-wrenching. The author doesn&amp;rsquo;t flinch from just how brutal this war is1, how complicated the conflict are (there are like 10 armies and 20 militia groups involved), how complicit in the atrocities all the major leaders are, and how little the West cares.</description>
+    </item>
+    
+    <item>
+      <title>What I&#39;ve Been Reading (Aug 2022)</title>
+      <link>https://alanhdu.github.io/posts/2022-09-04-what-im-reading/</link>
+      <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2022-09-04-what-im-reading/</guid>
+      <description>Books A Thousand Acres https://www.amazon.com/Thousand-Acres-Novel-Jane-Smiley/dp/1400033837
+A Thousand Acres basically an adaptation of King Lear, set in rural Iowa in a rural farming community. It&amp;rsquo;s a deliberate reinterpretation, portraying Larry / King Lear much less sympathetically (and trying to humanize the &amp;ldquo;evil&amp;rdquo; daughters Ginny / Goneril and Rose / Regan). The ending is also fairly different (although still quite bleak).
+Overall, I enjoyed the book &amp;ndash; it was well-written and engaging, but there was nothing that made me really fall in love with it.</description>
+    </item>
+    
+  </channel>
+</rss>

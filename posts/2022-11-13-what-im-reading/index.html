@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> What I&#39;ve Been Reading (Oct 2022) &mdash; Amateur Hour </title>
+  <meta property="og:title" content="What I&#39;ve Been Reading (Oct 2022)" />
+<meta property="og:description" content="a short log of things I read last month." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alanhdu.github.io/posts/2022-11-13-what-im-reading/" />
+<meta property="article:published_time" content="2022-11-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-11-13T00:00:00+00:00" />
+
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/katex.min.css" />
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/katex.min.js"> </script>
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ]
+  });
+});
+</script>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js" integrity="sha384-Ep9Es0VCjVn9dFeaN2uQxgGcGmG+pfZ4eBaHxUpxXDORrrVACZVOpywyzvFRGbmv" crossorigin="anonymous"></script>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
+</head>
+
+  <body>
+    <div class="container wrapper">
+      <div class="header">
+	<h1 class="site-title">Amateur Hour</h1>
+	<nav class="nav">
+		<ul class="flat">
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
+    </ul>
+  </nav>
+</div>
+
+      
+
+<div class="post-header">
+  <h2 class="title">What I&#39;ve Been Reading (Oct 2022)</h2>
+  <strong class="description">Or a short log of things I read last month.</strong>
+  <div>
+    <span class="date">Nov 13, 2022</span>.
+    Filed under
+    
+    <span class="category"> <a href="https://alanhdu.github.io/categories/musings">Musings</a></span>
+  </div>
+  Tags:
+    
+    <a href="https://alanhdu.github.io/tags/reading">reading</a>
+</div>
+
+<article class="markdown"><aside><strong> Table of Contents </strong> <nav id="TableOfContents">
+  <ul>
+    <li><a href="#talks">Talks</a></li>
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#papers">Papers</a>
+      <ul>
+        <li><a href="#a-series-on-perennial-grains">A Series on Perennial Grains</a></li>
+        <li><a href="#metastable-failures-in-distributed-systems">Metastable failures in distributed systems</a></li>
+        <li><a href="#dbos-a-dbms-oriented-operating-system">DBOS: a DBMS-oriented operating system</a></li>
+        <li><a href="#xrp-in-kernel-storage-functions-with-ebpf">XRP: In-Kernel Storage Functions with eBPF</a></li>
+        <li><a href="#finding-missed-optimizations-through-the-lens-of-dead-code-elimination">Finding missed optimizations through the lens of dead code elimination</a></li>
+        <li><a href="#compiler-validation-via-equivalence-modulo-inputs">Compiler validation via equivalence modulo inputs</a></li>
+        <li><a href="#using-lightweight-formal-methods-to-validate-a-key-value-storage-node-in-amazon-s3">Using Lightweight Formal Methods to Validate a Key-Value Storage Node in Amazon S3</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav> </aside>
+  <h2 id="talks">Talks</h2>
+<ul>
+<li><a href="https://media.handmade-seattle.com/practical-data-oriented-design/">A Practical Guide to Applying Data-Oriented
+Design</a>:
+This was a really nice talk &ndash; I&rsquo;ve heard of data-oriented design
+before, but this talk gave a lot of really concrete examples about
+exactly what that means. Some of it was stuff I was familiar with (e.g.
+struct-of-arrays instead of array-of-structs), but the talk on data
+encodings (e.g. storing things in two arrays instead of adding a boolean
+field) new and interesting.</li>
+<li><a href="https://www.youtube.com/watch?v=dH7QUdXeVrI">CHERI: A Modern Capability
+Architecture</a> &ndash; this was
+a very nice introduction to CHERI, an experimental architecture that
+tries to build-in memory safety at the hardware level. I was vaguely
+aware of what CHERI was, but it was nice to have very concrete details
+about what specifically it does and how you can use it to build in
+safety guarantees. Highly recommended!</li>
+</ul>
+<h2 id="articles">Articles</h2>
+<ul>
+<li><a href="https://www.ralfj.de/blog/2018/01/31/sharing-for-a-lifetime.html">Sharing for a
+Lifetime</a>
+&ndash; this was an article about how you define a formal semantics for
+Rust. I think the key idea (that types get to decide <em>for themselves</em>
+what the shared <code>&amp;</code> invariant means) was super interesting. I haven&rsquo;t
+done enough Rust to really run into this in practice (I&rsquo;ve only done
+&ldquo;toy&rdquo; Rust programs that haven&rsquo;t needed much interior mutability so
+far), but I&rsquo;m sure it&rsquo;ll help me in the future!</li>
+<li><a href="https://acoup.blog/2020/07/24/collections-bread-how-did-they-make-it-part-i-farmers/">How They Made It:
+Bread</a>
+&ndash; this was a nice overview of historical agriculture: what was
+involved, who actually did it, and what the social relations (and
+power structures) that created it. A great complement to some of the</li>
+</ul>
+<h2 id="papers">Papers</h2>
+<h3 id="a-series-on-perennial-grains">A Series on Perennial Grains</h3>
+<p>After somehow running across the <a href="https://landinstitute.org/">Land Institute</a>, I somehow ended up falling down a strange
+rabbit hole investigating perennial grains. Apparently, all the grains
+we commonly rely on (e.g. wheat, maize, rice, potatoes) are <em>annual</em>
+plants which need to be replanted every year. This replanting is both
+expensive (requiring huge amounts of fertilizer and pesticide) and
+environmentally destructive (e.g. creating huge amounts of soil runoff,
+to the extent that 1/3rd of US agricultural lands have entirely lost
+their topsoil!). The Land Institute&rsquo;s hope is that perennial grains can
+avoid these problems while being even <em>more</em> productive as well (since
+they don&rsquo;t have to keep regrowing the same structures each year).</p>
+<p>I read the following four papers about this overall vision:</p>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9372509/">Perennials as Future Grain Crops: Opportunities and Challenges</a></li>
+<li><a href="https://www.cambridge.org/core/journals/experimental-agriculture/article/perennial-grains-for-africa-possibility-or-pipedream/1B202EE8B9D7D793A8402900CBDBD30C">Perennial Grains for Africa: Possibility or Pipe Dream?</a></li>
+<li><a href="https://doi.org/10.1080/21683565.2015.1007200">The Strong Perennial Vision: A Critical Review</a></li>
+<li><a href="https://doi.org/10.1080/21683565.2015.1008777">The Strong Perennial Vision: A Response</a></li>
+</ul>
+<p>I think the basic TLDR is that everyone agrees that the problems with
+modern agriculture are very real, but that (1) making perennial grains
+economically viable is a serious challenge (apparently, the naive
+approach leads to only 10-20% of the yield of annual grains), and (2)
+whether this is the best way to solve the problem. Smaje&rsquo;s the only one
+who thinks that perennial grains might be impossible, but personally I
+didn&rsquo;t find their argument very compelling.</p>
+<p>I also tried to dig into what modern agricultural breeding research
+actually looks like and took a look at two papers:</p>
+<ul>
+<li><a href="https://www.nature.com/articles/s41477-017-0083-8">Speed breeding is a powerful tool to accelerate crop research and
+breeding</a> &ndash; this
+is basically a protocol for growing plants faster so you can get more
+generations of breeding per year (e.g. up to 6 generations a year).
+That&rsquo;s pretty cool, but TBH even 6 generations of year seems painfully
+slow to my computer science sensibilities (I get frustrated at work
+when experiments taking more than a couple days to run!).</li>
+<li><a href="https://www.sciencedirect.com/science/article/pii/S1360138520300534">Roadmap for Accelerated Domestication of an Emerging Perennial Grain
+Crop</a>
+&ndash; this identifies some useful traits of domesticated grains and
+associated genetic markers that can be specifically targeted for
+faster domestication. The details went over my head, but the most
+striking thing was how little we actually understood about the genetic</li>
+</ul>
+<p>Overall, I thought this was really cool rabbit hole, and a good forcing
+function to review a bunch of basic botany and agriculture knowledge.</p>
+<h3 id="metastable-failures-in-distributed-systems">Metastable failures in distributed systems</h3>
+<p><a href="https://dl.acm.org/doi/10.1145/3458336.3465286">https://dl.acm.org/doi/10.1145/3458336.3465286</a></p>
+<p>This was a really neat paper &ndash; it defines a new <em>category</em> of
+&ldquo;metastable&rdquo; failures, which are failures that do not self-heal (e.g.
+there&rsquo;s some feedback loop that sustains the failure over time). A
+retry storm is a good example of this: if a service is overloaded such
+that requests start to fail (and thus be retried by the client), those
+retrying requests can <em>keep</em> the service overloaded (and thus causing
+even more retrys later).</p>
+<p>Although the paper (unfortunately) didn&rsquo;t go into much detail about how
+to avoid metastable failures, just noticing the <em>general</em> features of
+this type of problem and providing a clear mental model was nice.</p>
+<h3 id="dbos-a-dbms-oriented-operating-system">DBOS: a DBMS-oriented operating system</h3>
+<p><a href="https://vldb.org/pvldb/vol15/p21-skiadopoulos.pdf">https://vldb.org/pvldb/vol15/p21-skiadopoulos.pdf</a></p>
+<p>This was a nice vision paper about using distributed databases as a
+layer for defining distributed operating systems (instead of the million
+ad-hoc interfaces from things like Kubernetes, Slurm, Zookeper, etc).</p>
+<p>I&rsquo;ve been complaining for years that operating systems should expose a
+more database-like API for querying the internals (e.g. instead of
+having to parse <code>/proc</code> files) so I&rsquo;m naturally on-board with this
+vision, but I wouldn&rsquo;t say the paper did enough implementation work to
+convince me that this would actually work on real-world workloads.
+Hopefully in a future paper!</p>
+<h3 id="xrp-in-kernel-storage-functions-with-ebpf">XRP: In-Kernel Storage Functions with eBPF</h3>
+<p><a href="https://www.usenix.org/conference/osdi22/presentation/zhong">https://www.usenix.org/conference/osdi22/presentation/zhong</a></p>
+<p>This paper details XRP, which uses eBPF to directly run logic in the
+Linux storage layer (similar to
+<a href="https://en.wikipedia.org/wiki/Express_Data_Path">XDP</a> and networking).
+The basic idea makes a ton of sense (modern SSDs are <em>fast</em> and syscall
+overhead can be pretty substantial), although I don&rsquo;t have enough
+experience building high-performance database systems to say much about
+the actual API presented (or the technical limitations).</p>
+<p>TBH, I&rsquo;m a little surprised no one built this earlier (XDP is like 6
+years old now!), but I&rsquo;m glad it&rsquo;s finally happening.</p>
+<h3 id="finding-missed-optimizations-through-the-lens-of-dead-code-elimination">Finding missed optimizations through the lens of dead code elimination</h3>
+<p><a href="https://ethz.ch/content/dam/ethz/special-interest/infk/ast-dam/documents/Theodoridis-ASPLOS22-DCE-Paper.pdf">https://ethz.ch/content/dam/ethz/special-interest/infk/ast-dam/documents/Theodoridis-ASPLOS22-DCE-Paper.pdf</a></p>
+<p>This was a one of two really clever testing papers exploiting dead code
+optimization. The basic idea is that by inserting &ldquo;markers&rdquo; (i.e.
+special inline assembly instructions) into code, you can tell whether a
+compiler optimized out that entire basic block or not (e.g. because it
+was dead code). Then, by comparing two different compilers, you can find
+identify bugs (e.g. either one compiler is missing optimizations or one
+compiler is incorrectly optimizing out code). By randomly generating C
+code using C-Smith and repeating many many times, you get yourself an
+automated bug finder.</p>
+<p>A nice, clever idea to identify bugs.</p>
+<h3 id="compiler-validation-via-equivalence-modulo-inputs">Compiler validation via equivalence modulo inputs</h3>
+<p><a href="https://web.cs.ucdavis.edu/~su/publications/emi.pdf">https://web.cs.ucdavis.edu/~su/publications/emi.pdf</a></p>
+<p>This is a 2nd approach to finding compiler bugs &ndash; the basic idea is to:</p>
+<ol>
+<li>Generate random C programs (e.g. using C-Smith)</li>
+<li>Execute those programs on random inputs while collecting code
+coverage</li>
+<li>Identify dead-code of the program <em>for those inputs</em></li>
+<li>Arbitrarily mutate that dead-code (in this paper, they just delete
+dead code) and then re-execute the new program on the same input.</li>
+</ol>
+<p>As long as your mutations avoid introducing undefined behavior, any
+mismatch in steps 2 and 4 are indicative of a bug.</p>
+<p>I think this was a fairly clever idea, but found the paper itself
+to be weirdly obfuscated and unclear. They spent a lot of time with
+formal definitions that IMO really weren&rsquo;t necessary and didn&rsquo;t
+contribute much.</p>
+<h3 id="using-lightweight-formal-methods-to-validate-a-key-value-storage-node-in-amazon-s3">Using Lightweight Formal Methods to Validate a Key-Value Storage Node in Amazon S3</h3>
+<p><a href="https://dl.acm.org/doi/10.1145/3477132.3483540">https://dl.acm.org/doi/10.1145/3477132.3483540</a></p>
+<p>A nice experience report about how Amazon tests S3 about how they used
+property based testing + fault injection to better test S3. It was fun
+to read, but nothing really stood out to me as particularly novel (a lot
+of it just seemed like straightforward property based testing against a
+known oracle). I think the most interesting thing was the degree to
+which they used &ldquo;default&rdquo; random test case generators and minimization
+heuristics &ndash; the fact that those worked out so well is another good
+evidence that they&rsquo;re pretty well-tuned at this point.</p>
+<p>I did find the title slightly amusing &ndash; as someone who does a ton of
+property based tests at work, I have never described it as a
+&ldquo;lightweight formal method&rdquo;, but maybe I should start!</p>
+
+</article>
+
+    </div>
+    <footer>
+      <nav class="nav">
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+      </nav>
+    </footer>
+  </body>
+</html>

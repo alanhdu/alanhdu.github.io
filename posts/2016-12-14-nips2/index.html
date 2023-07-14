@@ -2,18 +2,19 @@
 <html lang="en-US">
   <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><title> Reflections on NIPS (Part 2) -- Amateur Hour </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> Reflections on NIPS (Part 2) &mdash; Amateur Hour </title>
   <meta property="og:title" content="Reflections on NIPS (Part 2)" />
 <meta property="og:description" content="what I&#39;m thinking about now" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://alanhdu.github.io/posts/2016-12-14-nips2/" /><meta property="article:published_time" content="2016-12-14T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2016-12-14T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://alanhdu.github.io/posts/2016-12-14-nips2/" />
+<meta property="article:published_time" content="2016-12-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-12-14T00:00:00+00:00" />
 
-	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" />
 
-  <link rel="apple-touch-icon" sizes="180x180" href="http://alanhdu.github.io/favicon//apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="http://alanhdu.github.io/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="http://alanhdu.github.io/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
 </head>
 
   <body>
@@ -22,11 +23,11 @@
 	<h1 class="site-title">Amateur Hour</h1>
 	<nav class="nav">
 		<ul class="flat">
-      <li><a href="http://alanhdu.github.io/">Home</a></li>
-      <li><a href="http://alanhdu.github.io/about">About</a></li>
-      <li><a href="http://alanhdu.github.io/categories">Categories</a></li>
-      <li><a href="http://alanhdu.github.io/tags">Tags</a></li>
-      <li><a href="http://alanhdu.github.io/index.xml">RSS Feed</a></li>
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
     </ul>
   </nav>
 </div>
@@ -37,55 +38,39 @@
   <h2 class="title">Reflections on NIPS (Part 2)</h2>
   <strong class="description">Or what I&#39;m thinking about now</strong>
   <div>
-    <span class="date">Dec 14, 2016</span>
+    <span class="date">Dec 14, 2016</span>.
     Filed under
     
-    <span class="category"> <a href="http://alanhdu.github.io/categories/technical">Technical</a></span>
+    <span class="category"> <a href="https://alanhdu.github.io/categories/technical">Technical</a></span>
   </div>
   Tags:
-    [
     
-    
-    <a href="http://alanhdu.github.io/tags/machine%20learning">machine learning</a>
-    
-    , 
-    <a href="http://alanhdu.github.io/tags/research">research</a>
-    
-    , 
-    <a href="http://alanhdu.github.io/tags/ideas">ideas</a>
-    
-    , 
-    <a href="http://alanhdu.github.io/tags/NIPS">NIPS</a>
-    
-    ]
+    <a href="https://alanhdu.github.io/tags/machine-learning">machine learning</a>, 
+    <a href="https://alanhdu.github.io/tags/research">research</a>, 
+    <a href="https://alanhdu.github.io/tags/ideas">ideas</a>, 
+    <a href="https://alanhdu.github.io/tags/nips">NIPS</a>
 </div>
 
-<div class="markdown">
-  
-
-<p>One nice thing about going to NIPS is how intellectual stimulating it
+<article class="markdown">
+  <p>One nice thing about going to NIPS is how intellectual stimulating it
 was.  I&rsquo;ve spent most of the past few months thinking about other
 things, so being immersed into the machine learning world again was
 definitely reinvigorating. Before the intellectual high fades, I
 thought I&rsquo;d sketch out the most interesting puzzles that I&rsquo;m thinking
 about thanks to NIPS.</p>
-
 <h3 id="learning-structure">Learning Structure</h3>
-
 <p>Humans can learn from an incredibly small amount of data. For example,
 if I showed you a single picture of an
 <a href="https://en.wikipedia.org/wiki/Okapi">Okapi</a>, you could probably
 identify an Okapi if you ever saw one again. A neural network like
 Inception or AlexNet on the other hand, requires much more than a single
 training example to start identifying Okapis.</p>
-
 <p>Josh Tenenbaum gave another stark illustration in his talk in the <a href="https://sites.google.com/site/deeprlnips2016/">Deep
 Reinforcement Learning
 workshop</a> DQN, the
 algorithm DeepMind used in its original Atari paper, can take hundreds
 to thousands of hours of playing time until it sees noticeable
 improvements. Humans can make huge amounts of progress in 15 minutes.</p>
-
 <p>There are a lot of different approaches to this kind of few-shot
 learning problem (learning from a small number of examples), but in my
 opinion the obvious place to examine is the prior knowledge humans have
@@ -93,7 +78,6 @@ before starting a new task. Some of this knowledge is just facts about
 the world (e.g. penguins live in Antarctica), but some of this is just
 fundamental assumptions about how the world is structured (e.g. that the
 world is composed of discrete, independent objects/entities).</p>
-
 <p>This type of knowledge doesn&rsquo;t need to be learned &ndash; cognitive science s
 full of examples of &ldquo;built-in&rdquo; knowledge that humans have about the
 world before any learning takes place.  While it might be possible to
@@ -103,7 +87,6 @@ arguably impossible, depending on how much you believe certain cognitive
 science schools of thought). Instead, we should encode our prior
 information about the world as an inductive bias through a neural
 network architecture.</p>
-
 <p>Convolutional neural networks are an example of a success case here.
 2-D convolutions by their nature are implicitly encoding notions of
 spatial locality and translation invariance. This makes them an
@@ -112,7 +95,6 @@ it&rsquo;s possible to learn that &ldquo;pixels next to each other in space are
 meaningful&rdquo; purely from fully-connected layers, I&rsquo;ve never seen it work
 in practice (and I&rsquo;ve never personally been able to get dense networks
 to work well for toy computer vision tasks).</p>
-
 <p>But how do we extend this beyond convolutions?  In particular, I&rsquo;m very
 interested in how to encode linguistic knowledge into our network
 architectures. As a committed Chomskyan, I think there&rsquo;s an incredible
@@ -122,7 +104,6 @@ language is governed by hierarchical dependencies, not by linear word
 order. That implies that the RNNs (and LSTMs and GRUs) that are standard
 in NLP are unsuitable models for language, despite their admittedly
 impressive success in things like machine translation.</p>
-
 <p>How to actually tackle this problem? Honestly, I have no idea. It&rsquo;s
 unclear to me how to encode hierarchical information into neural
 networks, let alone all the other rich linguistic structure. I&rsquo;d
@@ -134,15 +115,12 @@ forgotten by this point (and honestly, I bet that most of what I
 remember is now outdated). Maybe try training on some toy problems that
 require hierarchical dependencies (e.g. anaphor resolution and binding).
 We&rsquo;ll see where I go from there.</p>
-
 <h3 id="parameter-efficiency">Parameter Efficiency</h3>
-
 <p>I&rsquo;ll admit that I&rsquo;d always felt a little uneasy about neural networks
 Although I can&rsquo;t argue with the results, I&rsquo;ve never seen a very
 convincing explanation of <em>why</em> neural networks work, other than the
 fact that they do. The theoretician in me finds that incredibly
 suspicious.</p>
-
 <p>At NIPS, I discovered that most neural networks could be &ldquo;pruned&rdquo; &ndash;
 that is, you could throw out weights (sometimes more than three quarters
 of them!) &ndash; without any noticeable differences in performance.
@@ -152,7 +130,6 @@ is hard to see from the outside).  I also learned that neural networks
 were even more robust to low precision arithmetic than I assumed: I knew
 that lots of neural nets used 16-bit floating point precision, but at
 NIPS I saw people using 8-bit and sometimes even 1-bit precision!</p>
-
 <p>The ability to prune the majority of your extremely low-precision
 weights imply to me that, at the very least, we&rsquo;re being supper
 inefficient during training, and at most, that we&rsquo;re massively
@@ -165,16 +142,13 @@ interesting toy-experiment would be to see whether deep networks can fit
 randomized noise as well as they can fit, say, images. If the training
 error for noise isn&rsquo;t any lower than the training error for images, then
 I think that&rsquo;d be pretty good evidence that something fishy&rsquo;s going on.</p>
-
 <p>(I suspect that this has been done already, but I think it&rsquo;s a good task
 to get my feet wet with deep learning outside of toy models fit on my
 laptop).</p>
-
 <h3 id="adversarial-learning">Adversarial Learning</h3>
-
-<p>I learned about this new paper, <a href="link:https://arxiv.org/abs/1610.08401">Universal Adversarial
-Perturbations</a>. Building off
-earlier work on <a href="http://karpathy.github.io/2015/03/30/breaking-convnets/">adversarial perturbations</a> the authors
+<p>I learned about this new paper, <a href="https://arxiv.org/abs/1610.08401">Universal Adversarial Perturbations
+</a>. Building off earlier work on
+<a href="http://karpathy.github.io/2015/03/30/breaking-convnets/">adversarial perturbations</a> the authors
 discovered a <em>universal</em> adversarial perturbation. In other words, they
 found a noise pattern that, when combined with <em>any</em> image, causes the
 network to misclassify the perturbed image, even though the changes are
@@ -182,12 +156,13 @@ imperceptible to the human eye. Even worse, these perturbations seem to
 generalize <em>across</em> networks and not just across images. Definitely
 something scary to look into&hellip;</p>
 
-</div>
+</article>
 
     </div>
     <footer>
       <nav class="nav">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
       </nav>
     </footer>

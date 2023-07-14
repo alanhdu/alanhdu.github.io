@@ -1,0 +1,286 @@
+---
+title: Managing Configuration Complexity
+categories: technical
+description: why configuring my ML experiments is so much harder than
+tags: ["software engineering"]
+date: 2022-05-04
+---
+
+**TLDR**: Some thoughts on code structure/organization for machine
+learning research on medium-to-large teams (>10 people working on the
+same ML model).
+
+## The Problem
+
+I work on a machine learning research team who are working to "improve"
+on our current models. This means trying lots of different research
+ideas, analyzing the results, and then deciding what to include for our
+state-of-the-art releases. [^1]
+
+In order to (and frankly, in order to understand the techniques we use
+and the data we work with), it's important to run *experiments* -- that
+means testing a new idea against a carefully chosen baseline so you can
+investigate. For rigorous science, you want to be very deliberate in
+what is fixed across "trials" and what varies across trials.
+
+The easiest way to do this is to make your experiments *configurable* --
+that is, to have a single script (or GUI or whatever) that is capable of
+training all branches of your experiment at once -- this makes it easier
+to ensure you're only varying things you mean to vary and also lets you
+reuse the code between experiments.
+
+The problem comes when you aggregate across time. You have a new
+idea and want to re-use the same experimental code. Or your own a large
+team and you want to share code to make sure people's results are
+apples-to-apples. Regardless, in my experience what tends to happen is
+that this experiment swells up as it gains more and more configuration
+options. Soon the *configuration logic* (choosing what parameters to
+vary and what to keep fixed) swells and overtakes the *implemenation
+logic* (what the could would look like if you fixed the parameters and
+inlined all the configuration logic). The code ends up literally
+orders-of-magnitude larger and more complex than what a straight-forward
+implementation *without* all the configuration would look like [^2].
+
+Despite my best efforts, this has happened on literally research project
+I've been part of -- what was first a nice lean implementation bloats
+over time and becomes a giant mess. Typically, what happens is that
+somebody (often me) gets fed up and starts a clean-slate implementation.
+And then the cycle repeats.
+
+This... works, I guess, but it definitely feels inefficient. I want to
+spend some time analyzing exactly what is happening here and what we can
+do to manage this "configuration complexity".
+
+## Why does this happen?
+
+I think the technical reason this happens is somewhat obvious:
+configuration options aren't independent of each other. In fact,
+they're often deeply coupled -- if I change the preprocessing we use on
+the data, then I *also* have to change the data augmentation and network
+architecture to compensate. Unless you're disciplined about keeping you
+configuration options totally composable and orthogonal, then each new
+configuration option increases complexity non-linearly![^5]
+
+Another way to phrase this is that any configuration object that's
+flexible enough to run arbitrary experiments is, almost by definition, 
+a [god object](https://en.wikipedia.org/wiki/God_object). After all, it
+has to know enough about your program to let people experiment with
+every part of it!
+
+Socially, there's a tragedy of the commons happening here. Although
+globally we'd like to keep the central experiment simple and lean, for
+any particular research investigation it's almost always to add "just
+one more command line flag" and "just one more if statement". The end
+result, of course, is dozens of command line flags and so many special
+cases that it's hard to figure out what the "general" case is anymore.
+
+## What to do about it?
+
+Ok, now that we've identified the problem, what can we do about it? I
+won't claim to have perfect solutions, but I think I've come up with a
+couple things that work over the last 5 years. I'm going to try and be
+super concrete here -- it's easy to say vague things like "design
+composable abstractions" or "keep it simple stupid", but I've never
+found such vague advice actually helpful.
+
+### Merge less code!
+
+This might sound like heresy, but I mean this very seriously.  The
+simplest solution is to just to stop merging code into the main
+experiment unless you really need to.
+
+Everyone knows the benefits of merging code together (Building on each
+others work! Getting it into CI so it stays working!), but I think
+people forget that there are *costs* to merging code too:
+- Building on each others work's is great, but it means that everyone
+  else needs to read and understand your code. *You* might not think
+  `my_super_secret_flag` is a big deal because it's off by default and
+  can be safely ignored, but now *everyone else* is going to have learn
+  and remember that too. Imagine that you're in charge of onboarding and
+  have to explain to every new team member that you can ignore the `
+  network = "alans_crazy_architecture"` only works if you set
+  `my_random_flag=6`, but it's ok because it's off by default.
+- Getting it into CI is good, but it means that everyone else has to pay
+  attention to your code to *keep* it working. That means everyone who
+  wants to refactor the codebase is going to read, understand, and then
+  modify your code. You are essentially trading off the work *you* would
+  put in to rebase your branch and adapt to breaking changes with the
+  work that *others* need to put in to update your code.[^3]
+
+Obviously, these costs are often worth it (why would we ever merge code
+together otherwise), but I think things are slightly different in a
+research context than in a traditional SWE role:
+
+- Are we actually going to use this code again? In my experience, the
+  *vast* large majority of my ideas don't yield any interesting results
+  and it's unlikely we'll actually build on top of them. If that's the
+  case, then why merge it at all (you can always go back to the git
+  commit if you need to revisit the implementation later)? Personally,
+  I'd estimate that <30% of my scientific code actually gets merged into
+  the `main` branch -- the rest of it is thrown away.
+- Are we going to use it *right now*? If not, then it's probably better to
+  merge your implementation functions (e.g. your neural network class,
+  or the function implementing your data augmentation) *without* adding
+  it to the main experiment configuration. That way, people can re-use
+  your work later while we figure out how to cleanly setup the
+  configuration.
+- Is *everyone* going to use this? If not, maybe you should maintain
+  your own experiment for your immediate collaborators separate from the
+  team-wide experiment. Because of the non-linear complexity growth from
+  configuration optoins, it's way easier to manage 5 experiments, each
+  with only 5 configuration options than 1 experiment with 25
+  configuration options.
+  - Yes, this might require you to duplicate some code. That's OK,
+    especially if it's glue code. We can always introduce new
+    abstracitons later (IMO, [Don't Repeat Yourself (DRY)
+    ](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) is totally
+    overrated[^4]).
+
+The main downside of this approach is that it's purely social -- I
+haven't figured out how to institutionalize this message in a scaleable
+way. I'm not sure there is one, since all of these questions are
+ultimately judgement calls.
+
+### Hoist the configuration up
+
+Now that you've reduced the configuration logic in the first place, the
+next thing to do is to centralize all of the configuration in one place.
+
+Ok, that's a little abstract. How about we take a look at a concrete
+example. I often find code that looks like:
+
+```python
+def calculate_loss(teacher, student, batch, loss: Literal["mse", "softmax"]):
+    y_t = teacher(batch)
+    y_s = student(batch)
+    if loss == "mse":
+        return nn.functional.mse_loss(y_s, y_t)
+    elif loss = "softmax":
+        return nn.functional.nll_loss(y_s, y_t)
+```
+
+This isn't great -- in general, these kind of `if value == "string_literal"` 
+mixed in with your business logic are a bit of a red flag. A much better
+implementation would be something like:
+
+```python
+def calculate_loss(network, batch, loss_fn):
+    y_t = teacher(batch)
+    y_s = student(batch)
+    return loss_fn(y_s, y_t)
+```
+
+Instead of passing in the "config" representing our logic (a `mse` or
+`softmax` string), we have "hoisted" this out and instead pass in the
+Python object that actually has our business logic (in this case, an
+arbitrary function). Because `calculate_loss` now operates over a
+well-defined interface (a callable) instead of an ad-hoc configuration
+flag,[^6] it is more general and can be re-used in more contexts
+(particular those that don't share the same configuration mechanism as
+you do).
+
+Another example I see a lot is something like:
+
+```python
+def my_func(..., flag1: bool, flag2: bool):
+    if flag:
+        do_a()
+    else:
+        do_b()
+
+    do_more_things()
+
+    if flag and flag2:
+        do_c()
+    el:
+        do_d()
+```
+
+If this happens
+
+```python
+def my_experiment(config: JSON)
+    # Centralize all of the "config" to
+    network = create_network(...)
+    loss_fn = ...
+    data = ...
+
+    # Now that we have objects with well-defined Python interfaces
+    # run your business logic. This code should not have any 
+    # `if flag == "string_literal"` checks.
+    train_model(...)
+    benchmark_model(...)
+```
+
+This way:
+- You centralize the "configuration logic" (how to convert YAML
+  files/JSON blobs/CLI flags/whatever) into a single place, which makes
+  it easier to read. This also makes it easier to use a library like
+  [Hydra](https://hydra.cc) or [Typer](https://typer.tiangolo.com) to
+  help a lot with the UI parts of the configuration management.
+- You make your business logic more general by operating over
+  well-defined interfaces (and not forcing other users to use the same
+  configuration that you do).
+
+Another place where this shows up is something like:
+
+```python
+from torch import nn
+
+# Let's assume this is using typer to auto-generate a CLI
+def my_experiment(architecture: str, logits: int, use_bn: bool = True):
+    network = CONSTRUCTOR_LOOKUP[architecture](logits, use_bn=use_bn)
+    ...
+```
+
+This code is... fine, but it assumes that all the constructors in the
+lookup table have the same function signature. That's ok if you have
+simple function signatures (like we do here) or you have a small # of
+architectures (so you can manually audit them), but at some point your
+likely to have some parameters that don't work with all architectures.
+In that case, I recommend something more like:
+
+```python
+def my_experiment(architecture: str, network_kwargs: Dict[str, Any])
+    network = CONSTRUCTOR_LOOKUP[architecture](logits, **network_kwargs)
+    ...
+```
+
+That way, every architecture can get its own parameters and you don't
+have to worry about collisions. There's the downside of figuring out how
+you want to support `network_kwargs` in the CLI (do you pass in a string
+and JSON parse it? Pass in a path that points to a YAML file?), but
+that's a one-time cost that lets you decouple your constructors from
+each other.
+
+[^1]: Obviously I'm eliding a ton of detail here
+
+[^2]: Just today, I totally rewrote one of the experiments I was working
+  on from "scratch" (that is, only using our shared set libraries and
+  not touching any of the previous experiment code) while hard-coding in
+  the current state-of-the-art parameters. The result was a paltry 200
+  lines-of-code (LOC) , even though the original experiment has swelled
+  to many 1000s of LOC.
+
+[^3]: This reminds me of the monorepo vs versioning tradeoff -- in a
+  monorepo, the person making the changes eats the cost of breaking
+  changes, while in system driven by package versions, the consumer eats
+  the cost.
+
+[^4]: Maybe more precisely, I think it's useful shorthand for beginner
+  programmers to give them a rule-of-thumb on when to refactor code, but
+  it's absolutely toxic for intermediate programmers  who tend to go
+  overboard and introduce a bunc hof fragile abstractions (code
+  duplication is better than a bad abstraction!) I can (and maybe
+  someday will) write an entire blog post about how abstraction is *not*
+  the same thing as code sharing, but that's for another day.
+
+[^5]: Quadratically if you think you only have pairwise interactions,
+  but realistically you probably have some multi-way interactions so
+  even faster than that.
+
+[^6]: In a language like Rust or Haskell with good support for
+  [algebraic data types
+  ](https://en.wikipedia.org/wiki/Algebraic_data_type), this would be
+  much more acceptable, but in a language like Python you pretty much
+  have to define an interface/protocol to keep sane.

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> Notes on Policy Gradients &mdash; Amateur Hour </title>
+  <meta property="og:title" content="Notes on Policy Gradients" />
+<meta property="og:description" content="a couple of helpful derivations" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alanhdu.github.io/posts/2020-02-16-policy-gradients/" />
+<meta property="article:published_time" content="2020-02-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-16T00:00:00+00:00" />
+
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/katex.min.css" />
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/katex.min.js"> </script>
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ]
+  });
+});
+</script>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js" integrity="sha384-Ep9Es0VCjVn9dFeaN2uQxgGcGmG+pfZ4eBaHxUpxXDORrrVACZVOpywyzvFRGbmv" crossorigin="anonymous"></script>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
+</head>
+
+  <body>
+    <div class="container wrapper">
+      <div class="header">
+	<h1 class="site-title">Amateur Hour</h1>
+	<nav class="nav">
+		<ul class="flat">
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
+    </ul>
+  </nav>
+</div>
+
+      
+
+<div class="post-header">
+  <h2 class="title">Notes on Policy Gradients</h2>
+  <strong class="description">Or a couple of helpful derivations</strong>
+  <div>
+    <span class="date">Feb 16, 2020</span>.
+    Filed under
+    
+    <span class="category"> <a href="https://alanhdu.github.io/categories/technical">Technical</a></span>
+  </div>
+  Tags:
+    
+    <a href="https://alanhdu.github.io/tags/math">math</a>, 
+    <a href="https://alanhdu.github.io/tags/machine-learning">machine learning</a>
+</div>
+
+<article class="markdown">
+  <p><strong>TLDR</strong>: Some quick notes about policy gradient reinforcement learning
+algorithms.</p>
+<h2 id="setupnotation">Setup/Notation</h2>
+<p>We usually think of reinforcement learning in terms of a Markovian
+decision process: our world consists of a set of states <span class="math inline">\(s \in S\)</span>
+and possible actions <span class="math inline">\(a \in A\)</span>. At each time stamp, our agent can
+observe our current state <span class="math inline">\(s_t\)</span>, and then use some policy <span class="math inline">\(\pi(a |s)\)</span> to choose some action <span class="math inline">\(a_t\)</span>. The world then updates according
+to some (usually unknown) transition probability <span class="math inline">\(\Pr[s_{t+1} | s_t, a_t]\)</span> to a new state and we are given some reward <span class="math inline">\(\gamma^t R(s_t, a_t, s_{t+1})\)</span>, where <span class="math inline">\(0 < \gamma \le 1\)</span> is some arbitrary
+discounting factor.</p>
+<p>Let <span class="math inline">\(\tau\)</span> denote some arbitrary sequence of <span class="math inline">\((s_t, a_t)\)</span> pairs.
+Then we say our objective is to maximize our expected reward:</p>
+<p><span class="math display">\[J_\pi = \mathbb{E}_{\tau} \big[ R(\tau) \big]
+\]</span></p>
+<p>Where we use <span class="math inline">\(R(\tau)\)</span> to denote our reward <span class="math inline">\(\sum_{\tau} \gamma^t R_t\)</span>, using <span class="math inline">\(R_t\)</span> as shorthand for <span class="math inline">\(R(s_t, a_t, s_{t+1})\)</span>.
+Our expectation is over the probability distribution induced by our
+current policy (and the unknown but fixed environmental state update
+rule).</p>
+<h2 id="policy-gradient">Policy Gradient</h2>
+<p>Policy gradient algorithms are an approach to solving this problem that
+try to solve this problem by directly optimizing over our policy <span class="math inline">\( \pi\)</span>.  Suppose we parametrize our policy with some parameters <span class="math inline">\(\theta\)</span>
+to get <span class="math inline">\(\pi(a | s, \theta)\)</span>. Then, we can calculate the gradient of
+our expected reward as</p>
+<p><span class="math display">\[\begin{aligned}
+\nabla_\theta J_\pi
+&= \nabla_\theta \mathbb{E}_\tau \big[ R(\tau) \big] \\
+&= \int R(\tau) \nabla_\theta p(\tau) d\tau
+= \int R(\tau) p(\tau) \nabla_\theta \ln p(\tau) d\tau \\
+&= \mathbb{E}_{\tau} \big[ R(\tau) \nabla_\theta \ln p(\tau) \big] \\
+&= \mathbb{E}_{\tau} \big[ R(\tau) \nabla_\theta \sum_t [\ln \pi(a_t | s_t, \theta) + \ln \Pr(s_{t+1} | s_t, a_t)] \big] \\
+&= \mathbb{E}_{\tau} \big[ R(\tau) \sum_t \nabla_\theta \ln \pi(a_t | s_t, \theta) \big] \\
+\end{aligned}
+\]</span></p>
+<p>Intuitively, this means we should update our gradients according to the
+the log-probability of all of the actions our policy selects, weighted
+by the reward we see. In other words, if have a trajectory that gives us
+a large reward, we should upweight the probability of generating that
+trjaectory.</p>
+<p>This formulation is nice because we can estimate this &ldquo;policy gradient&rdquo;
+easily by a simple Monte Carlo procedure, where we just draw multiple
+sample trajectories (i.e.  run our agent through the
+environment/simulation) and look at the empirical mean of <span class="math inline">\(R(\tau \sum \nabla_\theta \ln \pi(a_t | s_t, \theta)\)</span>.</p>
+<p>Unfortunately, this estimation formulation has high variance. We can do
+better by noticing for any state-dependent baseline
+function <span class="math inline">\(b(s_t, t)\)</span>:</p>
+<p><span class="math display">\[\begin{aligned}
+\mathbb{E}_{\tau} \big[ b(s_t, t) \nabla_\theta \ln \pi(a_t | s_t, \theta) \big]
+&= \mathbb{E}_{s_t, a_t} 
+\big[ b(s_t, t) \nabla_\theta \ln \pi(a_t | s_t, \theta) \big] \\
+&= \mathbb{E}_{s_t} \big[ b(s_t, t)
+\mathbb{E}_{a_t}[\nabla_\theta \ln \pi(a_t | s_t, \theta)] \big] \\
+&= \mathbb{E}_{s_t} \big[ b(s_t, t)
+\int \pi(a_t | s_t, \theta) \nabla_\theta \ln \pi(a_t | s_t, \theta) da_t \big] \\
+&= \mathbb{E}_{s_t} \big[ b(s_t, t)
+\int \nabla_\theta \pi(a_t | s_t, \theta) da_t \big] \\
+&= \mathbb{E}_{s_t} \big[ b(s_t, t)
+\nabla_\theta \int \pi(a_t | s_t, \theta) da_t \big] \\
+&= 0
+\end{aligned}
+\]</span></p>
+<p>The last equality follows because <span class="math inline">\(\pi(a_t | s_t, \theta)\)</span> is a
+probability distribution, and so its integral must be 1. Thus we can
+subtract out some state/time dependent baseline from our reward estimate
+<span class="math inline">\(R(\tau)\)</span> without biasing our gradient estimate. This observation
+leads us to a number of different improvements:</p>
+<h2 id="reinforce">REINFORCE</h2>
+<p>Applying our previous identity, using the time-dependent baseline <span class="math inline">\(b(t) = \mathbb{E} \big[ \sum_{t' < t} \gamma^{t'} R_{t'} \big] \)</span>, we get:</p>
+<p><span class="math display">\[\begin{aligned}
+\nabla_\theta J_\pi 
+&= \mathbb{E}_{\tau} \big[ R(\tau) \sum_t \nabla_\theta \ln \pi(a_t | s_t, \theta) \big] \\
+&= \mathbb{E}_{\tau} \big[ \sum_t \gamma^t R_{t'} \cdot \sum_t \nabla_\theta \ln \pi(a_t | s_t, \theta) \big] \\
+&= \mathbb{E}_{\tau} \big[ \sum_t \big( \sum_{t' \ge t} \gamma^{t'} R_{t'} \cdot \nabla_\theta \ln \pi(a_t | s_t, \theta) \big) \big]
+\end{aligned}
+\]</span></p>
+<p>This new formulation basically says: &ldquo;we should upweight the probability
+of taking some action based on the reward we get&rdquo;. Unlike our earlier
+formulation though, we only take into account rewards that could possibly
+have been generated by that action, not rewards that happened causally
+<em>before</em> that action&quot;.</p>
+<p>If we estimate this expectation using only a single sample and then
+apply stochastic gradient ascent, we end up with the REINFORCE learning
+algorithm.</p>
+<h2 id="interlude-q-functions-and-value-functions">Interlude: Q-Functions and Value Functions</h2>
+<p>Another way to conceptualize the policy gradient is with Q-functions and
+value functions. We define the value function as the expected reward we
+get from entering some state <span class="math inline">\(s\)</span>.</p>
+<p><span class="math display">\[V_\pi(s, t) = \mathbb{E}_{\tau | s_t = s} \big[ \sum_{t' \ge t} \gamma^{t'} R_{t'} \big]
+\]</span></p>
+<p>Q-functions are similar, except that they represent the expected reward
+of taking an action <span class="math inline">\(a\)</span> at state <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[Q_\pi(s, a, t) = \mathbb{E}_{\tau | s_t = s, a_t = a} \big[ \sum_{t' \ge t} \gamma^{t'} R_{t'} \big]
+\]</span></p>
+<p>I&rsquo;ve written both functions as time-dependent here to simplify things
+with the discount factors and to account for any boundary effects in our
+sum over time steps (e.g. if our trajectory only runs for a fixed number
+of time steps), although it is common to have RL problems where both can
+be expressed as time-independent function (e.g. a game of chess, where
+our reward is winning/losing at the end of the game).</p>
+<h2 id="actor-critic">Actor-Critic</h2>
+<p>Using these functions, we can refine our gradient estimation:</p>
+<p><span class="math display">\[\begin{aligned}
+\nabla_\theta J_\pi 
+&= \mathbb{E}_{\tau} \big[ \sum_t \big( \sum_{t' \ge t} \gamma^{t'} R_{t'} \cdot \nabla_\theta \ln \pi(a_t | s_t, \theta) \big) \big] \\
+&= \mathbb{E}_{\tau} \big[ \sum_t \big( [\gamma^t R_t + \sum_{t' > t} \gamma^{t'} R_{t'}] \cdot \nabla_\theta \ln \pi(a_t | s_t, \theta) \big) \big] \\
+&= \sum_t \mathbb{E}_{t} \big[
+ \mathbb{E}_{s_{t+1} | s_t=s, a_t=a} \big(
+   \gamma^t R(s_t, a_t, s_{t+1}) + 
+   V_\pi(s_{t+1}, t+1)
+ \big)
+ \cdot \nabla_\theta \ln \pi(a_t | s_t, \theta)
+\big] \\
+&= \sum_t \mathbb{E}_{t} \big[ Q_\pi(s, a, t) \nabla_\theta \ln \pi(a_t | s_t, \theta) \big]
+\end{aligned}
+\]</span></p>
+<p>Where in the last step, we exprss the Q-function in terms of the state function:</p>
+<p><span class="math display">\[\begin{aligned}
+Q_\pi(s, a, t)
+&= \mathbb{E}_{\tau | s_t = s, a_t = a} \big[ \sum_{t' \ge t} \gamma^{t'} R_{t'} \big] \\
+&= \mathbb{E}_{s_{t+1} | s_t = s, a_t = a} [ \gamma^t R(s_t, a_t, s_{t+1}) ] + \mathbb{E}_{t' > t} \big[ \sum_{t' > t} \gamma^{t'} R_{t'} \big] \\
+&= \mathbb{E}_{s_{t+1} | s_t = s, a_t = a} [ \gamma^t R(s_t, a_t, s_{t+1}) ] + \mathbb{E}_{s_{t +1}} V_\pi(s_{t + 1}, t + 1) \\
+&= \mathbb{E}_{s_{t+1} | s_t = s, a_t = a} \big[ \gamma^t R(s_t, a_t, s_{t+1}) + V_\pi(s_{t + 1}, t + 1) \big]
+\end{aligned}
+\]</span></p>
+<p>To reduce the variance of this estimate, we can use the <em>value</em> function
+as our state-and-time-dependent baseline.</p>
+<p><span class="math display">\[\nabla_\theta J_\pi
+= \mathbb{E}_{\tau} \big[ \sum_t \big( [Q_\pi(s, a, t) - V_\pi(s, t)] \cdot \nabla_\theta \ln \pi(a_t | s_t, \theta) \big) \big]
+\]</span></p>
+<p>This formulation tries to tackle the credit-assignment issue: some
+actions give high reward just because they are taken from an
+advantageous state. In some sense, then, this reward is &ldquo;because&rdquo; of the
+state (and thus the previous actions that got us to this state), not
+because of the current action choice. By subtracting away <span class="math inline">\(V_\pi(s, t)\)</span>, we only upweight actions that do <em>better</em> than what we&rsquo;d expect
+from just the current state.</p>
+<p>Of course, the problem here is that usually the &ldquo;advantage&rdquo; <span class="math inline">\(Q_\pi(s, a, t) - V_\pi(s, t)\)</span> is unknown! The solution is to substitute the
+advantage with some empirical estimator, which will itself be
+parametrized by some learnable parameters. Although this might introduce
+bias if our estimator is not unbiased, with a strong function
+approximator we can hopefully reduce our variance enough for this
+tradeoff to be worth it.</p>
+<p>This leads naturally to the &ldquo;actor-critic&rdquo; reinforcement learning
+framework, which has two parts: an actor (the policy <span class="math inline">\(\pi(a_t | s_t, \theta) \)</span>) and a critic which estimates <span class="math inline">\( Q_\pi(s, a, t) - V_\pi(s, t)\)</span>. The details vary based on the algorithm, but this framework works by
+drawing samples and using them to alternatively update the actor and the
+critic.</p>
+
+</article>
+
+    </div>
+    <footer>
+      <nav class="nav">
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+      </nav>
+    </footer>
+  </body>
+</html>

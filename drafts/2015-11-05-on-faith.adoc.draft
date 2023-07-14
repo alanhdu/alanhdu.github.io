@@ -1,0 +1,271 @@
+= On Faith
+:category: musings
+:description: on philosophy 2.0
+:revdate: 2015-11-05
+:keywords: philosophy
+:stem: latexmath
+
+====
+NOTE: My knowledge of philosophy is dismal, gleaned almost entirely
+from discussions with fellow classmates and from CC readings. It's
+entirely possible (and even likely) that "real" philosophy is
+significantly better than I think it is.
+====
+
+I had this interesting conversation last week about logic and philosophy
+and faith, and we spent a long time talking past each other. I thought
+it'd be interesting to try to precisely pin down my views.
+
+== The plan forward
+
+My main point is that logic is necessary but insufficient to
+understanding the world, and that it's usually pretty silly to insist
+on an axiomatic treatment of things. Then, because Columbia has
+apparently turned me into a fucking philosopher (shudder), I'll talk
+specifically about how this applies to ethics.
+
+== Why should I care?
+
+The world is complicated. That seems like a totally trite statement, but
+I think that a lot of people are deeply unsettled by this. I've met a
+lot of people -- usually in STEM and usually math/physics/CS (although
+sometimes who do philosophy) --  who I think _need_ the world to make
+sense.
+
+Obviously, there's nothing wrong with _wanting_ the world to make sense.
+That's just intellectual curiosity, after all. But if you take it too
+far, I think it quickly becomes self-destructive. People fall into a
+kind of intellectual arrogance, where they think that
+math/physics/whatever is the only "real" intellectual field and that
+nothing else is legitimate. Practically, it means people overthink and
+overanalyze things, stressing themselves out for no reason.
+
+But I think the worst consequences appear in the super-philosophically
+and/or the angsty teens.  When you're wondering about weighty things
+like or "what's the purpose of life" or whatever, intellectual rigidity
+and the need to justify everything quickly turns into a nihilistic
+hell-scape. Why should we care about other people? There's not really a
+good way to logically justify that. And once you start, it's easy to
+keep finding things that have no logical basis -- which quickly leads to
+the aforementioned nihilistic relativist hellscape.
+
+And frankly, nihilism sucks. No one's actually a nihilist, or they'd
+have killed themselves already, but, speaking from personal experience,
+intellectually flirting with nihilism is a great way to devolve into
+depressive episode.
+
+== Logic and Faith
+
+When I was a sophomore in high school, I took a comparative religion
+class. It was fascinating, definitely one of the best classes I took in
+high school. One of my clearest memories is watching a debate between
+Christopher Hitchens and a Christian apologist (I think his name was
+William Craig?), where Hitchens asks the apologist, "why do you believe
+in the Bible?"
+
+The apologist responded by quoting a verse from the Bible. Hitchens
+immediately pounced, arguing that that was completely circular and
+vacuous. The apologist fired back, "Ok. Well, why do you believe in logic?"
+
+Why do we believe in logic? It's an absurd question. The very act of
+asking "why" _presupposes_ a system of reason and justification -- in
+other words, a system of logic. Trying to justify logic is inherently
+circular -- you just have to take it on faith.
+
+In fact, I don't think it's _possible_ to deny logic. I think
+cause-and-effect, reasoning, and truthiness is so fundamental to the
+universe (or at least to the human mind) that it's impossible to go
+without assuming some kind of logical system. To deny logic isn't even
+wrong; it's totally incoherent.
+
+== Misconceptions on Logic
+
+Logic is so intuitive, yet nebulous, that it's extremely easy to
+unknowingly be extremely sloppy when talking about it, so this is one of
+the few times where I'll try to be super precise about pinning down what
+exactly I mean by logic. Mathematics is really the best example of
+precise thinking, and there was an explosion of interest in mathematical
+logic after the turn of the 20th century, so I'll be mostly using
+termniology from mathematical logic. Get ready for a bastardized crash
+course.
+
+In a traditional math class, you probably distinguish between axioms,
+essentially unsupported assumptions, and theorems, which are statements
+with proof. Formally though, these statements are just strings of
+symbols.
+
+Formally, we have _statements_ about the world, like "2 + 2 = 4" or "all
+birds are red", which are just strings of symbols with _truth values_.
+For example, "2 + 2 = 4" is true, while "all birds are red" is
+(presumably) false.
+
+====
+IMPORTANT: Remember that statements are _not_ just strings of symbols.
+They're a string _and_ a truth value. For clarity, I will write
+statements as ordered pairs of strings and truth values. For example,
+("2 + 2 = 4", T) means that "2 + 2 = 4" is true and ("all birds are
+red", F) means that "all birds are red" is false.
+====
+
+_Logical rules_, or rules of inference, are just rules that transform
+existing statements into new statements. For example,
+link:https://en.wikipedia.org/wiki/Modus_ponens[modus ponens] is a
+logical rule, that lets us construct ("it is wet", T) from ("if it is
+raining, then it is wet", T) and ("it is raining", T).
+
+Importantly, logical rules are _not_ statements about the world. They
+are statements about about _how_ you can combine statements about the
+world (a kind of meta-statement, if you will). There are also
+meta-logical rules (or meta-meta-statements) which are statements about
+logical rules. The only one that I'll mention here is the assumption
+that our logical system is _consistent_ (i.e. no statement is both true
+and false at the same time).footnote:[Why is this a statement about
+meta-logic? Well, the consistency assumption is about the _semantic_
+definitions of true and false, which is distinct from the syntactic
+truth values that we assign to strings. It's thus more of a statement
+about how logic works than about the world.]
+
+Logical rules _must_ be taken on faith. There's not really a good way to
+justify whether a logical rule is "true", other than to assert that it
+is -- after all, we use logical rules to assign "truth" and "falsehood"
+to statements. And (debatably) reasonable can disagree about which
+logical rules they believe in: there's an entire branch of
+link:http://plato.stanford.edu/entries/intuitionism/[intuitionist]
+mathematics that denies the validity of proof by
+contradiction.footnote:[Actually, that's a giant simplification that is
+probably incorrect. Honestly, I don't really understand intuitionist
+logic, so I'd appreciate any pointers to a readable introduction.]
+
+=== Invalid Statements
+
+A really old logical "paradox", that people usually trot out to argue
+for the limitations/arbitrariness of logic, is the string "this sentence
+is false". Is the string true or false?
+
+That's like asking whether "the the the the" is true or false. It's
+neither; it's just semantic nonsense. Under any consistent logical
+system, there'd be no way to use our logical rules to construct either
+("this sentence is false", T) or ("this sentence is false",
+F).footnote:[I'm not sure, but I think this _is_ how we resolve
+Russell's paradox (does the set of all sets not contained in themselves
+contain itself?) under
+link:https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory[ZFC].
+The statement in Russell's paradox can't actually be constructed under
+ZFC and our normal rules of logical inference.]
+
+Logic isn't incoherent or inconsistent or wrong (so far as we know).
+People have tried _very_ hard to find inconsistencies with our current
+formulation of logic and failed.
+
+
+=== Gödel
+
+So, logical systems are made out of two parts: the logical rules of
+inference, and the axioms that you choose to believe in. Using your
+logical rules, you can derive more true statements. These derivations
+are called _proofs_. Proofs are how to actually use logic to acquire
+_new_ knowledge.
+
+Unfortunately, not all true statements are provable. I won't get into
+the details, but a logician named Kurt Gödel proved some theorems that
+said that any sufficiently powerful consistent logical system has true
+statements that cannot be proven. 
+
+As a "concrete" example, consider the following sentence in geometry:
+
+====
+In a plane, given a line and a point not on it, stem:[n] lines parallel to the
+given line can be drawn through the point.
+====
+
+If we believe that stem:[n=1], then we get Euclidean geometry.
+stem:[n=0] gives us spherical geometry and stem:[n=\infty] gives us
+hyperbolic geometry. All of these geometries are equally consistent as
+each other; none of them are logically "better" than
+another.footnote:[We can say, however, that stem:[n=2] is logically
+"worse" than the others, because that leads to a logically inconsistent
+system of geometry.]
+
+In other words, there's no way to "prove" which value of stem:[n] is
+"correct". Each value of stem:[n] just leads to different conceptions
+of points, lines, and planes.
+
+Gödel proved that (roughly speaking) we'll always bump up against these
+kinds of statements in _any_ sufficiently powerful logical system.
+
+== Philosophy as a problem of language
+
+So... what was the point of this long digression into Gödel and
+mathematical logic? One, that logic has no inherent consistency
+problems. But more importantly for us, that logic is fundamentally
+incomplete for dealing with the world.
+
+A couple weeks ago, I pushed out a very critical
+link:/post/2015/5/27[post on Plato]. I had a lot of complaints, but my
+biggest was how Plato just redefines terms. For example, he defines
+"justice" as the correct balance of a person's soul, but he never
+actually defends why his definition of justice captures our notions of
+what justice is.
+
+When I think about it, this might be my problem with philosophy in
+general;footnote:[with the caveat that my experiences with philosophy
+are limited to discussions with college students, online courses, and
+CC readings, so "real" philosophy might be totally different] a lot of
+philosophy is really just a shell game where you shuffle around your
+definitions until you get something logically coherent.
+
+In the spirit of CC, consider "morality". There are a lot of different
+definitions/axiomatizations of morality, from Kantian deontology to
+Aristotlian virtue ethics to Peter Singer's utliitarianism. But
+axiomatization only makes sense if you have precise language to describe
+things; without precise language, logic can't actually do anything.
+
+The problem is that our notions of "morality" or "free will" or
+"consciousness" are sufficiently fuzzy -- and our language sufficiently
+imprecise -- that we don't have precise descriptions or definitions
+about anything. That's why almost all philosophical disputes, or at
+least the ones that I've been involved in, boil down to disputes over
+definitions at their core. So arguments about whether Kant's right or
+Mill's right are missing the point -- the point isn't about how anyone's
+particular moral system, but how well those systems actually line up
+with our moral intuitions.
+
+Not only is this quest of "axiomatizing" morality unproductive, but I
+think it's also inherently doomed. Logic is incomplete, and morality is
+complex, so there almost certainly will always be multiple different
+models of morality that fit a particular logical system, no matter what
+axioms we choose. And unlike, say, geometry where we can just agree to
+disagree on what a line is, people are highly unwilling to agree to
+disagree on what morality is.
+
+=== Practical Consequences
+
+So, what does this mean practically for us, if we want to study ethics?
+
+It means that ethics isn't math; there's no precise axiomatization or
+logical derivation of moral choices, so we shouldn't be obsessive about
+any "one true" answer. In the end, axioms are just based on faith, and
+we should be comfortable with that.footnote:[Really, this sentence is
+aimed at nihilism. Nihilism a terrible philosophy because of how
+depressing it is; no one's actually a nihilist or they'd have already
+killed themselves. But the worst part of nihilism is how utterly
+reasonable it is; if you think about it, there is no reason why we
+should believe in any meaning for life. You just have to take things on
+faith.]
+
+Intellectually, it means that we shouldn't be looking for a complete
+axiomatization of morality. Instead, we should try to distill general
+principles and sharpen our moral intuitions. For example, it doesn't
+really make sense to define morality as that which does "the greatest
+good to the greatest number", because that boxes you into all kinds of
+weird situations and all the classical problems of utilitarianism.
+But I think it does make sense to say, "generally, minimizing suffering
+is good". It doesn't make sense to say "either Kant's right or
+utilitarianism is right", but "one's intent matters, but
+so do the consequences" does. 
+
+This means abandoning a kind of mechanical view of morality
+where you just plug in some moral axioms and can then grind your way to
+an answer. Instead, morality comes down to judgement calls.
+
+The world is too complicated for simple answers.

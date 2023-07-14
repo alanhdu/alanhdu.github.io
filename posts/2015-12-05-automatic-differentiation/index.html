@@ -2,23 +2,34 @@
 <html lang="en-US">
   <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><title> Automatic Differentiation -- Amateur Hour </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> Automatic Differentiation &mdash; Amateur Hour </title>
   <meta property="og:title" content="Automatic Differentiation" />
 <meta property="og:description" content="mathemagically finding derivatives" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/" /><meta property="article:published_time" content="2015-12-05T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2015-12-05T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://alanhdu.github.io/posts/2015-12-05-automatic-differentiation/" />
+<meta property="article:published_time" content="2015-12-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-12-05T00:00:00+00:00" />
 
-	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="http://alanhdu.github.io/css/katex.min.css" />
-  <script defer type="text/javascript" src="http://alanhdu.github.io/js/katex.min.js"> </script>
-  <script defer type="text/javascript" src="http://alanhdu.github.io/js/auto-render.min.js"
-    onload="renderMathInElement(document.body);"></script>
-  
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/katex.min.css" />
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/katex.min.js"> </script>
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ]
+  });
+});
+</script>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js" integrity="sha384-Ep9Es0VCjVn9dFeaN2uQxgGcGmG+pfZ4eBaHxUpxXDORrrVACZVOpywyzvFRGbmv" crossorigin="anonymous"></script>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="http://alanhdu.github.io/favicon//apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="http://alanhdu.github.io/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="http://alanhdu.github.io/favicon/favicon-16x16.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
 </head>
 
   <body>
@@ -27,11 +38,11 @@
 	<h1 class="site-title">Amateur Hour</h1>
 	<nav class="nav">
 		<ul class="flat">
-      <li><a href="http://alanhdu.github.io/">Home</a></li>
-      <li><a href="http://alanhdu.github.io/about">About</a></li>
-      <li><a href="http://alanhdu.github.io/categories">Categories</a></li>
-      <li><a href="http://alanhdu.github.io/tags">Tags</a></li>
-      <li><a href="http://alanhdu.github.io/index.xml">RSS Feed</a></li>
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
     </ul>
   </nav>
 </div>
@@ -42,105 +53,78 @@
   <h2 class="title">Automatic Differentiation</h2>
   <strong class="description">Or mathemagically finding derivatives</strong>
   <div>
-    <span class="date">Dec 5, 2015</span>
+    <span class="date">Dec 5, 2015</span>.
     Filed under
     
-    <span class="category"> <a href="http://alanhdu.github.io/categories/technical">Technical</a></span>
+    <span class="category"> <a href="https://alanhdu.github.io/categories/technical">Technical</a></span>
   </div>
   Tags:
-    [
     
-    
-    <a href="http://alanhdu.github.io/tags/math">math</a>
-    
-    , 
-    <a href="http://alanhdu.github.io/tags/machine%20learning">machine learning</a>
-    
-    ]
+    <a href="https://alanhdu.github.io/tags/math">math</a>, 
+    <a href="https://alanhdu.github.io/tags/machine-learning">machine learning</a>
 </div>
 
-<div class="markdown">
+<article class="markdown">
   <p><strong>TLDR</strong> I talk about a technique called automatic
 differentiation, going through a mathematical derivation before examining two
 different implementations: <a href="https://github.com/alanhdu/explorations/tree/master/rust-autodiff">one</a> in Rust and <a href="https://github.com/alanhdu/explorations/tree/master/python-autodiff">one</a> in Python.</p>
-
 <p>About a year ago, I read a blog post on <a href="http://alexey.radul.name/ideas/2013/introduction-to-automatic-differentiation/">automatic differentiation</a>,
 a cool technique which automatically computes derivatives (and generalizations
-like gradients and Jacobians). That might not seem that interesting -- after
+like gradients and Jacobians). That might not seem that interesting &ndash; after
 all, we could just use finite differences to calculate derivatives:</p>
-
-<p><span  class="math">\[\frac{df}{dx} \approx \frac{f(x + h) - f(x)}{h}\]</span></p>
-
-<p>choosing a small <span  class="math">\(h\)</span>. Unfortunately, this kind of numerical
-differentiation usually doesn't work too well in practice. If you make
-<span  class="math">\(h\)</span> too small, then your accuracy gets killed by floating point
-roundoff, and if <span  class="math">\(h\)</span> is too big, then approximation errors start
-ballooning.<sup class="footnote-ref" id="fnref:1"><a class="footnote" href="#fn:1">1</a></sup></p>
-
+<p><span class="math display">\[\frac{df}{dx} \approx \frac{f(x + h) - f(x)}{h}
+\]</span></p>
+<p>choosing a small <span class="math inline">\(h\)</span>. Unfortunately, this kind of numerical
+differentiation usually doesn&rsquo;t work too well in practice. If you make
+<span class="math inline">\(h\)</span> too small, then your accuracy gets killed by floating point
+roundoff, and if <span class="math inline">\(h\)</span> is too big, then approximation errors start
+ballooning.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <p>Automatic differentiation avoids these problems entirely: it calculates
 exact derivatives, so your accuracy is only limited by floating point
 error.</p>
-
 <p>The applications of automatic differentiation should be pretty obvious.
-But just in case it isn't, I'll just point out that Google's new machine
-learning framework <a href="https://www.tensorflow.org/[TensorFlow">Tensorflow</a>,
+But just in case it isn&rsquo;t, I&rsquo;ll just point out that Google&rsquo;s new machine
+learning framework <a href="https://www.tensorflow.org/%5BTensorFlow">Tensorflow</a>,
 along with its competitor (and inspiration?)
 <a href="http://deeplearning.net/software/theano/index.html">Theano</a>, both use
 automatic differentiation under-the-hood.</p>
-
 <h3 id="what-is-automatic-differentiation">What is Automatic Differentiation?</h3>
-
 <p>Automatic differentiation is really just a jumped-up chain rule. When
 you implement a function on a computer, you only have a small number of
 primitive operations available (e.g. addition, multiplication,
-logarithm). Any complicated function, like <span  class="math">\(\frac{\log 2x}{x ^ x}\)</span> is
+logarithm). Any complicated function, like <span class="math inline">\(\frac{\log 2x}{x ^ x}\)</span> is
 just a combination of these simple functions.</p>
-
-<p>In other words, any complicated function <span  class="math">\(f\)</span> can be rewritten as
-the composition of a sequence of primitive functions <span  class="math">\(f_k\)</span>:</p>
-
+<p>In other words, any complicated function <span class="math inline">\(f\)</span> can be rewritten as
+the composition of a sequence of primitive functions <span class="math inline">\(f_k\)</span>:</p>
 <p>\[
 f = f_0 \circ f_1 \circ f_2 \circ \ldots \circ f_n
 \]</p>
-
-<p>Because each primitive function <span  class="math">\(f_k\)</span> has a simple derivative, we
-can use the chain rule to find <span  class="math">\(\frac{df}{dx}\)</span> pretty
-easily.<sup class="footnote-ref" id="fnref:2"><a class="footnote" href="#fn:2">2</a></sup></p>
-
-<p>Although I've used a single-variable function
-<span  class="math">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span> as my example here, it's
+<p>Because each primitive function <span class="math inline">\(f_k\)</span> has a simple derivative, we
+can use the chain rule to find <span class="math inline">\(\frac{df}{dx}\)</span> pretty
+easily.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p>Although I&rsquo;ve used a single-variable function
+<span class="math inline">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span> as my example here, it&rsquo;s
 straightforward to extend this idea to multivariate functions
-<span  class="math">\(f: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span>.</p>
-
+<span class="math inline">\(f: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span>.</p>
 <h3 id="forward-mode">Forward Mode</h3>
-
 <p>There are actually two different modes of automatic differentiation,
-based on how you apply the chain rule. We'll start with forward mode
+based on how you apply the chain rule. We&rsquo;ll start with forward mode
 automatic differentiation, which I find a little more intuitive.</p>
-
 <h4 id="basics-partial-derivatives">Basics: Partial Derivatives</h4>
-
-<p>Given a function <span  class="math">\(f\)</span>, we can construct a <em>computational graph</em> (a
+<p>Given a function <span class="math inline">\(f\)</span>, we can construct a <em>computational graph</em> (a
 directed acyclic one) representing our function. For example, given the
-function <span  class="math">\(f(x, y) = \cos x \sin y + \frac{x}{y}\)</span>, we can construct the
+function <span class="math inline">\(f(x, y) = \cos x \sin y + \frac{x}{y}\)</span>, we can construct the
 graph:</p>
-
-<p><figure><img src="Fig1.png" alt="Computation Graph"></figure></p>
-
+<p><img src="Fig1.png" alt="Computation Graph"></p>
 <p>Each node of the graph represents a primitive function, while the edges
 represent the flow of information. In this example, the top-most node
-<span  class="math">\(w_7\)</span> represents the value of <span  class="math">\(f(x, y)\)</span> while the bottom-most
-nodes <span  class="math">\(w_1\)</span> and <span  class="math">\(w_2\)</span> represent our input variables.</p>
-
+<span class="math inline">\(w_7\)</span> represents the value of <span class="math inline">\(f(x, y)\)</span> while the bottom-most
+nodes <span class="math inline">\(w_1\)</span> and <span class="math inline">\(w_2\)</span> represent our input variables.</p>
 <p>Forward differentiation works by recursively defining derivatives of
 nodes in terms of their parents. For example, suppose we want to
-calculate the partial <span  class="math">\(\frac{\partial f}{\partial x}\)</span>. For reasons
-that'll become clear in two paragraphs, let's denote <span  class="math">\(\frac{\partial
-f}{\partial x}\)</span> using a derivative operator (i.e. <span  class="math">\(\frac{\partial
-f}{\partial x} = D f\)</span>). Then <span  class="math">\(D f = D w_7\)</span>, and:</p>
-
-<p><span  class="math">\[
-\begin{aligned}
+calculate the partial <span class="math inline">\(\frac{\partial f}{\partial x}\)</span>. For reasons
+that&rsquo;ll become clear in two paragraphs, let&rsquo;s denote <span class="math inline">\(\frac{\partial f}{\partial x}\)</span> using a derivative operator (i.e. <span class="math inline">\(\frac{\partial f}{\partial x} = D f\)</span>). Then <span class="math inline">\(D f = D w_7\)</span>, and:</p>
+<p><span class="math display">\[\begin{aligned}
 D w_7 &= D (w_5 + w_6) = D w_5 + D w_6 \\
 D w_6 &= D \frac{w_1}{w_2} = \frac{w_1 D w_2 - w_2 D w_1}{w_2 ^ 2} \\
 D w_5 &= D w_3 w_4 = w_3 D w_4 + w_4 D w_3 \\
@@ -150,88 +134,58 @@ D w_2 &= D y \\
 D w_1 &= D x
 \end{aligned}
 \]</span></p>
-
-<p>The final value of <span  class="math">\(D f\)</span> depends only on <span  class="math">\(x\)</span>, <span  class="math">\(y\)</span>,
-<span  class="math">\(D w_1\)</span> and <span  class="math">\(D w_2\)</span>. In this case, we've let <span  class="math">\(D =
-\frac{\partial}{\partial x}\)</span>, so <span  class="math">\(D x = 1\)</span> and <span  class="math">\(D y = 0\)</span>. But if we
-let <span  class="math">\(D = \frac{\partial}{\partial y}\)</span>, all we have to change is <span  class="math">\(D x\)</span>
-(from 1 to 0) and <span  class="math">\(D y\)</span> (from 0 to 1). Everything else stays the same.</p>
-
+<p>The final value of <span class="math inline">\(D f\)</span> depends only on <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>,
+<span class="math inline">\(D w_1\)</span> and <span class="math inline">\(D w_2\)</span>. In this case, we&rsquo;ve let <span class="math inline">\(D = \frac{\partial}{\partial x}\)</span>, so <span class="math inline">\(D x = 1\)</span> and <span class="math inline">\(D y = 0\)</span>. But if we
+let <span class="math inline">\(D = \frac{\partial}{\partial y}\)</span>, all we have to change is <span class="math inline">\(D x\)</span>
+(from 1 to 0) and <span class="math inline">\(D y\)</span> (from 0 to 1). Everything else stays the same.</p>
 <p>This neatly extends to calculating arbitrary directional derivatives by
-defining <span  class="math">\(\langle D x, D y \rangle\)</span> to be the unit vector in the
-direction of our derivative. We can also set <span  class="math">\(D = \nabla\)</span> and use
+defining <span class="math inline">\(\langle D x, D y \rangle\)</span> to be the unit vector in the
+direction of our derivative. We can also set <span class="math inline">\(D = \nabla\)</span> and use
 vector addition/subtraction instead of scalar addition to calculate
 gradients.</p>
-
 <p>Why is this called forward mode? Well, our actual values start at the
 bottom of our graph and flow to the top, just like they do when we
 evaluate the expression. Because information flows in the same direction
-as when we evaluate the expression (bottom-up), we call this &quot;forward
-mode&quot;. Predictably, the information flows top-down in &quot;reverse mode&quot;.</p>
-
+as when we evaluate the expression (bottom-up), we call this &ldquo;forward
+mode&rdquo;. Predictably, the information flows top-down in &ldquo;reverse mode&rdquo;.</p>
 <h4 id="runtime-complexity">Runtime Complexity</h4>
-
 <p>Calculating derivatives of certain primitive functions requires both the
 values <em>and</em> the derivatives of their component parts. For example:</p>
-
-<p><span  class="math">\[
-D w_i w_j = w_i D w_j + w_j D w_i
+<p><span class="math display">\[D w_i w_j = w_i D w_j + w_j D w_i
 \]</span></p>
-
-<p>requires both the values of <span  class="math">\(w_i\)</span> and <span  class="math">\(w_j\)</span> <em>along</em> with the
-derivatives <span  class="math">\(D w_i\)</span> and <span  class="math">\(D w_j\)</span>. If <span  class="math">\(CD(w)\)</span> is the cost of
-computing the derivative of node <span  class="math">\(w\)</span> and <span  class="math">\(CV(w)\)</span> is the cost<span  class="math">\(
-of computing the values of node \)</span>w$$, then:</p>
-
-<p><span  class="math">\[
-CD(w_i w_j) = CD(w_i) + CD(w_j) + CV(w_i) + CV(w_j) + 3
+<p>requires both the values of <span class="math inline">\(w_i\)</span> and <span class="math inline">\(w_j\)</span> <em>along</em> with the
+derivatives <span class="math inline">\(D w_i\)</span> and <span class="math inline">\(D w_j\)</span>. If <span class="math inline">\(CD(w)\)</span> is the cost of
+computing the derivative of node <span class="math inline">\(w\)</span> and <span class="math inline">\(CV(w)\)</span> is the cost
+of computing the values of node <span class="math inline">\(w\)</span>, then:</p>
+<p><span class="math display">\[CD(w_i w_j) = CD(w_i) + CD(w_j) + CV(w_i) + CV(w_j) + 3
 \]</span></p>
-
 <p>where the 3 is for the 3 extra arithmetic operations (two
 multiplications and one addition). More generally:</p>
-
-<p><span  class="math">\[
-CD(w) \le \sum_{w_k \in \text{children}(w)} CD(w_k) + \sum_{w_k \in \text{children}(w)} CV(w_k) + c
+<p><span class="math display">\[CD(w) \le \sum_{w_k \in \text{children}(w)} CD(w_k) + \sum_{w_k \in \text{children}(w)} CV(w_k) + c
 \]</span></p>
-
-<p>for some constant <span  class="math">\(c\)</span>.</p>
-
-<p>Consider an expression like <span  class="math">\(x x x x x x x x x x x x x x x x x\)</span>.
+<p>for some constant <span class="math inline">\(c\)</span>.</p>
+<p>Consider an expression like <span class="math inline">\(x x x x x x x x x x x x x x x x x\)</span>.
 Under a naive differentiation scheme, we might have to recompute the
-value for node <span  class="math">\(xxx\)</span> 8 or 9 times, leading to a quadratic blow-up.
+value for node <span class="math inline">\(xxx\)</span> 8 or 9 times, leading to a quadratic blow-up.
 Under a smarter scheme, we could calculate the value and the derivative
 of a given node at the same time to see:</p>
-
-<p><span  class="math">\[
-CD(w) + CV(w) \le \sum_{w_k \in \text{children}(w)}  (CD(w_k) + CV(w_k) ) + c + 1
+<p><span class="math display">\[CD(w) + CV(w) \le \sum_{w_k \in \text{children}(w)}  (CD(w_k) + CV(w_k) ) + c + 1
 \]</span></p>
-
-<p>If our function is <span  class="math">\(f: \mathbb{R}^n \rightarrow \mathbb{R}\)</span>,
-composed of <span  class="math">\(P(f)\)</span> primitive operations, then <span  class="math">\(CD(f) + CV(f)\)</span>
-is clearly linear in <span  class="math">\(P(f)\)</span>. Calculating directional derivatives,
+<p>If our function is <span class="math inline">\(f: \mathbb{R}^n \rightarrow \mathbb{R}\)</span>,
+composed of <span class="math inline">\(P(f)\)</span> primitive operations, then <span class="math inline">\(CD(f) + CV(f)\)</span>
+is clearly linear in <span class="math inline">\(P(f)\)</span>. Calculating directional derivatives,
 then, is linear in the number of primitive operations.</p>
-
 <p>For gradients, all our scalar operations become vector operations, so
-<span  class="math">\(c\)</span> becomes <span  class="math">\(cn\)</span> (vector operations are linear in the vector's
-dimensionality).  The cost of computing gradients is thus linear in <span  class="math">\(n
-P(f)\)</span>.</p>
-
+<span class="math inline">\(c\)</span> becomes <span class="math inline">\(cn\)</span> (vector operations are linear in the vector&rsquo;s
+dimensionality).  The cost of computing gradients is thus linear in <span class="math inline">\(n P(f)\)</span>.</p>
 <h3 id="reverse-mode">Reverse Mode</h3>
-
 <p>Reverse mode automatic differentiation lets you calculate gradients much
 more efficiently than forward mode automatic differentiation.</p>
-
-<p>Consider our old function <span  class="math">\(f(x, y) = \cos x \sin y + \frac{x}{y}\)</span> and
+<p>Consider our old function <span class="math inline">\(f(x, y) = \cos x \sin y + \frac{x}{y}\)</span> and
 its computation graph:</p>
-
-<p><figure><img src="Fig1.png" alt="Computation Graph"></figure></p>
-
-<p>Suppose we want to calculate the gradient <span  class="math">\(\nabla f = 
-\langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \rangle = \langle \frac{\partial w_7}{\partial w_1},
-\frac{\partial w_7}{\partial w_2} \rangle\)</span>. Then:</p>
-
-<p><span  class="math">\[
-\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
+<p><img src="Fig1.png" alt="Computation Graph"></p>
+<p>Suppose we want to calculate the gradient <span class="math inline">\(\nabla f =  \langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \rangle = \langle \frac{\partial w_7}{\partial w_1}, \frac{\partial w_7}{\partial w_2} \rangle\)</span>. Then:</p>
+<p><span class="math display">\[\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
 \begin{aligned}
 \pder{w_7}{w_1} &= \pder{w_3}{w_1} \pder{w_7}{w_3} + \pder {w_6}{w_1} \pder{w_7}{w_6} = - \sin{w_1} \pder{w_7}{w_3} + \frac{1}{w_2} \pder{w_7}{w_6} \\
 \pder{w_7}{w_2} &= \pder{w_4}{w_2} \pder{w_7}{w_4} + \pder {w_6}{w_2} \pder{w_7}{w_6} = \cos{w_2} \pder{w_7}{w_4} - \frac{w_1}{w_2 ^ 2} \pder{w_7}{w_6} \\
@@ -241,72 +195,68 @@ its computation graph:</p>
 \pder{w_7}{w_6} &= 1
 \end{aligned}
 \]</span></p>
-
-<p>As the name &quot;reverse mode&quot; suggests, things are reversed here.
+<p>As the name &ldquo;reverse mode&rdquo; suggests, things are reversed here.
 Information flows top-down here: instead of using the chain rule to find
 derivatives of parents in terms of derivatives of their children, we
 find derivatives of children nodes in terms of their parents. Because
 information flows top-down, the reverse of normal evaluation, we call
-this &quot;reverse mode&quot; automatic differentiation.</p>
-
+this &ldquo;reverse mode&rdquo; automatic differentiation.</p>
 <h4 id="runtime-complexity-1">Runtime Complexity</h4>
-
-<p>If we reuse our notation of <span  class="math">\(CD\)</span> for the cost of calculating a
-gradient and <span  class="math">\(CV\)</span> for the cost of calculating a value, we see:</p>
-
-<p><span  class="math">\[
-CD(w) + CV(w) \le \sum_{w_k \in \text{children}(w)}  (CD(w_k) + CV(w_k) ) + c
+<p>If we reuse our notation of <span class="math inline">\(CD\)</span> for the cost of calculating a
+gradient and <span class="math inline">\(CV\)</span> for the cost of calculating a value, we see:</p>
+<p><span class="math display">\[CD(w) + CV(w) \le \sum_{w_k \in \text{children}(w)}  (CD(w_k) + CV(w_k) ) + c
 \]</span></p>
-
 <p>Notice that all of our operations in reverse mode differentiation are
-scalar operations, even though we're calculating the (vector) gradient.
-Thus, the last term is a <span  class="math">\(+ c\)</span> and not a <span  class="math">\(+ c n\)</span>. Computing
-gradients via reverse mode is thus linear in <span  class="math">\(P(f)\)</span>, and not in
-<span  class="math">\(nP(f)\)</span>, which can be a big speed-up if <span  class="math">\(f\)</span> takes lots of
+scalar operations, even though we&rsquo;re calculating the (vector) gradient.
+Thus, the last term is a <span class="math inline">\(+ c\)</span> and not a <span class="math inline">\(+ c n\)</span>. Computing
+gradients via reverse mode is thus linear in <span class="math inline">\(P(f)\)</span>, and not in
+<span class="math inline">\(nP(f)\)</span>, which can be a big speed-up if <span class="math inline">\(f\)</span> takes lots of
 input variables.</p>
-
 <p>The only way I can see to calculate directional derivatives via reverse
 mode differentiation is to take a dot product of the gradient. In that
 case, the runtime cost of finding a directional derivative is linear in
-<span  class="math">\(P(f) + n\)</span>: <span  class="math">\(P(f)\)</span> for the gradient and <span  class="math">\(n\)</span> for the dot
+<span class="math inline">\(P(f) + n\)</span>: <span class="math inline">\(P(f)\)</span> for the gradient and <span class="math inline">\(n\)</span> for the dot
 product.</p>
-
 <h3 id="thoughts-on-implementation">Thoughts on Implementation</h3>
-
 <p>I went ahead and implemented some basic automatic differentiation. It
 only supports arithmetic operators (addition, subtraction,
 multiplication, division, and exponentiation), although it should be
-pretty trivial to add support for unary functions like <span  class="math">\(\sin\)</span> or
-<span  class="math">\(\log\)</span>.</p>
-
+pretty trivial to add support for unary functions like <span class="math inline">\(\sin\)</span> or
+<span class="math inline">\(\log\)</span>.</p>
 <p>I went with the easy approach of creating an <code>Expr</code> class and forcing
 the user to manually build their computation graph (via operator
-overloading). While that's certainly feasible for something where people
+overloading). While that&rsquo;s certainly feasible for something where people
 are already building these computation graphs (e.g. TensorFlow or
-Theano), this isn't ideal. After all, why should someone have to
+Theano), this isn&rsquo;t ideal. After all, why should someone have to
 completely replace their compute engine just with <em>yours</em> to do
 automatic differentiation?</p>
-
 <p>A better solution would be something that parses source code of a
 function and uses the abstract syntax tree to build the computation
 graphs manually. Even better would be to use <a href="https://en.wikipedia.org/wiki/Dual_number">dual numbers</a>. Both of these are
 significantly more challenging to implement, so I decided to stick with
 a static manual computation graph construction.</p>
-
 <h4 id="rust">Rust</h4>
-
 <p>I originally started implementing things in
 <a href="https://www.rust-lang.org/">Rust</a>. Algebraic data types seemed like the
 perfect way to represent computation graphs, which narrowed my initial
-choices to Rust or Haskell. I'm a little too rusty with Haskell to be
+choices to Rust or Haskell. I&rsquo;m a little too rusty with Haskell to be
 really productive, and I wanted to play around with Rust some more
 anyways, so I chose Rust.</p>
-
 <p>You can see the code for this on <a href="https://github.com/alanhdu/explorations/tree/master/rust-autodiff">Github</a>.</p>
-
-<p>Ideally, I'd want <code>Expr</code> to look something like:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Expr</span> {
+<p>Ideally, I&rsquo;d want <code>Expr</code> to look something like:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Expr</span> {
     Constant(<span style="color:#66d9ef">f64</span>),
     Variable(string),
     Add(Expr, Expr),
@@ -314,98 +264,113 @@ anyways, so I chose Rust.</p>
     Mul(Expr, Expr),
     ...
 }
-</code></pre></div>
-
-<p>Unfortunately for us, Rust is a systems language that doesn't support
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Unfortunately for us, Rust is a systems language that doesn&rsquo;t support
 this kind of recursive structures. After all, how many bytes should Rust
-allocate to <code>Expr</code> in memory? There's no good answer, because the memory
+allocate to <code>Expr</code> in memory? There&rsquo;s no good answer, because the memory
 usage of <code>Expr</code> must be enough to allocate an <code>Expr</code> along with other
-stuff. That's why we have pointers.</p>
-
-<p>It took a fair amount of struggling, before I realized that Rust's
+stuff. That&rsquo;s why we have pointers.</p>
+<p>It took a fair amount of struggling, before I realized that Rust&rsquo;s
 reference counted pointers <code>std::rc::Rc</code> were perfect for the job:
 shared immutable ownership of data (i.e. a node in a graph can have
-multiple parents). Luckily, computation graphs are acyclic, so I didn't
+multiple parents). Luckily, computation graphs are acyclic, so I didn&rsquo;t
 have to mess around with weak references or any other cycle-breaking
 mechanism.</p>
-
-<p>To make sure that the user doesn't need to worry about any lifetime
+<p>To make sure that the user doesn&rsquo;t need to worry about any lifetime
 stuff, I actually made a private enum <code>InnerExpr</code> to store the
 computation graph and made the public-facing <code>Expr</code> struct a thin
 wrapper around a <code>std::rc::Rc&lt;InnerExpr&gt;</code>.</p>
-
 <p>I also decided to split off the <code>Add</code>, <code>Sub</code>, <code>Mul</code>, <code>Div</code>, and <code>Pow</code>
 variants into their own <code>Arithmetic</code> sub-enum. I thought that this would
 make the code a little more modular by separating the computation out
 from the plumbing, so-to-speak. In retrospect, the sub-enum was <em>way</em>
 more trouble than it was worth.</p>
-
 <p>I represented points as hashmaps mapping the variable names (strings) to
-their values. It's a little more verbose than I'd like, but I couldn't
+their values. It&rsquo;s a little more verbose than I&rsquo;d like, but I couldn&rsquo;t
 think of any better alternatives.</p>
-
 <p>I only ended implementing forward mode directional differentiation in
 Rust before moving on to Python (Rust is great, but developing in it is
-definitely slower than developing in Python, and I don't really care
+definitely slower than developing in Python, and I don&rsquo;t really care
 about performance or memory efficiency here). To prevent the quadratic
 blow-up I mentioned earlier, I calculated both the value <em>and</em> the
 derivative of a node and used a lightweight struct to bubble it up.
 Otherwise, this was a pretty straightforward recursive implementation.</p>
-
 <h4 id="reflections">Reflections</h4>
-
 <p>I should start by saying that for a systems language, Rust was
 surprisingly nice to develop in. <em>Much</em> nicer than C (shudder). The type
 system was a giant plus, and the memory management was surprisingly easy
-once I got the hang of it. Still, it's definitely more verbose than
+once I got the hang of it. Still, it&rsquo;s definitely more verbose than
 Python is, and there were a bunch of papercuts that really irritated me.</p>
-
 <h5 id="operator-overloading">Operator Overloading</h5>
-
 <p>My biggest irritation with Rust was their operator overloading.  In
 Rust, operators take their arguments by value, and thus claim ownership
 of their arguments. For example:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.0</span>);
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.0</span>);
 <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.3</span>);
 <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;                  <span style="color:#75715e">// c now owns a and b
 </span><span style="color:#75715e"></span>println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, a.eval())        <span style="color:#75715e">// so this fails
-</span><span style="color:#75715e"></span></code></pre></div>
-
+</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>The only solution I could think of was to implement operator overloading
-for references (they're kind of like const pointers), so things like:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.0</span>);
+for references (they&rsquo;re kind of like const pointers), so things like:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.0</span>);
 <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.3</span>);
 <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">+</span> <span style="color:#f92672">&amp;</span>b;
 println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{}&#34;</span>, a.eval())
-</code></pre></div>
-
-<p>work. It's a little annoying to have to write <code>&amp;</code> everywhere, but that's
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>work. It&rsquo;s a little annoying to have to write <code>&amp;</code> everywhere, but that&rsquo;s
 not a <em>huge</em> deal. Infinitely more annoying is the fact because
 operators returned an <code>Expr</code> and not an <code>&amp;Expr</code>, proper operator
 chaining forces me to implement everything four times:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.0</span>);
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.0</span>);
 <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> Expr::constant(<span style="color:#ae81ff">1.3</span>);
 <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">+</span> <span style="color:#f92672">&amp;</span>b;                <span style="color:#75715e">// Ref + Ref
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> d <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">+</span> <span style="color:#f92672">&amp;</span>b;           <span style="color:#75715e">// Value + Ref
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> e <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">+</span> <span style="color:#f92672">&amp;</span>b <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>b;           <span style="color:#75715e">// Ref + Value
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> f <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>a <span style="color:#f92672">+</span> <span style="color:#f92672">&amp;</span>b <span style="color:#f92672">*</span> <span style="color:#f92672">&amp;</span>b;      <span style="color:#75715e">// Value + Value
-</span><span style="color:#75715e"></span></code></pre></div>
-
-<p><em>That's</em> really annoying. I eventually wrote a macro to implement
-overloading (so I didn't have to literally copy-paste code 4 times), but
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><em>That&rsquo;s</em> really annoying. I eventually wrote a macro to implement
+overloading (so I didn&rsquo;t have to literally copy-paste code 4 times), but
 I suck at reading macros, and it takes me a couple extra seconds to
 figure out what the hell my macro is doing everytime I read it.</p>
-
 <h5 id="strings">Strings</h5>
-
-<p>This complaint's probably more because of my lack of knowledge than any
-shortcoming with Rust, but I'll make it anyways. The interaction between
+<p>This complaint&rsquo;s probably more because of my lack of knowledge than any
+shortcoming with Rust, but I&rsquo;ll make it anyways. The interaction between
 <code>String</code> and <code>&amp;str</code> and <code>&amp;String</code> can get very annoying very quickly.</p>
-
-<p>I don't remember the exact details, but when I made <code>InnerExpr</code> use
+<p>I don&rsquo;t remember the exact details, but when I made <code>InnerExpr</code> use
 <code>&amp;str</code> to store variable names, I ran into all kinds of irritating
 lifetime issues, so I head to make <code>InnerExpr</code> use <code>String</code>. But when I
 made my hashmaps use keys of type <code>&amp;str</code>, I ran into all kinds of
@@ -413,102 +378,84 @@ ownership problems trying to lookup my <code>String</code> names. In the end, I
 just used <code>String</code> everywhere, which meant that I needed to call
 <code>to_owned</code> all over the place. Not the end of the world, but definitely
 another papercut.</p>
-
 <h5 id="testing">Testing</h5>
-
-<p>This is more of a complaint about the Rust's immaturity than the
-language itself. Testing in Rust is <em>much</em> more annoying than what I'm
+<p>This is more of a complaint about the Rust&rsquo;s immaturity than the
+language itself. Testing in Rust is <em>much</em> more annoying than what I&rsquo;m
 used to from Python.</p>
-
-<p>Part of it is that I'm spoiled from <code>py.test --pdb</code>, which opens up an
+<p>Part of it is that I&rsquo;m spoiled from <code>py.test --pdb</code>, which opens up an
 interactive debugger when your Python tests fail. Not being able to just
 open up an interpreter made the information Rust gives you with
 <code>assert!</code> seem painfully limited.</p>
-
-<p>I also couldn't find anything providing set-up tear-down style testing,
-let alone fixtures from <code>py.test</code>. It didn't make a huge difference for
-this project, but it's still kind of irritation.</p>
-
-<p>There also doesn't seem to be a built-in float comparer. I understand
-that technically <code>nan != nan</code>, but for testing purposes, it'd be nice if
+<p>I also couldn&rsquo;t find anything providing set-up tear-down style testing,
+let alone fixtures from <code>py.test</code>. It didn&rsquo;t make a huge difference for
+this project, but it&rsquo;s still kind of irritation.</p>
+<p>There also doesn&rsquo;t seem to be a built-in float comparer. I understand
+that technically <code>nan != nan</code>, but for testing purposes, it&rsquo;d be nice if
 there was an equality function that handles edge-cases like <code>nan</code> and
 <code>inf</code> and <code>+0.0</code> vs <code>-0.0</code> correctly, along with having some tolerance
 for floating-point roundoff errors.</p>
-
-<p>I also looked into a port of <a href="https://github.com/BurntSushi/quickcheck">QuickCheck for Rust</a>. It's nice, but the test data
-it generated for floats didn't include any of the wonky edge cases like
-<code>+0.0</code> versus <code>-0.0</code> or <code>nan</code>. I'm not sure why, especially because
+<p>I also looked into a port of <a href="https://github.com/BurntSushi/quickcheck">QuickCheck for Rust</a>. It&rsquo;s nice, but the test data
+it generated for floats didn&rsquo;t include any of the wonky edge cases like
+<code>+0.0</code> versus <code>-0.0</code> or <code>nan</code>. I&rsquo;m not sure why, especially because
 those are the things which usually make everything go to hell.</p>
-
 <h3 id="python">Python</h3>
-
-<p>Eventually, I got frustrated with Rust's verbosity, so I switched over
+<p>Eventually, I got frustrated with Rust&rsquo;s verbosity, so I switched over
 to my go-to Python. My Python implementation is pretty different from my
 Rust implementation: I used inheritance to control method dispatch
 instead of pattern matching and algebraic data types, and I definitely
-took advantage of Python's dynamic capabilities.</p>
-
+took advantage of Python&rsquo;s dynamic capabilities.</p>
 <p>You can look at my implementation <a href="https://github.com/alanhdu/explorations/tree/master/python-autodiff">here</a>.</p>
-
 <p>The high-level design of the Python implementation was pretty similar to
 my Rust implementation. We have an <code>Expr</code> class that represents a given
 node and expose the user-facing interface (the operator overloading and
 <code>eval</code>, <code>forward_diff</code>, and <code>reverse_diff</code>). The actual implementation
 is handled by the subclasses (e.g. <code>Add</code>). I used dictionaries of names
 (strings) to values (floats) to store points.</p>
-
 <p>The subclasses all implemented a private <code>_eval</code> method which
 recursively populated a dictionary mapping node ids (ints) to their
 evaluated value (floats). <code>eval</code> just used <code>_eval</code> to fill out this
-cache and does a lookup for the current node's value. Normally, I
-would've just used the built-in <code>functools.lru_cache</code> for caching, but
-the input (points/dictionaries) aren't hashable, so <code>lru_cache</code> woudln't
+cache and does a lookup for the current node&rsquo;s value. Normally, I
+would&rsquo;ve just used the built-in <code>functools.lru_cache</code> for caching, but
+the input (points/dictionaries) aren&rsquo;t hashable, so <code>lru_cache</code> woudln&rsquo;t
 have worked.</p>
-
 <p><code>forward_diff</code> first calls <code>_eval</code> to populate the cache, which it
 passes to <code>_forward_diff</code> to do the actual computation. <code>_forward_diff</code>
 is a pretty standard recursive implementation.</p>
-
 <p>For <code>reverse_diff</code>, we again use <code>_eval</code> to populate the value cache
 before dispatching to <code>_reverse_diff</code> for the actual work. <code>_reverse_diff</code>
 takes advantage of the fact that Python dictionaries are mutable; we
 pass in we pass in the dictionary that <code>reverse_diff</code> will return to
 <code>_reverse_diff</code>, and <code>_reverse_diff</code> modifies it in-place. Otherwise,
-it's a pretty standard recursive algorithm, where each node merely
+it&rsquo;s a pretty standard recursive algorithm, where each node merely
 calculates its adjoint and passes it to its children. Only variable
 nodes actually modify the output dictionary.</p>
-
 <p>There is one subtlety regarding the chain rule. Imagine a situation
-where a node <span  class="math">\(w_i\)</span> has two parents, <span  class="math">\(w_j\)</span> and <span  class="math">\(w_k\)</span>. Then:</p>
-
-<p><span  class="math">\[
-\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
+where a node <span class="math inline">\(w_i\)</span> has two parents, <span class="math inline">\(w_j\)</span> and <span class="math inline">\(w_k\)</span>. Then:</p>
+<p><span class="math display">\[\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
 \pder{f}{w_i} = \pder{f}{w_j} \pder{w_j}{w_i} + \pder{f}{w_k} \pder{w_k}{w_i}
 \]</span></p>
-
-<p>Our implementation calculates <span  class="math">\(\frac{\partial f}{w_j} \frac{\partial
-w_j}{\partial w_i}\)</span> and <span  class="math">\(\frac{\partial f}{\partial w_k}
-\frac{\partial w_k}{\partial w_i}\)</span> separately. Luckily, addition is
-associative and commutative, so it doesn't matter and we compute the
+<p>Our implementation calculates <span class="math inline">\(\frac{\partial f}{w_j} \frac{\partial w_j}{\partial w_i}\)</span> and <span class="math inline">\(\frac{\partial f}{\partial w_k} \frac{\partial w_k}{\partial w_i}\)</span> separately. Luckily, addition is
+associative and commutative, so it doesn&rsquo;t matter and we compute the
 right answer anyways.</p>
-<div class="footnotes">
-
+<section class="footnotes" role="doc-endnotes">
 <hr>
-
 <ol>
-<li id="fn:1">Admittedly, I'm no expert on numerical differentiation, so it's entirely possible that these problems have been solved through more complicated formulas. On the other hand, numerical differentiation packages never really worked for me, which makes me suspect that this is a problem inherent with numerical differentiation.
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
-<li id="fn:2">This idea is basically the same as <a href="https://en.wikipedia.org/wiki/Backpropagation">backpropagation</a>, a method to efficiently train neural networks. I'd bet money that there's some kind of historical connection between them, but I don't know enough to be certain.
- <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>Admittedly, I&rsquo;m no expert on numerical differentiation, so it&rsquo;s entirely possible that these problems have been solved through more complicated formulas. On the other hand, numerical differentiation packages never really worked for me, which makes me suspect that this is a problem inherent with numerical differentiation. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>This idea is basically the same as <a href="https://en.wikipedia.org/wiki/Backpropagation">backpropagation</a>, a method to efficiently train neural networks. I&rsquo;d bet money that there&rsquo;s some kind of historical connection between them, but I don&rsquo;t know enough to be certain. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
-</div>
+</article>
 
     </div>
     <footer>
       <nav class="nav">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
         <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
       </nav>
     </footer>

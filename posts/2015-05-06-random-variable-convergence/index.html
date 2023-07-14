@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><title> Converging Random Variables &mdash; Amateur Hour </title>
+  <meta property="og:title" content="Converging Random Variables" />
+<meta property="og:description" content="why are there 3 different definitions?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alanhdu.github.io/posts/2015-05-06-random-variable-convergence/" />
+<meta property="article:published_time" content="2015-05-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-05-06T00:00:00+00:00" />
+
+	<link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://alanhdu.github.io/css/katex.min.css" />
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/katex.min.js"> </script>
+<script defer type="text/javascript" src="https://alanhdu.github.io/js/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ]
+  });
+});
+</script>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js" integrity="sha384-Ep9Es0VCjVn9dFeaN2uQxgGcGmG+pfZ4eBaHxUpxXDORrrVACZVOpywyzvFRGbmv" crossorigin="anonymous"></script>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alanhdu.github.io/favicon//apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alanhdu.github.io/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alanhdu.github.io/favicon/favicon-16x16.png"/ >
+</head>
+
+  <body>
+    <div class="container wrapper">
+      <div class="header">
+	<h1 class="site-title">Amateur Hour</h1>
+	<nav class="nav">
+		<ul class="flat">
+      <li><a href="https://alanhdu.github.io/">Home</a></li>
+      <li><a href="https://alanhdu.github.io/about">About</a></li>
+      <li><a href="https://alanhdu.github.io/categories">Categories</a></li>
+      <li><a href="https://alanhdu.github.io/tags">Tags</a></li>
+      <li><a href="https://alanhdu.github.io/index.xml">RSS Feed</a></li>
+    </ul>
+  </nav>
+</div>
+
+      
+
+<div class="post-header">
+  <h2 class="title">Converging Random Variables</h2>
+  <strong class="description">Or why are there 3 different definitions?</strong>
+  <div>
+    <span class="date">May 6, 2015</span>.
+    Filed under
+    
+    <span class="category"> <a href="https://alanhdu.github.io/categories/technical">Technical</a></span>
+  </div>
+  Tags:
+    
+    <a href="https://alanhdu.github.io/tags/statistics">statistics</a>, 
+    <a href="https://alanhdu.github.io/tags/math">math</a>
+</div>
+
+<article class="markdown">
+  <p><strong>Note</strong>: In Dec 2019, I re-worked the exposition and expanded certain
+parts of this blog post.</p>
+<p>In an introduction to probability, you&rsquo;ll probably deal with lots of random
+variables (RVs). Like any other expression, we want to talk about the
+<em>convergence</em> of random variables too (e.g. convergence of the sample
+mean to population mean with the <a href="http://en.wikipedia.org/wiki/Law_of_large_numbers">the law of large numbers</a>).  The problem is that
+there are three major definitions of random variable convergence:</p>
+<ol>
+<li><strong>Convergence in Probability</strong>:</li>
+</ol>
+<p><span class="math display">\[X_n \overset{P}\to c \iff \forall \epsilon > 0, \lim_{n \to \infty} \Pr [|X_n - c| < \epsilon] = 1
+\]</span></p>
+<ol start="2">
+<li><strong>Almost sure convergence</strong>:</li>
+</ol>
+<p><span class="math display">\[X_n \overset{as}\to c \iff \Pr \big[ \lim_{n \to \infty} X_n = c \big] = 1
+\]</span></p>
+<ol start="3">
+<li><strong>Convergence in r<sup>th</sup> mean</strong>:</li>
+</ol>
+<p><span class="math display">\[X_n \overset{L^r}\to c \iff
+\lim_{n \to \infty} \mathbb{E}\big[|X_n - c|^r\big] = 0
+\]</span></p>
+<p>Why are there three definitions and how are they related? I couldn&rsquo;t find
+a particularly good explanation anywhere, so I&rsquo;m going to write my own.
+The following picture of the Law of Large Numbers will be useful to
+think about:</p>
+<p><img src="http://i.stack.imgur.com/QwNgS.png" alt="Random Walk"></p>
+<h3 id="convergence-in-probability-x_n-oversetpto-x">Convergence in Probability: <span class="math inline">\(X_n \overset{P}\to X\)</span></h3>
+<p>Let&rsquo;s start with convergence in probability.  The definition of a random
+variable converging in probability is:</p>
+<p><span class="math display">\[\forall \epsilon > 0, \lim_{n \to \infty} \Pr [|X_n - X| < \epsilon] = 1
+\]</span></p>
+<p>To interpret this definition, consider the picture above. If the dotted
+lines represents our <span class="math inline">\(\epsilon\)</span>-region/error-tolerance (i.e.  <span class="math inline">\((X - \epsilon, X + \epsilon)\)</span>), this means that as <span class="math inline">\(n \to \infty\)</span>, almost
+all of our random walks will be between those error bars.</p>
+<p>This is a decently strong notion of random variable convergence, but
+it&rsquo;s &ldquo;weak&rdquo; in two ways:</p>
+<ol>
+<li>This definition doesn&rsquo;t say much about any <em>particular</em> random
+walk. If we sample a particular random walk <span class="math inline">\(x_1, x_2, \ldots\)</span>,
+it&rsquo;s possible that this sequence of numbers does not actually
+converge to anything!</li>
+<li>This definition doesn&rsquo;t say anything about how <em>much</em> random walks
+can go outside of the <span class="math inline">\(\epsilon\)</span> boundary. Although most random
+walks should be within the <span class="math inline">\(\epsilon\)</span> boundary, the random walks
+that aren&rsquo;t can be arbitrarily far away!</li>
+</ol>
+<p>To address these two different weaknesses, we have two different ways we
+could potentially strengthen our notion of random variable convergence.</p>
+<h3 id="almost-sure-convergence-x_n-oversetasto-x">Almost Sure Convergence: <span class="math inline">\(X_n \overset{as}\to X\)</span></h3>
+<p>Almost sure convergence tackles the first problem: it essentially says
+that if we consider every individual random walk sample, almost all of
+them converge to our desired value.</p>
+<p>Now, a random variable is just a (measurable) function from our sample
+space to some (measurable) metric space. If we call our original sample
+space <span class="math inline">\(S\)</span>, then this intuition can then be written down as:</p>
+<p><span class="math display">\[\Pr \big[ \{w \in S | \lim_{n \to \infty} X_n(w) = c \} ] = 1
+\]</span></p>
+<p>which is often written more succinctly as:</p>
+<p><span class="math display">\[\Pr \big[\lim_{n \to \infty} X_n = c \big] = 1
+\]</span></p>
+<p>If we consider a graphical interpretation of our definition, then this
+is saying that for our any given <span class="math inline">\(\epsilon\)</span>-region, almost all of our
+random walks will <em>always stay</em> within our error bars after some large
+(per-sample) <span class="math inline">\(N_\epsilon\)</span>. Note that we might not know <em>what</em> that
+<span class="math inline">\(N_\epsilon\)</span> is for our particular random walk draw &ndash; we just now
+that eventually our random walk is almost certain to end up within the
+error bars.</p>
+<p>As a concrete example, let&rsquo;s consider the number of steps a person walks
+in a day as our random variable, with <span class="math inline">\(X_n\)</span> be the number of steps
+they talk on day <span class="math inline">\(n\)</span>. Clearly, at some point, the person dies and
+<span class="math inline">\(X_n = 0\)</span>. But more importantly, after the death, <span class="math inline">\(X_n\)</span> will always
+<em>stay</em> at 0.  We don&rsquo;t know when this&rsquo;ll happen, but we&rsquo;re certain that
+it will happen eventually.</p>
+<p>Now, given our intuitions we can clearly see that if <span class="math inline">\(X \overset{as}\to c\)</span>, then <span class="math inline">\(X \overset{P}\to c\)</span>. More formally, suppose that <span class="math inline">\(\Pr \big[ \lim_{n \to \infty} X_n = c \big] = 1\)</span>. Then, let&rsquo;s consider the
+set of events</p>
+<p><span class="math display">\[\begin{aligned}
+A_m(\epsilon) &= \{ w \in S : \exists n > m, |X_n(w) - c| \ge \epsilon \\
+A_\infty(\epsilon) &= \bigcap_{m \ge 1} A_m(\epsilon)
+\end{aligned}
+\]</span></p>
+<p>Clearly <span class="math inline">\(A_m(\epsilon) \subseteq A_{m+1}(\epsilon)\)</span> and <span class="math inline">\(\lim_{m \to \infty} \Pr [A_m(\epsilon)] = \Pr[A_\infty(\epsilon)]\)</span>.  But of course,
+<span class="math inline">\(\Pr[A_\infty(\epsilon)] = 0\)</span>: otherwise, we would have a non-zero
+probability of having some random walk that does not converge to <span class="math inline">\(c\)</span>.
+Unraveling the definitions, we see that this implies that <span class="math inline">\(\lim_{n \to \infty} \Pr [|X_n - c| \ge \epsilon] = 0\)</span> &ndash; because we have proved
+this for all positive <span class="math inline">\(\epsilon\)</span>, we have shown that <span class="math inline">\(X \overset{P}\to c\)</span>.</p>
+<p>Naturally, the converse does not hold: consider the random sequence
+<span class="math inline">\(X_n\)</span> that is <span class="math inline">\(n\)</span> with probability <span class="math inline">\(\frac{1}{n}\)</span> and <span class="math inline">\(0\)</span> with
+probability <span class="math inline">\(\frac{n-1}{n}\)</span>, where we draw each variable in the
+process independently from all the others. Clearly,</p>
+<p><span class="math display">\[\lim_{n \to \infty} \Pr[ |X_n - X| \le \epsilon]
+= \lim_{n \to \infty} \frac{n-1}{n}
+= 1
+\]</span></p>
+<p>But for any particular random walk, the probability of never being <span class="math inline">\(\ge 1\)</span> after time point <span class="math inline">\(N\)</span> is:</p>
+<p><span class="math display">\[\prod_{n=N}^\infty \frac{n}{n+1}
+ = \frac{N}{N+1} \cdot \frac{N + 1}{N+2} \cdot \frac{N+2}{N+3} \cdot \ldots
+ = \frac{N}{\infty} = 0
+\]</span></p>
+<p>So almost none of our random walks actually converge to <span class="math inline">\(0\)</span>!</p>
+<h3 id="convergence-in-rsupthsup-mean-x_n-oversetlrto-c">Convergence in r<sup>th</sup> mean: <span class="math inline">\(X_n \overset{L^r}\to c\)</span></h3>
+<p>Convergence in r<sup>th</sup> mean is a strengthening of convergence in
+probability that takes into account how far away each random walk is.
+The definition here is:</p>
+<p><span class="math display">\[\lim_{n \to \infty} \mathbb{E}\big[|X_n - X|^c\big] = 0
+\]</span></p>
+<p>This ensures that no random walk can get too far away from <span class="math inline">\(c\)</span> (where
+&ldquo;too far away&rdquo; is weighted by how likely that particular random walk
+is). Obviously, as <span class="math inline">\(r\)</span> increases, the bounds get tighter (the proof
+that convergence in r<sup>th</sup> mean implies convergence in
+s<sup>th</sup> mean when <span class="math inline">\(r > s \)</span> is trivial).</p>
+<p>Convergence in r<sup>th</sup> mean also implies convergence in
+probability when <span class="math inline">\(r > 0\)</span>: using <a href="https://en.wikipedia.org/wiki/Markov%27s_inequality">Markov&rsquo;s inequality</a>, we get:</p>
+<p><span class="math display">\[\Pr\big[|X_n - c|^r < \epsilon^r \big] \le 
+\frac{\mathbb{E} \big[|X_n - c|\big]^r}{\epsilon^r} 
+\]</span></p>
+<p>Because the right-hand side goes to <span class="math inline">\(0\)</span> (by definition of <span class="math inline">\(L^r\)</span>
+convergence), the left hand side must also go to <span class="math inline">\(0\)</span>. Thus, <span class="math inline">\(X_n\)</span>
+must converge to <span class="math inline">\(c\)</span> in probability too.</p>
+<p>The converse is not true, however: let&rsquo;s consider the same random walk
+with <span class="math inline">\(\Pr[X_n = n] = \frac{1}{n}, \Pr[X_n = 0] = \frac{n-1}{n}\)</span>. We
+already know that this converges in probability, but <span class="math inline">\(\mathbb{E}[|X_n - 0|] = 1\)</span>, which does not go to 0.</p>
+<p>Unfortunately, AFAICT there is no necessary relationship between <span class="math inline">\(L_r\)</span>
+convergence and almost sure convergence. If we tweak this random
+sequence such that <span class="math inline">\(\Pr[X_n = 1] = \frac{1}{n}, \Pr[X_n = 0] = \frac{n-1}{n}\)</span>, then suddenly this sequence converges in mean but it
+still does not converge almost surely.</p>
+<p>We can also construct a sequence that converges almost surely but does
+not converge in mean: consider the sequence <span class="math inline">\(X_n\)</span> that is i.i.d with
+<span class="math inline">\(\Pr[X_n = 2] = \frac{1}{2}\)</span> and <span class="math inline">\(\Pr[X_n = 0] = \frac{1}{2}\)</span>.  Now,
+let <span class="math inline">\(P_n = \prod_1^n X_n\)</span>. By construction, almost all <span class="math inline">\(P_n\)</span> will
+eventually be 0:</p>
+<p><span class="math display">\[\Pr[P_n = 0] = \Pr[\bigvee_{k=1}^n X_k = 0] = 1 - 2^{-n} \to 1
+\]</span></p>
+<p>But if we consider the pmf of <span class="math inline">\(P_n\)</span> separately, we see that <span class="math inline">\(\Pr[P_n = 2^n] = 2^{-n}\)</span> and <span class="math inline">\(\Pr[P_n = 0] = 1 - 2^{-n}\)</span>. Then
+<span class="math inline">\(\mathbb{E}[(X_n - 0)^r] = \mathbb{E}[2^{nr - n}]\)</span>, which does not
+converge to 0 for <span class="math inline">\(r \ge 1\)</span>.</p>
+<h3 id="questions-that-i-still-have">Questions that I still have:</h3>
+<ul>
+<li>Do these &ldquo;strengthened&rdquo; versions of random variable convergence matter
+in practice? Although I understand the mathematical difference, is
+there any real data analysis problem where I would practically care
+about the difference in guarantees?</li>
+<li>Is there some intuition about which definition of convergence we
+should care about in which situations? In other words, are there
+situations where we would prefer to operate using one of the notions
+of convergence over the others?</li>
+</ul>
+
+</article>
+
+    </div>
+    <footer>
+      <nav class="nav">
+        <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/"><img class = "cc" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        <div>Inspired by the <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+      </nav>
+    </footer>
+  </body>
+</html>

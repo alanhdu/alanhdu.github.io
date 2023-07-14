@@ -1,0 +1,268 @@
+= Onwards and Upwards
+:category: musings
+:description: how to get better
+:keywords: machine learning, research, ideas, NIPS
+:revdate: 2017-03-30
+
+====
+TLDR:
+====
+
+One of the shocking things about college is how _few_ students deliberately
+try to improve.
+
+Something that always shocks me whenever I think about it is how _few_ people
+deliberately try to improve themselves. I've literally never heard a physics
+major say, "I'm going to deveop better intuition", or a a sociology major say,
+I'm going o get better at analyzing complex social phenemonon", or computer
+science major say, "I'm going to get better at programming." Instead, all I
+hear people say is, "I'm going to write an essay for <blank> class" or "I'm
+going to study for this midterm".
+
+(I'm sure that this problem is even worse outside of college. I can't imagine
+a surgeon saying, "I'm going to get better at open-heart surgery" or a TV
+anchor saying, "I'm going to become a better at reporting news".)
+
+The implicit assumption, of course, is that by going to lecture and doing the
+homework and participating in discussions, you _will_ improve. That by writing
+a bunch of essays, you will get better at writing. That by participating in
+discussion, you will get better at analyzing and synthesizing information.
+That by learning more theorems and more proofs, that you will develop a better
+mathematical intuition. But how true are these assumptions, really?
+
+Think about how people practice music.footnote:[Sports is another area that
+might be instructive to look at. In many ways, the way people practice sports
+and the way they practice music are surprisingly similar.] Even from my
+shallow personal experience, it's pretty obvious just how _different_ people
+approach music than how people approach really anything else. For example:
+
+- Music practice is *targeted*. There are *drills* (like scales) to isolate
+  and focus on specific aspects of music. When practicing a song, there are
+  specific goals to achieve (maybe you want to tweak the tempo a little or you
+  want to change the accents) -- you don't just blindly run through things.
+- Music practice has *outside feedback*. Even world class musicians have
+  private coaches to point out how they should improve.
+- Music practice is *deliberately varied*. Musicians don't just practice the
+  same thing every day -- instead, the deliberately seek out new things to
+  practice.
+- Music practice is *sustained*. Literally everyone I know who's any good has
+  practiced for >1 hour a day for years on end.
+
+Compared to this, trying to getter at math by memorizing a bunch of proofs
+seems like blindly playing "Twinkle Twinkle Little Start" and "Mary had a
+little lamb" to get better at music -- a plausible way to get started, but
+obviously horribly inefficient and limited.
+
+== Learning Technique
+
+So, what does an alternative look like? Music gives us a rough three-part
+framework for getting better at something: (1) isolate specific subaspects and
+drill for them, (2) get more feedback faster, and (3) get exposed to as many
+different approaches as possible.footnote:[I'm taking the sustained practice
+part for granted here -- I feel like it's pretty commonly understood that
+getting better at anything is a large time investment.] Obviously, there are
+usualy 
+
+For concreteness, let's examine software enginering, as it's one of the few
+fields where I can speak from experience. Astonishingly, very few people I
+know actually try to get better at coding -- usually, any improvement to
+coding abilities is incidental to encountering new things at work / school.
+And while that works at first, I suspect that most people's skills rapidly
+plateau a couple years out of college as they grow comfortable (or complacent)
+with their existing skill set.
+
+So how to get better at coding? In my experience, the best ways are to:
+
+- Drills:
+  - Compare and contrast. Anytime you encounter a project, look for
+    alternatives. What are the differences between them? What tradeoffs did
+    they make? When would you use one over the other?
+  - Write a moderately complicated project (let's say 1000+ LOC). Come
+    back to it one year later and see if you can understand just what
+    the hell you did.
+  - Learn better tooling. Learn all the shortcuts of your preferred
+    editor / IDE. Learn how to use the terminal effectively. Learn how
+    to search documentation.  And for God's sake, learn how to use a
+    debugger.footnote:[It's absolutely preposterous how few people learn
+    how to ues a debugger. Seriously, the one hour I spent learning
+    `pdb` for Python has probably saved me entire weeks of my life over
+    the last couple of years.]
+- Feedback:
+  - Get code reviewed. Ask someone more experienced than you to look over your
+    code.
+  - Write large projects. It's much easier to notice flawed abstractions and
+    fundamental design mistakes in projects with 10,000+ lines of code than in
+    projects with 500 or 600.
+- Variation:
+  - Learn a new programming paradigm. Ideally, learning a new paradigm will
+    fundamnetally change the way you think about problems. Witness the austere
+    purity of functional programming with Haskell. Try out logic programming
+    with Prolog. Discover the beauty of LISP. Play with stack programming and
+    Forth. Experience the joys of assembly. The possibilities are nearly
+    endless!
+  - Reinvent the wheel. The best way to really drill down and understand how
+    things work, why they work, and what tradeoffs they made in the design
+    space is to write your own. Write your programming language. Your own web
+    framework. Your own operating system. Your own database. Your own design
+    toolkit. Every piece of code out there was written by normal people, who
+    aren't any smarter than you are -- and so literally every piece of code
+    written is fair game.
+  - Read other people's code -- both good and bad. Practice navigating large
+    codebases that you didn't write. Figure out why they're structured the way
+    they are. Is the logic easy to follow? Is it over-abstracted,
+    under-abstracted, or just right? What tradeoffs are they making, and are
+    those the right tradeoffs?
+
+Mathematics is another area where the way most students study seems terribly
+limited. The vast majority students I know, at both Columbia and Oxford, study
+math by essentially mechanically memorizing the definitions, proofs, and
+theorems, and then kind of vomit up symbols on the page when trying to solve
+new problems, hoping that somehow the pieces fit together. But this seems
+entirely wrong headed: solving a new problem relies much more on good
+intuitions about the subject matter, not just the formal strings of symbols
+necessary for a rigorous proof. Studying math, then, should really be about
+building up your intuitions:
+
+- Drills
+  - Climb the ladder of abstraction. Can you conjecture reasonable
+    generalizations of theorems? Are there specific cases that are easier to
+    proof? For every theorem, apply the proof to a concrete example. For every
+    false conjecture, find a counterexample. For every existential proof, try to
+    find a satisfying example.
+  - Play with the proofs. Are all the conditions necessary? What happens if you
+    tweak one of them? Are there alternative formulations of the theorems? Are
+    there non-trivially equivalent statements?
+- Feedback
+  - Talk to other mathematicians. Bring up some of your ideas and conjectures.
+    See what they think.
+  - Get a friend to doublecheck your proofs. It can be pretty enlightening to
+    get a second opinion on how "obvious" or "trivial' certain steps are!
+- Variation
+  - Seek alternative viewpoints. Does this theorem look like another theorem
+    from a different branch of mathematics? Are there alternative proofs of a
+    theorem that you can find?
+  - Learn new branches of mathematics. There are all the usual branches you'll
+    encounter in a normal math major (e.g. analysis, number theory), but there
+    all kinds of weird and obscure sub-branches if you're willing to look for
+    them (my favorites are Clifford Algebra, non-standard analysis,
+    statistics without probability).
+
+== Soft skills are hard
+
+Both mathematics and software engineering are easy cases.footnote:[It's
+possible that I only think it's easy to get better at math and programming
+because I have some competence at both Arguably though, the causality runs the
+other way and that I'm somewhat decent at both _because_ I found it obvious
+how to improve. Who knows?] Figuring out how to improve "soft" skills --
+communicating effectively, getting people to like you, the always nebulous
+leadership -- is much harder.
+
+It's funny -- . But I don't know anybody who approaches learning how to make
+small talk, for example, in the
+
+Two distinguishing features of soft skills is that they are (1) nebulous and
+unclear, making it hard to derive good feedback, and (2) 
+Compared to the more strictly technical skills, soft skills are much
+harder to learn for (at least) two reasons: (1) the feedback cycle is
+extraordinarily long, and (2) it's hard to get clear feedback in the
+first place.
+
+In programming, for example, it's usually pretty obvious when you've
+done something well.
+
+When thinking about, say, how to become a better writer, I don't have as
+many drills so-to-speak (or at least, all the drills I can think of seem
+gimmicky and unlikely to work in practice -- I'd love to be convinced
+otherwise though!).
+
+Despite their name, "soft skills" are much harder to get better at than "hard"
+skills. I suspect that this boils down to two main reasons: (1) lack of clear
+feedback and (2) difficulty doing credit assignment.
+
+- Drill
+  - Imitate
+  - Compare and Contrast
+- Feedback
+  - Ask others
+- Variation
+  - Talk to people
+  - Watch TV (?)
+
+For example, let's say you're like me and want to become a better
+conversationalist. It's very hard to get feedback about how you're doing --
+people never tell you to your face, "I'm pretending to be interested, but
+you're actually super boring". It's hard to tell whether you're improving or
+not -- are you having a great conversation because your a better
+conversationalist now, or you just happen to have hit off with the right
+person? All in all, the feedback cycle, if there at all, is usually pretty
+weak.
+
+And when you do figure out whether you're doing well or not, it's hard to tell
+why. A conversation has so many simultaneous different moving parts and goes
+on for so long that tracing things back and figuring out what specifically
+helped things go well (or poorly) is basically impossible. It's even worse
+when trying to figure out relationships, which can span years!footnote:[This
+problem, called credit assignment, is one of the super huge challenges in
+reinforcement learning. I'd be pretty curious to see what algorithmic
+techniques we use to get around it there and see how applicable they are.]
+
+.Writing and Public Speaking
+- Prepare -- I feel like this goes without saying for writing, but it seems
+  like it doesn't for presentations. If you're going to be doing a
+  presentation, actually prepare for it. Run through your slides a couple
+  times. Give the presentation and practice all the hand gestures. Personally,
+  if I'm giving an hour long presentation that I actually care about, I
+  typically spend four to five hours just practicing.
+- Imitate -- Look at other great writers / speakers and try to imitate their
+  style. Can you convincingly masquerade as one of them? How is their style
+  different from your own? Is there anything you want to adopt?
+- Dissect -- Find other writers / speakers that you like. Why do you like
+  them? What specifically do they do that's effective?footnote:[In retrospect,
+  I feel like this is what our "rhetorical analysis" from high school English
+  was supposed to be -- a thorough dissection and discussion of the techniques
+  of various authors so you could see what you wanted to steal. It's too bad
+  it was never explained like that to me, so I never really took it seriously
+  (the fact that an enormous amount of the arguments other people made in
+  class were complete BS didn't help).] Find writers / speakers that you
+  dislike (bonus points if everyone else likes them but you). What do you
+  dislike about them? Why does everyone else like them?
+- Get feedback -- Ask your friends to look over your stuff and give you
+  pointers. What did they like and dislike? Look at it yourself (record
+  yourself speaking if you have too) in a couple weeks to see if you have any
+  ideas on what to improve on.
+
+== Getting Better
+
+So far, all of these examples have been tangible skills -- how do
+I become better at this specific thing.
+
+When I first heard of the proposed ACA act, my initial reaction was to say,
+"fuck it, let them".  After all, I'm not the one who will suffer -- I'm young,
+healthy, am distinctly upper middle class can easily stay upper middle class.
+If anything, I stand to benefit from lower premiums. And so if the Republicans
+want to take away insurance from the poor -- if the poor white Republicans who
+opposed the Affordable Care Act wanted to get rid of their own insurance -- my
+first reaction was to say, "fuck it, let them".
+
+Intellectually, I know that this isn't fair. I know that this myth of the poor
+white Republican voting against their best interests is just that -- a myth. I
+know that there are millions of people who _didn't_ vote for this who would
+suffer. But emotionally, viserally, my first instinct was a kind of viscious
+satisfaction.
+
+Climate change is another good example here. Intellectually, I believe that
+it's . But viscerally, I can't say I particularly care.
+
+My first instinct is not compassion or empathy or even just irrelevance --
+it's . Intellectually, I understand that X. But emotionally, viscerally,.
+
+When I'm in a good mood, I can look at the world . But when I'm in a bad
+mood, I look outside my window and see disgusting.
+
+It's _hard_. It's hard not to just say, "Fuck it" and retreat into my little
+bubble of comfort to play with my toys (whether that be academia or tech).
+
+The question I'm really asking is, how to become a better person? How do I
+actually care about people I don't know?
+
+How to become a better person? I wish I knew.

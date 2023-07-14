@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>debugging on Amateur Hour</title>
+    <link>https://alanhdu.github.io/tags/debugging/</link>
+    <description>Recent content in debugging on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/debugging/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Debugging Story</title>
+      <link>https://alanhdu.github.io/posts/2023-03-12-debug-story/</link>
+      <pubDate>Sun, 12 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/posts/2023-03-12-debug-story/</guid>
+      <description>Debugging is a core skill for software engineers, but IMO it&amp;rsquo;s one that we often neglect. There&amp;rsquo;s a ton of advice on the internet on how to be a better systems designer, or how to solve algorithms challenges (albeit mostly for interviews), but very little on how to get better at debugging.
+I wanted to help solve that by trying to document a real-world bug (https://github.com/HypothesisWorks/hypothesis/issues/3446 stumped me for quite some time.</description>
+    </item>
+    
+  </channel>
+</rss>

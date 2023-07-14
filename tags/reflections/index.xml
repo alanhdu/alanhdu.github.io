@@ -1,24 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Reflections on Amateur Hour</title>
-    <link>http://alanhdu.github.io/tags/reflections/</link>
-    <description>Recent content in Reflections on Amateur Hour</description>
+    <title>reflections on Amateur Hour</title>
+    <link>https://alanhdu.github.io/tags/reflections/</link>
+    <description>Recent content in reflections on Amateur Hour</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Dec 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://alanhdu.github.io/tags/reflections/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 13 Dec 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://alanhdu.github.io/tags/reflections/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Reflections on NIPS (Part 1)</title>
-      <link>http://alanhdu.github.io/posts/2016-12-13-nips1/</link>
+      <link>https://alanhdu.github.io/posts/2016-12-13-nips1/</link>
       <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://alanhdu.github.io/posts/2016-12-13-nips1/</guid>
+      <guid>https://alanhdu.github.io/posts/2016-12-13-nips1/</guid>
       <description>Last week, I went to Barcelona to attend NIPS 2016, or the Conference on Neural Information Processing Systems. NIPS is essentially a giant research conference on machine learning and neural networks, with a dash of cognitive science and neuroscience thrown-in. It was super interesting, so I thought I&amp;rsquo;d jot down some thoughts while the experience is still fresh in my mind.
-First off, NIPS was an amazing experience! It&amp;rsquo;s one thing to read papers from Arxiv and follow some researchers&amp;rsquo; blogs &amp;ndash; it&amp;rsquo;s totally different to actually meet researchers in person and interact with them.</description>
+First off, NIPS was an amazing experience! It&amp;rsquo;s one thing to read papers from Arxiv and follow some researchers&#39; blogs &amp;ndash; it&amp;rsquo;s totally different to actually meet researchers in person and interact with them.</description>
     </item>
     
   </channel>

@@ -1,0 +1,9 @@
+1. Definition of group, field, vector space, linear transformation
+2. Spans, independence, basis. Dimensions. Rank-nullility theorem.
+3. Eigenvectors and eigenvalues.
+4. Matrices and decompositions
+5. Determinants -- definition via property, then definition via permutation
+   group, then geometric interpretation.
+6. The Inner Product, Orthogonality, Orthonormal basis (Gram-Schmidt). Hermitians.
+7. Introduction to complex numbers
+8, Fourier Series

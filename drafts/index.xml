@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Drafts on Amateur Hour</title>
+    <link>https://alanhdu.github.io/drafts/</link>
+    <description>Recent content in Drafts on Amateur Hour</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://alanhdu.github.io/drafts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://alanhdu.github.io/drafts/2023-01-09-ml-tricks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/drafts/2023-01-09-ml-tricks/</guid>
+      <description>Don&amp;rsquo;t Overthink It Descending through a Crowded Valley
+Numerical influence of ReLU’(0) on backpropagation
+Ignore the Literature that&amp;rsquo;s &amp;lt;6 months old When I do want to find the current state-of-the-art, I follow a 3-step algorithm:
+ Go to NeurIPS, ICML, ICLR, or Twitter to find the latest papers in the (subdomain) Go to the evaluation section of each paper and find the baselines that the authors compare their technique to. Go read about those benchmark techniques and use those.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://alanhdu.github.io/drafts/getting-better/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/drafts/getting-better/</guid>
+      <description>People are fundamentally unserious about getting better at things.
+ Of course there are differences in talent (you certainly aren&amp;rsquo;t writing symphonies at age 5 like Mozart did),  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://alanhdu.github.io/drafts/tech-change/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/drafts/tech-change/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://alanhdu.github.io/drafts/technology-social-change/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://alanhdu.github.io/drafts/technology-social-change/</guid>
+      <description> Acceleration: . This is perhaps the easiest. Bending the Cost Curve: New Possibilities/ frontiers  </description>
+    </item>
+    
+  </channel>
+</rss>
